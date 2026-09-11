@@ -1,0 +1,13 @@
+# Dumbarton recruitment engine — Python dependencies
+# Install:  pip install -r requirements.txt
+
+# --- Streamlit UI (app.py) — this is all Streamlit Cloud needs ---
+streamlit
+pandas
+
+# --- data probes + engines (run LOCALLY; not needed on the cloud UI) ---
+requests
+beautifulsoup4
+lxml
+numpy
+matplotlib
