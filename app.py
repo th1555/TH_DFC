@@ -119,6 +119,10 @@ def main():
     st.title("Dumbarton FC — striker shortlist")
     st.caption("Players ranked by SL2-equivalent output. A prioritisation aid — "
                "a person makes every call.")
+    st.info("**Prototype on free data — a coverage filter, not a fine-grained "
+            "verdict.** It surfaces who's worth watching; full player evaluation "
+            "(xG, shot quality, style) needs paid event data like Wyscout/Opta.",
+            icon="ℹ️")
 
     demo = not db_has_shortlist(DB_PATH)
     if demo:
@@ -142,7 +146,8 @@ def main():
         q = st.text_input("Search name").strip().lower()
         st.divider()
         st.caption("Read-only view. Availability & affordability need the "
-                   "Transfermarkt layer (not yet wired), so this ranks on FIT.")
+                   "Transfermarkt layer (not yet wired), so this ranks on FIT. "
+                   "Read scores as directional bands, not a precise order.")
 
     view = sl[sl.league.isin(pick_lg) & (sl.appearances >= min_apps)]
     if q:
