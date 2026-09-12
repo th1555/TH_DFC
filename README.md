@@ -11,6 +11,32 @@ decide signings at this level.
 
 ---
 
+## Scope & limitations (read this first)
+
+This is a **prototype on free data** — a coverage-and-filtering aid, not a
+fine-grained player evaluator. Being explicit about that is the point:
+
+- It ranks on **counting stats** (goal contributions per appearance) in a tier
+  where samples are small. Treat the output as directional bands ("these are all
+  plausible") — **not** a precise order ("0.91 beats 0.88").
+- Counting stats are **style-blind**: a poacher and a link-up forward with the
+  same tally look identical. The tool can't tell them apart — a human must.
+- The league-equivalency coefficients come from a modest number of movers and
+  carry survivorship bias. Trust them more where the mover count is higher.
+
+**What it does well:** systematic coverage of an availability pool nobody at this
+level tracks, on a common SL2-equivalent scale — turning "we have no idea who's
+out there" into "here are the names worth watching."
+
+**What unlocks the next level: paid event data** (Wyscout / Opta-grade) — xG,
+shot quality, involvement, defensive actions, style-of-play similarity. That is
+what turns coarse filtering into real player *evaluation*. Free data at SL2 has
+no event-data option (StatsBomb/Understat stop at elite leagues; FBref lost Opta
+in Jan 2026 and never covered the fourth tier), so this tool is deliberately the
+**front-end filter**, and paid event data is the **upgrade lane** it feeds into.
+
+---
+
 ## What it does (and doesn't, yet)
 
 - **Does:** learns a league "exchange rate" from players who actually moved
