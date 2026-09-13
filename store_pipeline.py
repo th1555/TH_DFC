@@ -83,8 +83,12 @@ def surface(conn, prim, coeff):
         recent = g[g.appearances >= MIN_SAMPLE]
         idxs.append(recent.season_yr.idxmax() if len(recent) else g.appearances.idxmax())
     cur = prim.loc[idxs].copy()
-    if "position" in cur:                       # V1 scope: strikers only
-        cur = cur[cur.position.astype(str).str.contains("Attack", case=False, na=False)]
+    if "position" in cur:                       # V1 scope: forwards
+        print("  position labels in pool:",
+              dict(cur.position.astype(str).value_counts().head(12)))
+        fwd = r"forward|strik|attack|wing"      # catch Forward/Striker/Winger/Att.Mid
+        cur = cur[cur.position.astype(str).str.contains(fwd, case=False, na=False)]
+        print(f"  forwards matched: {len(cur)}")
 
     sl2 = cur[(cur.league_c == "SL2") & (cur.appearances >= REF_MIN_APPS)]
     if len(sl2) < 5:
