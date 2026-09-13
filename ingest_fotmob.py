@@ -175,6 +175,10 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     if not args or args[0] == "--selftest":
         selftest()
+    elif args[0] == "--from-csv":                       # read ids from a squad CSV
+        ids = pd.read_csv(args[1]).player_id.astype(int).tolist()
+        print(f"Pulling {len(ids)} player(s) from {args[1]} …  (~{len(ids)*3//60}+ min)")
+        pull(ids)
     else:
         ids = [int(a) for a in args]
         print(f"Pulling {len(ids)} player(s) from FotMob…")
