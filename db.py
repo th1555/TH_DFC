@@ -23,6 +23,19 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+def _int_safe(v, default=0):
+    """int() that survives NaN / None / blanks from CSVs."""
+    try:
+        if pd.isna(v):
+            return default
+    except (TypeError, ValueError):
+        pass
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
+
+
 def connect(path=DB_PATH):
     conn = sqlite3.connect(path)
     conn.execute("PRAGMA foreign_keys = ON")
@@ -100,12 +113,13 @@ def upsert_stats(conn, df):
     rows = []
     for _, r in df.iterrows():
         mins = r.get("minutes")
-        rows.append((int(r.player_id), str(r.season), int(r.get("league_id", 0) or 0),
-                     int(r.get("tournament_id", 0) or 0), r.get("league"),
-                     int(r.appearances), int(r.goals), int(r.assists),
-                     int(r.goal_contribs),
-                     None if pd.isna(mins) else int(mins),
-                     float(r.per_app), int(bool(r.get("is_cup"))),
+        per_app = 0.0 if pd.isna(r.get("per_app")) else float(r.per_app)
+        rows.append((_int_safe(r.player_id), str(r.season), _int_safe(r.get("league_id")),
+                     _int_safe(r.get("tournament_id")), r.get("league"),
+                     _int_safe(r.appearances), _int_safe(r.goals), _int_safe(r.assists),
+                     _int_safe(r.goal_contribs),
+                     None if pd.isna(mins) else _int_safe(mins),
+                     per_app, _int_safe(bool(r.get("is_cup"))),
                      r.get("transfer_type"), "fotmob", now()))
     conn.executemany(
         "INSERT INTO player_season_stats VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "

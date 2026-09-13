@@ -27,6 +27,8 @@ import league_equivalency as le
 import equivalency_real as eqr
 
 REF_MIN_APPS = 8
+MIN_MOVERS = 5        # publish a coefficient only with this many movers
+MIN_SAMPLE = 10      # appearances for a season to count as representative
 
 
 def canon(idmap, namemap, lid, name):
@@ -47,8 +49,8 @@ def compute_equivalency(conn):
     idmap, namemap, cupmap = db.league_maps(conn)
     stats["league_c"] = [canon(idmap, namemap, i, n)
                          for i, n in zip(stats.league_id, stats.league_name)]
-    stats["is_cup2"] = [bool(cupmap.get(i, bool(c)))
-                        for i, c in zip(stats.league_id, stats.is_cup)]
+    stats["is_cup2"] = [bool(cupmap.get(i, bool(c))) or ("cup" in str(n).lower())
+                        for i, c, n in zip(stats.league_id, stats.is_cup, stats.league_name)]
     stats = stats[(~stats.is_cup2) & (stats.appearances > 0)].copy()
     stats["season_yr"] = stats.season.astype(str).str[:4].astype(int)
 
@@ -62,6 +64,9 @@ def compute_equivalency(conn):
     coeff, _, _ = le.estimate_coefficients(movers)
     counts = pd.concat([movers.from_league, movers.to_league]).value_counts().to_dict()
     linked = eqr.connected_to_anchor(movers)
+    # only trust coefficients with enough movers behind them
+    coeff = {l: c for l, c in coeff.items()
+             if l == le.ANCHOR or counts.get(l, 0) >= MIN_MOVERS}
     db.save_coefficients(conn, coeff, counts, linked)
     return prim, coeff
 
@@ -73,7 +78,11 @@ def surface(conn, prim, coeff):
     prim["coeff"] = prim.league_c.map(coeff)
     prim = prim.dropna(subset=["coeff"])
     prim["adj_per_app"] = prim.per_app * prim.coeff
-    cur = prim.loc[prim.groupby("player_id")["season_yr"].idxmax()].copy()
+    idxs = []
+    for _, g in prim.groupby("player_id"):
+        recent = g[g.appearances >= MIN_SAMPLE]
+        idxs.append(recent.season_yr.idxmax() if len(recent) else g.appearances.idxmax())
+    cur = prim.loc[idxs].copy()
     if "position" in cur:                       # V1 scope: strikers only
         cur = cur[cur.position.astype(str).str.contains("Attack", case=False, na=False)]
 
