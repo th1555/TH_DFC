@@ -57,7 +57,7 @@ def current_minutes(data: dict):
     """Current-season minutes total from mainLeague (the only minutes on the
     page). Returns (season, league_id, minutes) or None."""
     ml = data.get("mainLeague") or {}
-    stats = {s.get("localizedTitleId"): s.get("value") for s in ml.get("stats", [])}
+    stats = {s.get("localizedTitleId"): s.get("value") for s in (ml.get("stats") or [])}
     if "minutes_played" in stats:
         return ml.get("season"), ml.get("leagueId"), _int(stats["minutes_played"])
     return None
@@ -66,6 +66,8 @@ def current_minutes(data: dict):
 def parse_player(data: dict) -> list[dict]:
     """Flatten one player's __NEXT_DATA__ 'data' block into per-season,
     per-competition rows."""
+    if not data:
+        return []
     pid = data.get("id")
     name = data.get("name")
     pos = ((data.get("positionDescription") or {}).get("primaryPosition") or {}).get("label")
@@ -74,11 +76,11 @@ def parse_player(data: dict) -> list[dict]:
     senior = ((data.get("careerHistory") or {}).get("careerItems") or {}).get("senior") or {}
 
     rows = []
-    for se in senior.get("seasonEntries", []):
+    for se in (senior.get("seasonEntries") or []):
         season = se.get("seasonName")
         team = se.get("team")
         transfer = (se.get("transferType") or {}).get("text")
-        for t in se.get("tournamentStats", []):
+        for t in (se.get("tournamentStats") or []):
             if t.get("isFriendly"):
                 continue
             lid = t.get("leagueId")
