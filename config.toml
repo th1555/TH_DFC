@@ -1,0 +1,10 @@
+# Dumbarton FC theme — put this file at .streamlit/config.toml in your repo
+[theme]
+primaryColor = "#F2A900"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F4F4"
+textColor = "#111111"
+font = "sans serif"
+
+[client]
+toolbarMode = "minimal"
