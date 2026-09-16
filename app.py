@@ -236,6 +236,20 @@ def main():
 
     with tab_list:
         st.subheader(f"{len(view)} forwards")
+        if len(view):
+            st.caption("By league: " + "  ·  ".join(
+                f"{k} ({v})" for k, v in view.league.value_counts().items()))
+        with st.expander("How to read this"):
+            st.markdown(
+                "- **SL2-adj G+A/app** — goals + assists per game, translated to an "
+                "SL2-equivalent scale so different leagues compare fairly. **Raw** is "
+                "the number before translation.\n"
+                "- **Score** — a 0–1 blend of adjusted output and games played, "
+                "set by the sidebar weights. Read it as directional bands, not a precise "
+                "order.\n"
+                "- **Flags** — *small sample* (few games), *big translation* (came "
+                "from a much weaker league, so numbers were deflated hard), and the "
+                "standing *needs TM layer* note for availability/affordability.")
         show = [c for c in ["name", "club", "league", "position", "age",
                             "adj_per_app", "raw_per_app", "appearances", "goals",
                             "assists", "score", "flags"] if c in view.columns]
@@ -267,8 +281,9 @@ def main():
             m[1].metric("Raw G+A / app", f"{r.raw_per_app:.2f}")
             m[2].metric("League coeff → SL2", f"{r.get('coeff', float('nan')):.2f}")
             m[3].metric("Apps (rep. season)", int(r.appearances))
-            if r.get("flags") and r.flags != "-":
-                st.info(f"Flags: {r.flags}")
+            fl = r.get("flags") or ""
+            if fl and fl != "-":
+                st.info(f"Flags: {fl}")
             st.caption("Contract, market value & free-agent status: **pending "
                        "Transfermarkt layer.**")
             st.markdown("**Season-by-season history** (raw, un-adjusted)")
