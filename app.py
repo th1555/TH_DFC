@@ -273,7 +273,7 @@ def main():
         view = view.assign(score=compute_scores(
             view, ref, target_apps, w_out, w_dur, w_age, age_dir, penalise))
         view["rating"] = (view.score * 100).round().astype(int)
-        view["notes"] = view.flags.apply(plain_notes)
+        view["notes"] = view["flags"].apply(plain_notes)
         view = view.sort_values("rating", ascending=False).reset_index(drop=True)
 
     tab_list, tab_rates = st.tabs(["⭐ Recommended players", "📈 How leagues compare"])
