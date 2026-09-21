@@ -47,10 +47,13 @@ def load(path, _mtime):
 
 def history(path, _mtime, pid):
     conn = sqlite3.connect(path)
+    cols = [c[1] for c in conn.execute("PRAGMA table_info(player_season_stats)")]
+    club_sel = "team AS club" if "team" in cols else "'' AS club"
+    cup_filter = "AND (is_cup IS NULL OR is_cup=0)" if "is_cup" in cols else ""
     df = pd.read_sql(
-        "SELECT season, team AS club, league_name AS league, appearances, goals, "
-        "assists, minutes, per_app, transfer_type FROM player_season_stats "
-        "WHERE player_id=? AND (is_cup IS NULL OR is_cup=0) ORDER BY season DESC",
+        f"SELECT season, {club_sel}, league_name AS league, appearances, goals, "
+        f"assists, minutes, per_app, transfer_type FROM player_season_stats "
+        f"WHERE player_id=? {cup_filter} ORDER BY season DESC",
         conn, params=(int(pid),))
     conn.close()
     return df
