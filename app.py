@@ -327,14 +327,19 @@ def main():
             t[1].metric("Position", r.get("position") or "—")
             t[2].metric("Age", int(r.age) if has_age and pd.notna(r.get("age")) else "—")
             t[3].metric("League", r.get("league") or "—")
-            t[4].metric("Fit rating", f"{int(r.rating)} / 100",
+            t[4].metric("Fit rating", f"{int(r.get('rating', 0))} / 100",
                         help="Overall rating out of 100 — a guide to who's worth watching.")
+            def _val(k, dec=None):
+                v = r.get(k)
+                if v is None or (isinstance(v, float) and pd.isna(v)):
+                    return "—"
+                return f"{v:.{dec}f}" if dec is not None else v
             m = st.columns(3)
-            m[0].metric("Adjusted G+A / game", f"{r.adj_per_app:.2f}",
+            m[0].metric("Adjusted G+A / game", _val("adj_per_app", 2),
                         help="Adjusted to a League Two scale so leagues compare fairly.")
-            m[1].metric("Actual G+A / game", f"{r.raw_per_app:.2f}",
+            m[1].metric("Actual G+A / game", _val("raw_per_app", 2),
                         help="Their real rate in their own league.")
-            m[2].metric("Games (season rated)", int(r.appearances))
+            m[2].metric("Games (season rated)", _val("appearances"))
             note = plain_notes(r.get("flags"))
             if note:
                 st.info(f"Notes: {note}")
