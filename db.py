@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 """
-db.py  —  the persistent store for the Dumbarton recruitment engine
-===================================================================
-One SQLite file gives every kind of data a home, with three principles baked in:
-  * ACCUMULATE, don't overwrite — stats keyed by (player, season, league),
-    upserted, so new seasons append and history builds up.
-  * PROVENANCE — scraped rows carry source + fetched_at (how stale is this?).
-  * WALL OFF THE HUMAN LAYER — `recruitment_status` is a separate table the
-    scrapers NEVER touch. Defined now, filled later: a data refresh can never
-    wipe a scout's work.
-Canonical league mapping lives in a REFERENCE table, not hard-coded.
+db.py  —  persistent store for the Dumbarton recruitment engine
+===============================================================
+Accumulates by key; stamps provenance; walls off the human layer
+(recruitment_status). Canonical league mapping lives in ref_leagues.
+Stores club (team) per season and age per player; shortlist is a computed
+table replaced wholesale each run.
 """
 from __future__ import annotations
 import sqlite3
@@ -52,12 +48,12 @@ CREATE TABLE IF NOT EXISTS teams (
   source TEXT, fetched_at TEXT
 );
 CREATE TABLE IF NOT EXISTS players (
-  player_id INTEGER PRIMARY KEY, name TEXT, position TEXT,
+  player_id INTEGER PRIMARY KEY, name TEXT, position TEXT, age INTEGER,
   current_team_id INTEGER, source TEXT, fetched_at TEXT
 );
 CREATE TABLE IF NOT EXISTS player_season_stats (
   player_id INTEGER, season TEXT, league_id INTEGER, tournament_id INTEGER,
-  league_name TEXT, appearances INTEGER, goals INTEGER, assists INTEGER,
+  league_name TEXT, team TEXT, appearances INTEGER, goals INTEGER, assists INTEGER,
   goal_contribs INTEGER, minutes INTEGER, per_app REAL, is_cup INTEGER,
   transfer_type TEXT, source TEXT, fetched_at TEXT,
   PRIMARY KEY (player_id, season, league_id)
@@ -69,11 +65,6 @@ CREATE TABLE IF NOT EXISTS market_data (
 CREATE TABLE IF NOT EXISTS league_coefficients (
   canonical TEXT PRIMARY KEY, coeff_to_sl2 REAL, n_movers INTEGER,
   linked INTEGER, computed_at TEXT
-);
-CREATE TABLE IF NOT EXISTS shortlist (
-  player_id INTEGER PRIMARY KEY, name TEXT, league TEXT, season TEXT,
-  adj_per_app REAL, appearances INTEGER, fit REAL, score REAL,
-  flags TEXT, computed_at TEXT
 );
 CREATE TABLE IF NOT EXISTS recruitment_status (
   player_id INTEGER PRIMARY KEY, status TEXT, notes TEXT, updated_at TEXT
@@ -88,9 +79,20 @@ SEED_LEAGUES = [
     (179, "Challenge Cup", "Challenge Cup", 0, 1, 0),
 ]
 
+# columns added after the original schema shipped — applied to existing DBs too
+MIGRATIONS = [
+    ("player_season_stats", "team", "TEXT"),
+    ("players", "age", "INTEGER"),
+]
+
 
 def init_db(conn):
     conn.executescript(SCHEMA)
+    for table, col, typ in MIGRATIONS:
+        try:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {col} {typ}")
+        except sqlite3.OperationalError:
+            pass  # already exists
     conn.executemany(
         "INSERT OR IGNORE INTO ref_leagues "
         "(league_id,fotmob_name,canonical,tier,is_cup,is_peer) VALUES (?,?,?,?,?,?)",
@@ -99,13 +101,19 @@ def init_db(conn):
 
 
 def upsert_players(conn, df):
-    rows = [(int(r.player_id), r.get("player_name"), r.get("position"),
-             None, "fotmob", now()) for _, r in df.iterrows()]
+    seen = {}
+    for _, r in df.iterrows():
+        pid = _int_safe(r.player_id, None)
+        if pid is None or pid in seen:
+            continue
+        seen[pid] = (pid, r.get("player_name"), r.get("position"),
+                     _int_safe(r.get("age"), None), None, "fotmob", now())
     conn.executemany(
-        "INSERT INTO players (player_id,name,position,current_team_id,source,fetched_at) "
-        "VALUES (?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
-        "name=excluded.name, position=excluded.position, fetched_at=excluded.fetched_at",
-        rows)
+        "INSERT INTO players (player_id,name,position,age,current_team_id,source,fetched_at) "
+        "VALUES (?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
+        "name=excluded.name, position=excluded.position, "
+        "age=COALESCE(excluded.age, players.age), fetched_at=excluded.fetched_at",
+        list(seen.values()))
     conn.commit()
 
 
@@ -115,16 +123,16 @@ def upsert_stats(conn, df):
         mins = r.get("minutes")
         per_app = 0.0 if pd.isna(r.get("per_app")) else float(r.per_app)
         rows.append((_int_safe(r.player_id), str(r.season), _int_safe(r.get("league_id")),
-                     _int_safe(r.get("tournament_id")), r.get("league"),
+                     _int_safe(r.get("tournament_id")), r.get("league"), r.get("team"),
                      _int_safe(r.appearances), _int_safe(r.goals), _int_safe(r.assists),
                      _int_safe(r.goal_contribs),
                      None if pd.isna(mins) else _int_safe(mins),
                      per_app, _int_safe(bool(r.get("is_cup"))),
                      r.get("transfer_type"), "fotmob", now()))
     conn.executemany(
-        "INSERT INTO player_season_stats VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
+        "INSERT INTO player_season_stats VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
         "ON CONFLICT(player_id,season,league_id) DO UPDATE SET "
-        "appearances=excluded.appearances, goals=excluded.goals, "
+        "team=excluded.team, appearances=excluded.appearances, goals=excluded.goals, "
         "assists=excluded.assists, goal_contribs=excluded.goal_contribs, "
         "minutes=excluded.minutes, per_app=excluded.per_app, "
         "fetched_at=excluded.fetched_at", rows)
@@ -141,9 +149,9 @@ def save_coefficients(conn, coeff, counts, linked):
 
 
 def save_shortlist(conn, df):
-    conn.execute("DELETE FROM shortlist")
+    # computed table — replace wholesale, take whatever columns surface() emits
     df = df.copy(); df["computed_at"] = now()
-    df.to_sql("shortlist", conn, if_exists="append", index=False)
+    df.to_sql("shortlist", conn, if_exists="replace", index=False)
     conn.commit()
 
 
@@ -156,7 +164,7 @@ def league_maps(conn):
 
 def get_stats_df(conn):
     return pd.read_sql(
-        "SELECT s.*, p.name AS player_name, p.position AS position "
+        "SELECT s.*, p.name AS player_name, p.position AS position, p.age AS age "
         "FROM player_season_stats s LEFT JOIN players p USING(player_id)", conn)
 
 
@@ -164,13 +172,14 @@ def get_coefficients(conn):
     return pd.read_sql("SELECT * FROM league_coefficients ORDER BY coeff_to_sl2", conn)
 
 
-def get_shortlist(conn):
-    return pd.read_sql("SELECT * FROM shortlist ORDER BY score DESC", conn)
+def get_history(conn, pid):
+    return pd.read_sql(
+        "SELECT season, team, league_name AS league, appearances, goals, assists, "
+        "minutes, per_app, is_cup, transfer_type FROM player_season_stats "
+        "WHERE player_id=? ORDER BY season DESC", conn, params=(int(pid),))
 
 
 if __name__ == "__main__":
     c = connect(); init_db(c)
-    print("initialised store at", DB_PATH)
-    print("tables:", [r[0] for r in c.execute(
+    print("initialised", DB_PATH, "|", [r[0] for r in c.execute(
         "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")])
-    print("seeded leagues:", len(pd.read_sql('SELECT * FROM ref_leagues', c)))

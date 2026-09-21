@@ -1,22 +1,13 @@
 #!/usr/bin/env python3
 """
-store_pipeline.py  —  run the whole recruitment flow through the store
-======================================================================
-One entry point that takes a FotMob ingest CSV and drives everything through
-the SQLite store (db.py), reusing the VALIDATED engines:
-  1. load player-season stats into the store (accumulating, provenance-stamped)
-  2. compute league-equivalency coefficients from the store  (league_equivalency)
-  3. surface strikers who fit the proven-SL2 profile           (fit ranking)
-  4. write the shortlist back to the store
-Canonical league mapping comes from the store's reference table, not hard-code.
-Human notes come later — the recruitment_status table is defined but untouched.
+store_pipeline.py  —  run the recruitment flow through the store
+================================================================
+CSV -> SQLite store -> league-equivalency coefficients -> surfaced shortlist.
+Reuses the validated estimator (league_equivalency / equivalency_real). The
+shortlist it writes now carries the fields a scouting UI needs: club, position,
+age, raw vs SL2-adjusted output, goals, assists, flags.
 
-Usage:
-  python store_pipeline.py fotmob_player_seasons.csv
-Then the store (dumbarton.db) holds players, stats, coefficients and the
-shortlist — ready for a UI to read.
-
-Deps: numpy, pandas  (+ db.py, league_equivalency.py, equivalency_real.py)
+Usage:  python store_pipeline.py fotmob_player_seasons.csv
 """
 from __future__ import annotations
 import sys
@@ -28,13 +19,12 @@ import equivalency_real as eqr
 
 REF_MIN_APPS = 8
 MIN_MOVERS = 5        # publish a coefficient only with this many movers
-MIN_SAMPLE = 10      # appearances for a season to count as representative
+MIN_SAMPLE = 10       # appearances for a season to count as representative
+FWD = r"forward|strik|attack|wing"   # forwards: striker/forward/winger/att-mid
 
 
 def canon(idmap, namemap, lid, name):
-    if lid in idmap:
-        return idmap[lid]
-    return namemap.get(name, name)
+    return idmap.get(lid) or namemap.get(name, name)
 
 
 def ingest_csv(conn, path):
@@ -44,7 +34,7 @@ def ingest_csv(conn, path):
     return len(df)
 
 
-def compute_equivalency(conn):
+def prepare_stats(conn):
     stats = db.get_stats_df(conn)
     idmap, namemap, cupmap = db.league_maps(conn)
     stats["league_c"] = [canon(idmap, namemap, i, n)
@@ -53,51 +43,54 @@ def compute_equivalency(conn):
                         for i, c, n in zip(stats.league_id, stats.is_cup, stats.league_name)]
     stats = stats[(~stats.is_cup2) & (stats.appearances > 0)].copy()
     stats["season_yr"] = stats.season.astype(str).str[:4].astype(int)
+    return stats
 
+
+def compute_equivalency(conn, stats):
     prim = eqr.primary_league_seasons(stats)
     movers = eqr.build_movers(prim)
     if movers.empty:
         print("  no qualifying movers yet — ingest more squads across leagues.")
-        return prim, {}
+        return {}
     if len(movers) < 8 or le.ANCHOR not in set(movers.from_league) | set(movers.to_league):
         print(f"  thin evidence: only {len(movers)} movers — coefficients provisional.")
     coeff, _, _ = le.estimate_coefficients(movers)
     counts = pd.concat([movers.from_league, movers.to_league]).value_counts().to_dict()
     linked = eqr.connected_to_anchor(movers)
-    # only trust coefficients with enough movers behind them
     coeff = {l: c for l, c in coeff.items()
              if l == le.ANCHOR or counts.get(l, 0) >= MIN_MOVERS}
     db.save_coefficients(conn, coeff, counts, linked)
-    return prim, coeff
+    return coeff
 
 
-def surface(conn, prim, coeff):
+def surface(conn, stats, coeff):
     if not coeff:
         return pd.DataFrame()
-    prim = prim.copy()
-    prim["coeff"] = prim.league_c.map(coeff)
-    prim = prim.dropna(subset=["coeff"])
-    prim["adj_per_app"] = prim.per_app * prim.coeff
+    s = stats.copy()
+    s["coeff"] = s.league_c.map(coeff)
+    s = s.dropna(subset=["coeff"])
+    s["adj_per_app"] = s.per_app * s.coeff
+
+    # one row per player-season (primary league), then the representative season
+    prim = s.loc[s.groupby(["player_id", "season_yr"]).appearances.idxmax()]
     idxs = []
     for _, g in prim.groupby("player_id"):
         recent = g[g.appearances >= MIN_SAMPLE]
         idxs.append(recent.season_yr.idxmax() if len(recent) else g.appearances.idxmax())
     cur = prim.loc[idxs].copy()
-    if "position" in cur:                       # V1 scope: forwards
+
+    if "position" in cur:
         print("  position labels in pool:",
               dict(cur.position.astype(str).value_counts().head(12)))
-        fwd = r"forward|strik|attack|wing"      # catch Forward/Striker/Winger/Att.Mid
-        cur = cur[cur.position.astype(str).str.contains(fwd, case=False, na=False)]
+        cur = cur[cur.position.astype(str).str.contains(FWD, case=False, na=False)]
         print(f"  forwards matched: {len(cur)}")
 
-    sl2 = cur[(cur.league_c == "SL2") & (cur.appearances >= REF_MIN_APPS)]
+    sl2 = cur[(cur.league_c == le.ANCHOR) & (cur.appearances >= REF_MIN_APPS)]
     if len(sl2) < 5:
-        print("  <5 SL2 strikers for a reference — surfaced list is provisional.")
-        ref = np.sort(cur.adj_per_app.values)
-        prof_apps = float(cur.appearances.median())
+        print("  <5 SL2 forwards for a reference — surfaced list is provisional.")
+        ref = np.sort(cur.adj_per_app.values); prof_apps = float(cur.appearances.median())
     else:
-        ref = np.sort(sl2.adj_per_app.values)
-        prof_apps = float(sl2.appearances.median())
+        ref = np.sort(sl2.adj_per_app.values); prof_apps = float(sl2.appearances.median())
 
     recs = []
     for _, r in cur.iterrows():
@@ -109,11 +102,19 @@ def surface(conn, prim, coeff):
             fl.append("small sample")
         if r.coeff <= 0.7:
             fl.append("big translation")
+        if str(r.get("transfer_type")) in ("free transfer", "end of loan", "back from loan"):
+            fl.append(str(r.transfer_type))
         fl.append("avail/afford: needs TM layer")
         recs.append(dict(
             player_id=int(r.player_id), name=r.get("player_name"),
-            league=r.league_c, season=str(r.season_yr),
-            adj_per_app=round(float(r.adj_per_app), 3), appearances=int(r.appearances),
+            club=r.get("team"), league=r.league_c, position=r.get("position"),
+            age=None if pd.isna(r.get("age")) else int(r.age),
+            season=str(r.season_yr),
+            raw_per_app=round(float(r.per_app), 3),
+            adj_per_app=round(float(r.adj_per_app), 3),
+            appearances=int(r.appearances),
+            goals=int(r.goals), assists=int(r.assists),
+            coeff=round(float(r.coeff), 3),
             fit=round(fit, 3), score=round(fit, 3), flags=", ".join(fl)))
     sl = pd.DataFrame(recs).sort_values("score", ascending=False).reset_index(drop=True)
     db.save_shortlist(conn, sl)
@@ -125,20 +126,21 @@ def main(csv):
     n = ingest_csv(conn, csv)
     print(f"ingested {n} stat rows into the store ({db.DB_PATH})")
 
-    prim, coeff = compute_equivalency(conn)
+    stats = prepare_stats(conn)
+    coeff = compute_equivalency(conn, stats)
     print("\ncoefficients in the store:")
     print(db.get_coefficients(conn).to_string(index=False))
 
-    sl = surface(conn, prim, coeff)
+    sl = surface(conn, stats, coeff)
     if sl.empty:
-        print("\nnothing surfaced yet — need more data (see notes above).")
+        print("\nnothing surfaced yet — need more data.")
         return
-    print(f"\nsurfaced {len(sl)} strikers — top 12 read back from the store:\n")
-    print(db.get_shortlist(conn).head(12)[
-        ["name", "league", "adj_per_app", "appearances", "fit", "score", "flags"]
-    ].to_string(index=False))
-    print("\nStore now holds: players, stats, coefficients, shortlist. "
-          "recruitment_status (human) stays empty until we build that layer.")
+    print(f"\nsurfaced {len(sl)} forwards — top 12:\n")
+    print(sl.head(12)[["name", "club", "league", "position", "age",
+                       "adj_per_app", "appearances", "goals", "assists",
+                       "score", "flags"]].to_string(index=False))
+    print("\nStore holds players, stats, coefficients, shortlist. "
+          "Run the app to explore it.")
 
 
 if __name__ == "__main__":

@@ -57,11 +57,14 @@ def collect_players(obj, acc, seen):
     if isinstance(obj, dict):
         pid, nm = obj.get("id"), obj.get("name")
         if isinstance(pid, int) and isinstance(nm, str) and nm:
-            if pid not in seen:
+            role = obj.get("role")
+            if isinstance(role, dict):
+                rkey = str(role.get("key", "")); rlabel = role.get("fallback") or rkey
+            else:
+                rkey = str(role or ""); rlabel = role
+            if pid not in seen and "coach" not in rkey.lower():   # players only
                 seen.add(pid)
-                role = (obj.get("role") or obj.get("positionLabel")
-                        or obj.get("position") or obj.get("cname"))
-                acc.append({"player_id": pid, "name": nm, "role": role})
+                acc.append({"player_id": pid, "name": nm, "position": rlabel})
         for v in obj.values():
             collect_players(v, acc, seen)
     elif isinstance(obj, list):
@@ -113,7 +116,7 @@ def squad_of(tid: int) -> pd.DataFrame:
         df = pd.DataFrame(acc)
         df["team_id"] = tid
         print(f"  players found: {len(df)}")
-        print(df[["player_id", "name", "role"]].head(30).to_string(index=False))
+        print(df[["player_id", "name", "position"]].head(40).to_string(index=False))
         return df
 
     # auto-extract missed — dump structure so we can lock it
@@ -137,8 +140,12 @@ def main(team_ids):
     if not allsq.empty:
         allsq.to_csv("fotmob_squad.csv", index=False)
         print(f"\nwrote {len(allsq)} players -> fotmob_squad.csv")
-        print("next: python ingest_fotmob.py " +
-              " ".join(str(i) for i in allsq.player_id.tolist()[:8]) + " …")
+        att = allsq[allsq.position.astype(str).str.contains("Attack", case=False, na=False)]
+        print("\nnext — pull the whole squad:")
+        print("  python ingest_fotmob.py " + " ".join(map(str, allsq.player_id.tolist())))
+        if not att.empty:
+            print("\nor V1 (strikers only) — pull just the attackers:")
+            print("  python ingest_fotmob.py " + " ".join(map(str, att.player_id.tolist())))
 
 
 if __name__ == "__main__":

@@ -46,6 +46,25 @@ KNOWN_LEAGUES = {123: "Championship", 125: "League Two"}   # + 124 L1, 66 Prem e
 CUP_LEAGUE_IDS = {179}                                      # Challenge Cup, etc.
 
 
+def _age_from(dob):
+    """Best-effort age from FotMob birthDate (shape not guaranteed)."""
+    from datetime import date
+    if not isinstance(dob, dict):
+        return None
+    y = m = d = None
+    t = dob.get("utcTime")
+    if isinstance(t, str) and len(t) >= 4 and t[:4].isdigit():
+        y = int(t[:4])
+        m = int(t[5:7]) if len(t) >= 7 and t[5:7].isdigit() else 1
+        d = int(t[8:10]) if len(t) >= 10 and t[8:10].isdigit() else 1
+    elif dob.get("year"):
+        y = int(dob["year"]); m = int(dob.get("month", 1)); d = int(dob.get("day", 1))
+    if not y:
+        return None
+    today = date.today()
+    return today.year - y - ((today.month, today.day) < (m, d))
+
+
 def _int(x, default=0):
     try:
         return int(str(x).strip())
@@ -70,6 +89,7 @@ def parse_player(data: dict) -> list[dict]:
         return []
     pid = data.get("id")
     name = data.get("name")
+    age = _age_from(data.get("birthDate"))
     pos = ((data.get("positionDescription") or {}).get("primaryPosition") or {}).get("label")
 
     cur = current_minutes(data)                       # (season, leagueId, minutes)
@@ -92,7 +112,7 @@ def parse_player(data: dict) -> list[dict]:
             if cur and season == cur[0] and lid == cur[1]:
                 minutes = cur[2]                       # fill current-season minutes
             rows.append(dict(
-                player_id=pid, player_name=name, position=pos,
+                player_id=pid, player_name=name, position=pos, age=age,
                 season=season, league=t.get("leagueName"), league_id=lid,
                 tournament_id=t.get("tournamentId"), team=team,
                 appearances=apps, goals=goals, assists=assists, goal_contribs=gc,
