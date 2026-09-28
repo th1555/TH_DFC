@@ -39,10 +39,29 @@ def db_ready(path):
 
 def load(path, _mtime):
     conn = sqlite3.connect(path)
-    sl = pd.read_sql("SELECT * FROM shortlist", conn)
+    tables = {r[0] for r in conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table'")}
+    if "market_data" in tables:
+        sl = pd.read_sql(
+            "SELECT s.*, m.contract_expiry, m.availability, "
+            "m.market_value AS tm_value FROM shortlist s "
+            "LEFT JOIN market_data m ON s.player_id=m.player_id", conn)
+    else:
+        sl = pd.read_sql("SELECT * FROM shortlist", conn)
     co = pd.read_sql("SELECT * FROM league_coefficients ORDER BY coeff_to_sl2", conn)
     conn.close()
     return sl, co
+
+
+AVAIL_LABEL = {"expiring": "Contract expiring", "lapsed": "Out of contract?",
+               "contracted": "Under contract", "unknown": "Unknown"}
+
+
+def avail_label(v):
+    import pandas as _pd
+    if v is None or (isinstance(v, float) and _pd.isna(v)):
+        return "Not checked"
+    return AVAIL_LABEL.get(str(v), "Not checked")
 
 
 def history(path, _mtime, pid):
@@ -128,12 +147,16 @@ def build_demo_db(path):
         raw = round(adj / cmap.get(lg, 1.0), 3)
         flags = ("big translation, avail/afford: needs TM layer"
                  if cmap.get(lg, 1) < 0.8 else "avail/afford: needs TM layer")
+        av = ["contracted", "expiring", "lapsed", "contracted", "expiring", "contracted"][pid - 1]
+        contract = {"contracted": "2027-05-31", "expiring": "2026-06-30", "lapsed": "2025-05-31"}[av]
         rows.append((pid, name, club, lg, pos, age, "2025", raw, adj, apps, g, a,
                      round(cmap.get(lg, 1.0), 3), round(min(1, adj / 0.73), 3),
-                     round(min(1, adj / 0.73), 3), flags, "2026-01-01T00:00:00+00:00"))
+                     round(min(1, adj / 0.73), 3), flags, av, contract,
+                     "2026-01-01T00:00:00+00:00"))
     cols = ["player_id", "name", "club", "league", "position", "age", "season",
             "raw_per_app", "adj_per_app", "appearances", "goals", "assists",
-            "coeff", "fit", "score", "flags", "computed_at"]
+            "coeff", "fit", "score", "flags", "availability", "contract_expiry",
+            "computed_at"]
     pd.DataFrame(rows, columns=cols).to_sql("shortlist", conn, if_exists="replace", index=False)
     hist = []
     for pid, name, club, lg, pos, age, adj, apps, g, a in demo:
@@ -238,6 +261,11 @@ def main():
                                 help="Type a club name to remove its players — "
                                      "e.g. your own, so you only see possible signings.").strip().lower()
         q = st.text_input("Search by name").strip().lower()
+        avail_opts = sorted(sl.availability.dropna().unique()) if "availability" in sl else []
+        pick_avail = st.multiselect(
+            "Availability", avail_opts, default=avail_opts,
+            help="From Transfermarkt contract dates. 'Expiring soon' = contract ends "
+                 "within a year (gettable at the next window).") if avail_opts else []
 
         with st.expander("⚙️ Advanced: change the rating (optional)"):
             st.caption("Only if you want to. These change how the 'Fit rating' is "
@@ -268,6 +296,8 @@ def main():
         view = view[~view.club.fillna("").str.lower().str.contains(exclude)]
     if q:
         view = view[view.name.str.lower().str.contains(q)]
+    if "availability" in view.columns and pick_avail:
+        view = view[view.availability.isin(pick_avail) | view.availability.isna()]
 
     # ---- score live, scale to 0–100, add plain notes ----
     ref = sl[sl.league == "SL2"].adj_per_app.values
@@ -277,6 +307,8 @@ def main():
             view, ref, target_apps, w_out, w_dur, w_age, age_dir, penalise))
         view["rating"] = (view.score * 100).round().astype(int)
         view["notes"] = view["flags"].apply(plain_notes)
+        if "availability" in view.columns:
+            view["availability_plain"] = view.availability.apply(avail_label)
         view = view.sort_values("rating", ascending=False).reset_index(drop=True)
 
     tab_list, tab_rates = st.tabs(["⭐ Recommended players", "📈 How leagues compare"])
@@ -309,9 +341,13 @@ def main():
             "assists": st.column_config.NumberColumn("Assists"),
             "notes": st.column_config.TextColumn(
                 "Notes", help="Cautions specific to this player."),
+            "availability_plain": st.column_config.TextColumn(
+                "Availability", help="From Transfermarkt contract dates: expiring "
+                "soon or out of contract = more gettable."),
         }
         order = ["name", "club", "league", "position", "age", "rating",
-                 "adj_per_app", "raw_per_app", "appearances", "goals", "assists", "notes"]
+                 "adj_per_app", "raw_per_app", "appearances", "goals", "assists",
+                 "availability_plain", "notes"]
         order = [c for c in order if c in view.columns]
         st.dataframe(view[order], hide_index=True, use_container_width=True,
                      column_config=cols)
@@ -346,8 +382,14 @@ def main():
             note = plain_notes(r.get("flags"))
             if note:
                 st.info(f"Notes: {note}")
-            st.caption("We do **not** yet know this player's contract, wages, or whether "
-                       "he's available — that comes in a later version.")
+            av, cu = r.get("availability"), r.get("contract_expiry")
+            if av is not None and not pd.isna(av):
+                st.success(f"**Availability:** {avail_label(av)}"
+                           + (f"  ·  contract until {str(cu)[:10]}"
+                              if cu is not None and not pd.isna(cu) else ""))
+            else:
+                st.caption("No Transfermarkt contract/availability matched for "
+                           "this player yet.")
             st.markdown("**Season-by-season record** (their real numbers, not adjusted)")
             hcols = {
                 "season": st.column_config.TextColumn("Season"),

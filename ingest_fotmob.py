@@ -46,6 +46,21 @@ KNOWN_LEAGUES = {123: "Championship", 125: "League Two"}   # + 124 L1, 66 Prem e
 CUP_LEAGUE_IDS = {179}                                      # Challenge Cup, etc.
 
 
+def _dob_from(dob):
+    """ISO birth date (YYYY-MM-DD) from FotMob birthDate, best-effort."""
+    if not isinstance(dob, dict):
+        return None
+    t = dob.get("utcTime")
+    if isinstance(t, str) and len(t) >= 10 and t[:4].isdigit():
+        return t[:10]
+    if dob.get("year"):
+        try:
+            return f"{int(dob['year']):04d}-{int(dob.get('month',1)):02d}-{int(dob.get('day',1)):02d}"
+        except (TypeError, ValueError):
+            return None
+    return None
+
+
 def _age_from(dob):
     """Best-effort age from FotMob birthDate (shape not guaranteed)."""
     from datetime import date
@@ -90,6 +105,7 @@ def parse_player(data: dict) -> list[dict]:
     pid = data.get("id")
     name = data.get("name")
     age = _age_from(data.get("birthDate"))
+    dob = _dob_from(data.get("birthDate"))
     pos = ((data.get("positionDescription") or {}).get("primaryPosition") or {}).get("label")
 
     cur = current_minutes(data)                       # (season, leagueId, minutes)
@@ -112,7 +128,7 @@ def parse_player(data: dict) -> list[dict]:
             if cur and season == cur[0] and lid == cur[1]:
                 minutes = cur[2]                       # fill current-season minutes
             rows.append(dict(
-                player_id=pid, player_name=name, position=pos, age=age,
+                player_id=pid, player_name=name, position=pos, age=age, dob=dob,
                 season=season, league=t.get("leagueName"), league_id=lid,
                 tournament_id=t.get("tournamentId"), team=team,
                 appearances=apps, goals=goals, assists=assists, goal_contribs=gc,
