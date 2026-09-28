@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS teams (
   source TEXT, fetched_at TEXT
 );
 CREATE TABLE IF NOT EXISTS players (
-  player_id INTEGER PRIMARY KEY, name TEXT, position TEXT, age INTEGER,
+  player_id INTEGER PRIMARY KEY, name TEXT, position TEXT, age INTEGER, dob TEXT,
   current_team_id INTEGER, source TEXT, fetched_at TEXT
 );
 CREATE TABLE IF NOT EXISTS player_season_stats (
@@ -83,6 +83,7 @@ SEED_LEAGUES = [
 MIGRATIONS = [
     ("player_season_stats", "team", "TEXT"),
     ("players", "age", "INTEGER"),
+    ("players", "dob", "TEXT"),
 ]
 
 
@@ -107,12 +108,13 @@ def upsert_players(conn, df):
         if pid is None or pid in seen:
             continue
         seen[pid] = (pid, r.get("player_name"), r.get("position"),
-                     _int_safe(r.get("age"), None), None, "fotmob", now())
+                     _int_safe(r.get("age"), None), r.get("dob"), None, "fotmob", now())
     conn.executemany(
-        "INSERT INTO players (player_id,name,position,age,current_team_id,source,fetched_at) "
-        "VALUES (?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
+        "INSERT INTO players (player_id,name,position,age,dob,current_team_id,source,fetched_at) "
+        "VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
         "name=excluded.name, position=excluded.position, "
-        "age=COALESCE(excluded.age, players.age), fetched_at=excluded.fetched_at",
+        "age=COALESCE(excluded.age, players.age), "
+        "dob=COALESCE(excluded.dob, players.dob), fetched_at=excluded.fetched_at",
         list(seen.values()))
     conn.commit()
 
@@ -162,6 +164,29 @@ def league_maps(conn):
             dict(zip(ref.league_id, ref.is_cup.astype(bool))))
 
 
+def upsert_market(conn, df):
+    rows = [(_int_safe(r.player_id), _int_safe(r.get("age"), None),
+             r.get("market_value"), r.get("contract_expiry"),
+             r.get("availability"), "transfermarkt", now())
+            for _, r in df.iterrows()]
+    conn.executemany(
+        "INSERT INTO market_data (player_id,age,market_value,contract_expiry,"
+        "availability,source,fetched_at) VALUES (?,?,?,?,?,?,?) "
+        "ON CONFLICT(player_id) DO UPDATE SET market_value=excluded.market_value, "
+        "contract_expiry=excluded.contract_expiry, availability=excluded.availability, "
+        "fetched_at=excluded.fetched_at", rows)
+    conn.commit()
+
+
+def get_players_min(conn):
+    return pd.read_sql("SELECT player_id, name, age, dob FROM players", conn)
+
+
+def get_market(conn):
+    return pd.read_sql("SELECT player_id, market_value, contract_expiry, "
+                       "availability FROM market_data", conn)
+
+
 def get_stats_df(conn):
     return pd.read_sql(
         "SELECT s.*, p.name AS player_name, p.position AS position, p.age AS age "
@@ -177,6 +202,27 @@ def get_history(conn, pid):
         "SELECT season, team, league_name AS league, appearances, goals, assists, "
         "minutes, per_app, is_cup, transfer_type FROM player_season_stats "
         "WHERE player_id=? ORDER BY season DESC", conn, params=(int(pid),))
+
+
+def upsert_market(conn, df):
+    rows = [(int(r.player_id), _int_safe(r.get("age"), None), r.get("market_value"),
+             r.get("contract_expiry"), r.get("availability"), "transfermarkt", now())
+            for _, r in df.iterrows()]
+    conn.executemany(
+        "INSERT INTO market_data (player_id,age,market_value,contract_expiry,availability,source,fetched_at) "
+        "VALUES (?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
+        "market_value=excluded.market_value, contract_expiry=excluded.contract_expiry, "
+        "availability=excluded.availability, fetched_at=excluded.fetched_at", rows)
+    conn.commit()
+
+
+def get_market(conn):
+    return pd.read_sql("SELECT player_id, market_value, contract_expiry, availability "
+                       "FROM market_data", conn)
+
+
+def get_players(conn):
+    return pd.read_sql("SELECT player_id, name, position, age, dob FROM players", conn)
 
 
 if __name__ == "__main__":
