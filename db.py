@@ -64,26 +64,33 @@ CREATE TABLE IF NOT EXISTS market_data (
 );
 CREATE TABLE IF NOT EXISTS league_coefficients (
   canonical TEXT PRIMARY KEY, coeff_to_sl2 REAL, n_movers INTEGER,
-  linked INTEGER, computed_at TEXT
+  linked INTEGER, computed_at TEXT, confidence REAL
 );
 CREATE TABLE IF NOT EXISTS recruitment_status (
   player_id INTEGER PRIMARY KEY, status TEXT, notes TEXT, updated_at TEXT
 );
 """
 
+# Leagues are identified ONLY by FotMob league id, never by name: names repeat
+# across countries (English League Two vs Scottish League Two). These ids are
+# confirmed from real FotMob data; every other league is named automatically
+# (see league_names), with its country when league_countries.csv is present.
 SEED_LEAGUES = [
     (125, "League Two",    "SL2",           2, 0, 1),
     (124, "League One",    "League One",    3, 0, 1),
     (123, "Championship",  "Championship",  4, 0, 0),
-    (66,  "Premiership",   "Premiership",   5, 0, 0),
     (179, "Challenge Cup", "Challenge Cup", 0, 1, 0),
 ]
+HOME_COUNTRY = "Scotland"
+COUNTRIES_CSV = "league_countries.csv"
 
 # columns added after the original schema shipped — applied to existing DBs too
 MIGRATIONS = [
     ("player_season_stats", "team", "TEXT"),
     ("players", "age", "INTEGER"),
     ("players", "dob", "TEXT"),
+    ("league_coefficients", "confidence", "REAL"),
+    ("ref_leagues", "country", "TEXT"),
 ]
 
 
@@ -98,6 +105,10 @@ def init_db(conn):
         "INSERT OR IGNORE INTO ref_leagues "
         "(league_id,fotmob_name,canonical,tier,is_cup,is_peer) VALUES (?,?,?,?,?,?)",
         SEED_LEAGUES)
+    # an early version guessed id 66 for the Premiership; that id was never verified
+    conn.execute("DELETE FROM ref_leagues WHERE league_id=66 AND canonical='Premiership'")
+    conn.execute("UPDATE ref_leagues SET country=? WHERE league_id IN (123,124,125) "
+                 "AND country IS NULL", (HOME_COUNTRY,))
     conn.commit()
 
 
@@ -141,13 +152,57 @@ def upsert_stats(conn, df):
     conn.commit()
 
 
-def save_coefficients(conn, coeff, counts, linked):
+def save_coefficients(conn, coeff, counts, linked, conf=None):
+    conf = conf or {}
     conn.execute("DELETE FROM league_coefficients")
     conn.executemany(
-        "INSERT INTO league_coefficients VALUES (?,?,?,?,?)",
-        [(l, float(c), int(counts.get(l, 0)), int(l in linked), now())
-         for l, c in coeff.items()])
+        "INSERT INTO league_coefficients "
+        "(canonical,coeff_to_sl2,n_movers,linked,computed_at,confidence) VALUES (?,?,?,?,?,?)",
+        [(l, float(c), int(counts.get(l, 0)), int(l in linked), now(),
+          float(conf.get(l, 1.0))) for l, c in coeff.items()])
     conn.commit()
+
+
+def load_countries(path=COUNTRIES_CSV):
+    """league_id -> country, from league_info.py's output (optional)."""
+    import os
+    if not os.path.exists(path):
+        return {}
+    df = pd.read_csv(path)
+    df = df.dropna(subset=["league_id", "country"])
+    return {int(i): str(c) for i, c in zip(df.league_id, df.country)}
+
+
+def league_names(conn, pairs):
+    """Map each (league_id, fotmob_name) to ONE unambiguous league label.
+    - confirmed Scottish ids: their fixed names (League Two is 'SL2', the anchor)
+    - other Scottish leagues: the plain FotMob name
+    - foreign leagues: 'Name (Country)' when the country is known
+    - unknown country: the plain name if no other league shares it,
+      else 'Name (league <id>)' so two leagues can never be merged."""
+    ref = pd.read_sql("SELECT league_id, fotmob_name, canonical FROM ref_leagues", conn)
+    seeded = {int(i): c for i, c in zip(ref.league_id, ref.canonical)}
+    reserved = set(ref.canonical) | set(ref.fotmob_name)
+    countries = load_countries()
+    pairs = {(int(i) if pd.notna(i) else 0, str(n)) for i, n in pairs}
+    ids_by_name = {}
+    for i, n in pairs:
+        ids_by_name.setdefault(n, set()).add(i)
+    out = {}
+    for i, n in pairs:
+        if i in seeded:
+            out[(i, n)] = seeded[i]
+        elif i == 0:
+            out[(i, n)] = n                                # no id recorded
+        elif countries.get(i) == HOME_COUNTRY and n not in reserved:
+            out[(i, n)] = n
+        elif countries.get(i):
+            out[(i, n)] = f"{n} ({countries[i]})"
+        elif len(ids_by_name[n]) > 1 or n in reserved:
+            out[(i, n)] = f"{n} (league {i})"
+        else:
+            out[(i, n)] = n
+    return out
 
 
 def save_shortlist(conn, df):

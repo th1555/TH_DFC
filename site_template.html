@@ -105,11 +105,13 @@ button,input,select{font:inherit;color:inherit}
 .section h2{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;margin:0 0 14px}
 .two{display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
 .section p{max-width:66ch;margin:0 0 12px}
-.lg{display:grid;grid-template-columns:minmax(110px,150px) minmax(140px,1fr) 52px 104px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
+.lg{display:grid;grid-template-columns:minmax(110px,150px) minmax(130px,1fr) 52px 122px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
 .lg .track{height:14px;background:var(--mist);position:relative}
 .lg .track i{position:absolute;top:0;bottom:0;left:0;background:#8C949B}
 .lg .track .base{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--basalt)}
 .lg.anchor .track i{background:var(--gold)}
+.lg.thin .track i{background:repeating-linear-gradient(45deg,#C3C8CD 0 4px,#E3E6E8 4px 8px)}
+.lg.thin .v{color:var(--slate)}
 .lg .v{font-family:var(--display);font-weight:800;font-size:22px;text-align:right}
 .lg .e{color:var(--slate);font-size:14px}
 .cando{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:6px}
@@ -247,6 +249,7 @@ tr.cup td{color:var(--slate)}
         <h2>How leagues compare</h2>
         <p>Scoring in the Highland League is easier than scoring in the Championship, so every player's goals and assists are converted onto a League Two scale before anyone is compared.</p>
         <p>A figure below 1 means a weaker league, so that player's numbers are scaled down. Above 1 means a stronger league, scaled up. The figures come from players who actually moved between these leagues and how their scoring changed.</p>
+        <p>Leagues in other countries are rated the same way. Where only a few moves are on record, the figure is a cautious estimate (shaded) and seasons there count for less in a player's rating.</p>
       </div>
       <div id="leagueBars"></div>
     </div>
@@ -288,7 +291,14 @@ const DATA = /*__DATA__*/null;
 const LEAGUE = {"SL2":"League Two","Highland / Lowland":"Highland/Lowland League",
   "League One":"League One","Championship":"Championship","Premiership":"Premiership"};
 const lg = n => LEAGUE[n] || n || "Unknown league";
-const lgThe = n => (["Championship","Premiership"].includes(n) ? "the " : "") + lg(n);
+const lgThe = n => (/^(Championship|Premiership|National League)/.test(n||"") ? "the " : "") + lg(n);
+const CSHORT = {"England":"Eng","Ireland":"Irl","Northern Ireland":"NI","Wales":"Wal","USA":"USA","Scotland":"Sco"};
+function shortLg(n){
+  if (SHORT[n]) return SHORT[n];
+  const m = String(n||"").match(/^(.*) \((.*)\)$/);
+  if (m) return m[1].split(" ")[0].slice(0,9) + " " + (CSHORT[m[2]] || m[2].replace(/^league /,"#").slice(0,4));
+  return String(n||"").split(" ")[0];
+}
 const SHORT = {"SL2":"League Two","Highland / Lowland":"Highland/Low.","League One":"League One","Championship":"Champ.","Premiership":"Prem."};
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 function niceDate(iso){ if(!iso) return ""; const [y,m,d]=String(iso).slice(0,10).split("-").map(Number);
@@ -423,39 +433,41 @@ $("download").onclick = () => {
   const L = [...DATA.leagues].sort((a,b)=>a.rate-b.rate);
   const max = Math.max(...L.map(l=>l.rate), 1.5);
   $("leagueBars").innerHTML = L.map(l => `
-    <div class="lg${l.name==="SL2"?" anchor":""}">
+    <div class="lg${l.name==="SL2"?" anchor":""}${l.confidence < 1 ? " thin" : ""}">
       <span>${esc(lg(l.name))}</span>
       <span class="track"><i style="width:${(l.rate/max*100).toFixed(1)}%"></i><span class="base" style="left:${(1/max*100).toFixed(1)}%"></span></span>
       <span class="v">${l.rate.toFixed(2)}</span>
-      <span class="e">${l.name==="SL2" ? "the baseline" : `from ${l.movers} moves`}</span>
+      <span class="e">${l.name==="SL2" ? "the baseline" : (l.confidence < 1 ? `rough: ${l.movers} ${l.movers===1?"move":"moves"}` : `from ${l.movers} moves`)}</span>
     </div>`).join("");
 })();
 
 /* ---------- player profile ---------- */
 let lastFocus = null;
-function chart(hist){
+const LCONF = Object.fromEntries((DATA.leagues||[]).map(l => [l.name, l.confidence ?? 1]));
+function chart(hist, p){
   const rows = hist.filter(h => h.apps >= 3).slice(0, 8).reverse();
   if (!rows.length) return `<p class="note plain">No league seasons with enough games to chart.</p>`;
   const W=640, H=246, padL=36, padB=62, padT=16, bw=Math.min(96,(W-padL-10)/rows.length);
   const vals = rows.map(h => h.adj ?? h.raw ?? 0);
   const top = Math.max(1, ...vals) * 1.1;
   const y = v => padT + (H-padT-padB) * (1 - v/top);
-  const peak = Math.max(...rows.filter(h=>h.adj!=null && h.apps>=10).map(h=>h.adj), -1);
+  const isPeakRow = h => p && String(h.season)===String(p.peak_season) && h.league===p.peak_league;
   let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Goals and assists per game by season">`;
   const stepG = top > 2.2 ? 1 : .5; const ticks=[]; for(let t=0; t<=top+1e-9; t+=stepG) ticks.push(t);
   ticks.forEach(t =>
     s += `<line x1="${padL}" x2="${W}" y1="${y(t)}" y2="${y(t)}" stroke="#D8DCDF"/><text x="${padL-6}" y="${y(t)+4}" font-size="12" text-anchor="end">${t.toFixed(1)}</text>`);
   rows.forEach((h,i) => {
     const x = padL + i*bw + bw*.18, w = Math.min(bw*.64, 60), v = h.adj ?? h.raw ?? 0;
-    const unrated = h.adj == null, small = h.apps < 10, isPeak = !unrated && !small && h.adj === peak;
-    const fill = unrated ? "url(#hatch)" : isPeak ? "#F5B800" : small ? "#C3C8CD" : "#252A2F";
+    const unrated = h.adj == null, small = h.apps < 10, isPeak = !unrated && !small && isPeakRow(h);
+    const thin = !unrated && (LCONF[h.league] ?? 1) < 1;
+    const fill = unrated ? "url(#hatch)" : isPeak ? "#F5B800" : small ? "#C3C8CD" : thin ? "#8C949B" : "#252A2F";
     s += `<rect x="${x}" y="${y(v)}" width="${w}" height="${Math.max(1, y(0)-y(v))}" fill="${fill}" stroke="${isPeak?"#252A2F":"none"}" stroke-width="${isPeak?2:0}"><title>${esc(niceSeason(h.season))}, ${esc(h.club)}, ${esc(lg(h.league))}: ${h.apps} games, ${f2(v)} per game${unrated?" (not adjusted)":""}</title></rect>`;
     s += `<text x="${x+w/2}" y="${H-padB+18}" font-size="12.5" text-anchor="middle">${esc(niceSeason(h.season))}</text>`;
-    s += `<text x="${x+w/2}" y="${H-padB+33}" font-size="11.5" text-anchor="middle">${esc(SHORT[h.league] || String(h.league||"").split(" ")[0])}</text>`;
+    s += `<text x="${x+w/2}" y="${H-padB+33}" font-size="11.5" text-anchor="middle">${esc(shortLg(h.league))}</text>`;
     s += `<text x="${x+w/2}" y="${H-padB+48}" font-size="11.5" text-anchor="middle">${h.apps} games</text>`;
   });
   s += `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#EEF0F1"/><line x1="0" y1="0" x2="0" y2="6" stroke="#9AA2A9" stroke-width="2"/></pattern></defs></svg>`;
-  return s + `<div class="legend"><span><i style="background:#252A2F"></i>League season, adjusted</span><span><i style="background:#F5B800;outline:2px solid #252A2F"></i>Best season</span><span><i style="background:#C3C8CD"></i>Under 10 games</span><span><i style="background:repeating-linear-gradient(45deg,#EEF0F1 0 3px,#9AA2A9 3px 5px)"></i>League we can't adjust yet</span></div>`;
+  return s + `<div class="legend"><span><i style="background:#252A2F"></i>League season, adjusted</span><span><i style="background:#F5B800;outline:2px solid #252A2F"></i>Best season</span><span><i style="background:#8C949B"></i>League with little evidence</span><span><i style="background:#C3C8CD"></i>Under 10 games</span><span><i style="background:repeating-linear-gradient(45deg,#EEF0F1 0 3px,#9AA2A9 3px 5px)"></i>League we can't adjust yet</span></div>`;
 }
 
 function openPlayer(id, from){
@@ -473,6 +485,7 @@ function openPlayer(id, from){
       ? `He now plays in ${esc(lgThe(p.league))}, a stronger league than ${esc(lgThe(p.peak_league).replace(/^(?!the )/,'the '))} where his best numbers came. His rating leans on that earlier form, so watch how he copes at the new level.`
       : `He recently moved up to ${esc(lgThe(p.league))} and has kept producing at the higher level.`}</div>`);
   if ((p.flags||"").includes("weaker league")) notes.push(`<div class="note"><b>Best form came in a weaker league</b>His numbers have been scaled down to reflect that, but the gap between levels is real.</div>`);
+  if ((p.flags||"").includes("thin league evidence")) notes.push(`<div class="note plain"><b>Some seasons came in leagues we know less about</b>We have only a few transfers on record for at least one league he has played in, so those seasons count for less in his rating.</div>`);
   if ((p.flags||"").includes("few games")) notes.push(`<div class="note plain"><b>Not many games to go on</b>Fewer than 20 games in the seasons we rate, so treat the figures with care.</div>`);
 
   $("drawer").innerHTML = `
@@ -500,7 +513,7 @@ function openPlayer(id, from){
       ${cur ? `<div class="note plain"><b>This season so far</b>${cur}${curNote}</div>` : ""}
       ${notes.join("")}
       <h3 class="d">Season by season</h3>
-      ${chart(hist)}
+      ${chart(hist, p)}
       <h3 class="d">Full record</h3>
       <div class="tablewrap"><table>
         <thead><tr><th>Season</th><th>Club</th><th>League</th><th class="n">Games</th><th class="n">Goals</th><th class="n">Assists</th><th class="n">Per game</th><th class="n">Adjusted</th><th>Move</th></tr></thead>
