@@ -65,7 +65,10 @@ def main():
         mk = pd.read_sql("SELECT player_id, contract_expiry, availability FROM market_data", conn)
         sl = sl.merge(mk, on="player_id", how="left")
 
-    co = pd.read_sql("SELECT canonical, coeff_to_sl2, n_movers FROM league_coefficients", conn)
+    co = pd.read_sql("SELECT * FROM league_coefficients", conn)
+    if "confidence" not in co.columns:
+        co["confidence"] = 1.0
+    co["confidence"] = co.confidence.fillna(1.0)
     rate = dict(zip(co.canonical, co.coeff_to_sl2))
 
     # FotMob league names -> canonical names, so history rows can be adjusted too
@@ -74,7 +77,8 @@ def main():
         "SELECT player_id, season, team, league_id, league_name, appearances, goals, "
         "assists, per_app, is_cup, transfer_type FROM player_season_stats", conn)
     hist = hist[hist.player_id.isin(sl.player_id)]
-    hist["canonical"] = [idmap.get(i) or namemap.get(n, n)
+    names = db.league_names(conn, zip(hist.league_id, hist.league_name))
+    hist["canonical"] = [names[(int(i) if pd.notna(i) else 0, str(n))]
                          for i, n in zip(hist.league_id, hist.league_name)]
     hist["cup"] = [bool(cupmap.get(i, bool(c))) or ("cup" in str(n).lower())
                    for i, c, n in zip(hist.league_id, hist.is_cup, hist.league_name)]
@@ -104,7 +108,8 @@ def main():
         players=players,
         histories=histories,
         leagues=[dict(name=r.canonical, rate=round(float(r.coeff_to_sl2), 3),
-                      movers=int(r.n_movers)) for r in co.itertuples()],
+                      movers=int(r.n_movers), confidence=round(float(r.confidence), 2))
+                 for r in co.itertuples()],
     )
     conn.close()
 

@@ -18,7 +18,9 @@ import db
 import league_equivalency as le
 import equivalency_real as eqr
 
-MIN_MOVERS = 5           # publish a coefficient only with this many movers
+MIN_MOVERS = 5           # moves for a league rate to count at full weight
+PRIOR_MOVES = 3          # thin leagues: how many "typical moves" of caution pull
+                         # their rate back towards League Two
 FWD = r"forward|strik|attack|wing"
 RECENCY = 0.55           # weight decay per season into the past
 LOOKBACK = 4             # seasons of history to summarise
@@ -40,8 +42,9 @@ def ingest_csv(conn, path):
 
 def prepare_stats(conn):
     stats = db.get_stats_df(conn)
-    idmap, namemap, cupmap = db.league_maps(conn)
-    stats["league_c"] = [canon(idmap, namemap, i, n)
+    _, _, cupmap = db.league_maps(conn)
+    names = db.league_names(conn, zip(stats.league_id, stats.league_name))
+    stats["league_c"] = [names[(int(i) if pd.notna(i) else 0, str(n))]
                          for i, n in zip(stats.league_id, stats.league_name)]
     stats["is_cup2"] = [bool(cupmap.get(i, bool(c))) or ("cup" in str(n).lower())
                         for i, c, n in zip(stats.league_id, stats.is_cup, stats.league_name)]
@@ -50,21 +53,57 @@ def prepare_stats(conn):
     return stats
 
 
+def shrunk_rates(movers):
+    """Same joint fit as league_equivalency.estimate_coefficients, plus caution
+    for thin leagues: a league with fewer than MIN_MOVERS moves gets a prior that
+    pulls its rate towards League Two (worth PRIOR_MOVES typical moves). Leagues
+    with enough moves are fitted exactly as before.
+    Returns (rate_to_sl2, moves_per_league)."""
+    counts = pd.concat([movers.from_league, movers.to_league]).value_counts().to_dict()
+    leagues = sorted(set(movers.from_league) | set(movers.to_league))
+    free = [l for l in leagues if l != le.ANCHOR]
+    idx = {l: i for i, l in enumerate(free)}
+    A = np.zeros((len(movers), len(free)))
+    y = np.log(movers.rate_to.values) - np.log(movers.rate_from.values)
+    for r, (_, m) in enumerate(movers.iterrows()):
+        if m.to_league != le.ANCHOR:
+            A[r, idx[m.to_league]] += 1.0
+        if m.from_league != le.ANCHOR:
+            A[r, idx[m.from_league]] -= 1.0
+    w = np.sqrt(movers.w.values.astype(float))
+    lam = PRIOR_MOVES * float(np.median(movers.w))
+    prior = np.zeros((len(free), len(free)))
+    for l, i in idx.items():
+        prior[i, i] = np.sqrt(lam) if counts.get(l, 0) < MIN_MOVERS else 1e-6
+    A2 = np.vstack([A * w[:, None], prior])
+    y2 = np.concatenate([y * w, np.zeros(len(free))])
+    x, *_ = np.linalg.lstsq(A2, y2, rcond=None)
+    rate = {le.ANCHOR: 1.0}
+    for l in free:
+        rate[l] = float(np.exp(-x[idx[l]]))          # e_L -> rate = 1 / e_L
+    return rate, counts
+
+
 def compute_equivalency(conn, stats):
     prim = eqr.primary_league_seasons(stats)
     movers = eqr.build_movers(prim)
     if movers.empty:
         print("  no qualifying movers yet — ingest more squads across leagues.")
-        return {}
+        return {}, {}
     if len(movers) < 8 or le.ANCHOR not in set(movers.from_league) | set(movers.to_league):
         print(f"  thin evidence: only {len(movers)} movers — coefficients provisional.")
-    coeff, _, _ = le.estimate_coefficients(movers)
-    counts = pd.concat([movers.from_league, movers.to_league]).value_counts().to_dict()
+    rate, counts = shrunk_rates(movers)
     linked = eqr.connected_to_anchor(movers)
-    coeff = {l: c for l, c in coeff.items()
-             if l == le.ANCHOR or counts.get(l, 0) >= MIN_MOVERS}
-    db.save_coefficients(conn, coeff, counts, linked)
-    return coeff
+    # only leagues joined to League Two by a chain of moves get a rate at all
+    rate = {l: c for l, c in rate.items() if l == le.ANCHOR or l in linked}
+    conf = {l: (1.0 if l == le.ANCHOR else min(1.0, counts.get(l, 0) / MIN_MOVERS))
+            for l in rate}
+    db.save_coefficients(conn, rate, counts, linked, conf)
+    thin = [l for l in rate if conf[l] < 1]
+    if thin:
+        print(f"  {len(thin)} league(s) rated on thin evidence, counted at reduced weight: "
+              + ", ".join(sorted(thin)[:8]) + (" …" if len(thin) > 8 else ""))
+    return rate, conf
 
 
 def summarise_player(g, coeff):
@@ -77,15 +116,16 @@ def summarise_player(g, coeff):
     if good.empty:
         return None
     latest_yr = int(good.season_yr.max())
-    w = (RECENCY ** (latest_yr - good.season_yr)) * good.appearances
+    w = (RECENCY ** (latest_yr - good.season_yr)) * good.appearances * good.conf
     level = float((good.adj * w).sum() / w.sum())        # SL2-equiv career level
     raw_level = float((good.per_app * w).sum() / w.sum())
-    peakset = good[good.appearances >= PEAK_APPS]
+    peakset = good[(good.appearances >= PEAK_APPS) & (good.conf >= 1)]
+    peakset = peakset if len(peakset) else good[good.appearances >= PEAK_APPS]
     peakset = peakset if len(peakset) else good.loc[[good.appearances.idxmax()]]
     pk = peakset.loc[peakset.adj.idxmax()]
     # stepped up: the league he's in NOW is stronger than his last established one
-    now_coeff = latest.coeff if pd.notna(latest.coeff) else None
-    est = good[(good.league_c != latest.league_c) & (good.appearances >= 8)]
+    now_coeff = latest.coeff if (pd.notna(latest.coeff) and latest.conf >= 1) else None
+    est = good[(good.league_c != latest.league_c) & (good.appearances >= 8) & (good.conf >= 1)]
     stepped_up = int(now_coeff is not None and len(est) > 0
                      and now_coeff > est.iloc[0].coeff * 1.05)
     # trend: needs two full-ish seasons, else too early to tell
@@ -93,7 +133,7 @@ def summarise_player(g, coeff):
     trend = "unknown"
     if len(full) >= 2:
         last, before = full.iloc[0], full.iloc[1:]
-        bw = (RECENCY ** (int(last.season_yr) - before.season_yr)) * before.appearances
+        bw = (RECENCY ** (int(last.season_yr) - before.season_yr)) * before.appearances * before.conf
         prior = float((before.adj * bw).sum() / bw.sum())
         trend = "steady"
         if prior > 0 and last.adj >= prior * 1.15:
@@ -105,6 +145,8 @@ def summarise_player(g, coeff):
         fl.append("few games")
     if pk.coeff <= 0.7:
         fl.append("peak in a weaker league")
+    if (good.conf < 1).any():
+        fl.append("thin league evidence")
     cur_apps = int(latest.appearances)
     return dict(
         player_id=int(latest.player_id), name=latest.get("player_name"),
@@ -124,11 +166,12 @@ def summarise_player(g, coeff):
         flags=", ".join(fl))
 
 
-def surface(conn, stats, coeff):
+def surface(conn, stats, coeff, conf=None):
     if not coeff:
         return pd.DataFrame()
     s = stats.copy()
     s["coeff"] = s.league_c.map(coeff)            # NaN = league with no rate yet
+    s["conf"] = s.league_c.map(conf or {}).fillna(0.0)
     s["adj"] = s.per_app * s.coeff
     prim = s.loc[s.groupby(["player_id", "season_yr"]).appearances.idxmax()]
 
@@ -153,10 +196,10 @@ def main(csv):
     n = ingest_csv(conn, csv)
     print(f"ingested {n} stat rows into the store ({db.DB_PATH})")
     stats = prepare_stats(conn)
-    coeff = compute_equivalency(conn, stats)
+    coeff, conf = compute_equivalency(conn, stats)
     print("\ncoefficients in the store:")
     print(db.get_coefficients(conn).to_string(index=False))
-    sl = surface(conn, stats, coeff)
+    sl = surface(conn, stats, coeff, conf)
     if sl.empty:
         print("\nnothing surfaced yet — need more data.")
         return
