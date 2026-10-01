@@ -13,7 +13,6 @@ fotmob_squad.csv
 fotmob_player_seasons.csv
 player_seasons_adjusted.csv
 shortlist_real.csv
-*.png
 
 # IDE
 .idea/

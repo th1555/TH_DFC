@@ -1,0 +1,10 @@
+{
+  // Tells Cloudflare to publish the "site" folder (made by export_site.py)
+  // as a static website. Nothing else in the repo is published.
+  // "name" must exactly match your Worker's name in the Cloudflare dashboard.
+  "name": "th-dfc",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site"
+  }
+}
