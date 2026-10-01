@@ -1,111 +1,113 @@
-# How the shortlist scores are worked out
+# How the scores work
 
-A plain-language guide. No maths background needed.
+Every forward gets two ratings out of 100: **Right now** (how productive he has
+been, adjusted for league strength) and **Going forward** (the same, adjusted for
+age and form). Both come from fixed rules applied to FotMob statistics. Contract
+status from Transfermarkt is shown alongside but never changes a rating.
 
----
-
-## The one-sentence version
-
-Every available player gets a **shortlist score between 0 and 1**. It answers a single question: *how good a recruit is this player for Dumbarton, all things considered?* Higher is better, and the list is simply sorted from highest to lowest so the human starts at the top.
-
-That single number is built from **three things multiplied together**:
-
-> **shortlist score = how well they fit × how gettable they are × how affordable they are**
-
-We multiply (rather than add) on purpose: if any one of the three is zero, the score is zero. A perfect fit you can't sign, or can't afford, is not a real recruit — and multiplying makes the maths agree with common sense.
-
-Before any of that can happen, though, we have to make players from different leagues comparable. That's step zero, and it's the clever part.
+This repo is private and the code holds every setting, so this page explains the
+method for maintainers. Share the infographic, not this page, outside the project.
 
 ---
 
-## Step 0 — Make everyone comparable (the "exchange rate")
+## 1. What counts
 
-Goals in a weak league aren't worth the same as goals in a strong one. If we ranked players on raw numbers, we'd sign whoever scored most against the worst defences. So first we convert every player's output onto one common **"SL2-equivalent" scale**, like converting foreign currencies into pounds.
+- **Output** = (goals + assists) ÷ games, per league season. Minutes aren't
+  reliable at this level, so everything is per game.
+- **League games only.** Cups are excluded. If a player appears in two leagues in
+  one season, the one with more games is used.
+- **A season counts once it has 10 or more games.** Shorter seasons stay on his
+  record and show as "this season so far", but don't move his rating.
+- **Identity is always current.** Club, league and age come from his latest season.
 
-How we get the exchange rate, cheaply: we watch players who **actually moved** between leagues and see how their output changed. If strikers moving from the Highland League to SL2 typically see their scoring drop to about two-thirds, then the Highland "exchange rate" is about **0.67**. SL2 itself is the reference point, fixed at **1.0**.
+## 2. Comparing leagues
 
-Then, for every player:
+Each league has an exchange rate against Scottish League Two (fixed at 1.00):
 
-> **adjusted output = raw output × their league's exchange rate**
+    adjusted output = actual output × league rate
 
-- A Highland striker with a raw **0.74** goal-contributions per 90 → **0.74 × 0.70 ≈ 0.52** once translated. His gaudy number shrinks.
-- A League One striker with a raw **0.35** → **0.35 × 1.30 ≈ 0.46**. His modest number *grows*, because doing it in a tougher league counts for more.
+- **Rates are learned from moves.** Every player who changed league between
+  consecutive seasons, with at least 5 games and some output on both sides, in
+  the last 6 seasons, is evidence. All moves are fitted together; moves with more
+  games carry more weight.
+- **Leagues are identified by FotMob league ID, never by name.** English League
+  Two and Scottish League Two are always separate. `league_info.py` adds each
+  league's country so labels read "Championship (England)".
+- **Thin leagues are rated cautiously.** A league needs 5 moves for full weight.
+  Below that it still gets a rate, pulled towards League Two as if 3 extra moves
+  said the leagues were equal, and its seasons count at 20% per move on record.
+- **Unlinked leagues get no rate.** A league with no chain of moves to League Two
+  shows on a player's record but doesn't count.
 
-Everything after this uses the **adjusted** number, never the raw one.
+## 3. Summarising a career
 
----
+- **Output level**: a weighted average of adjusted output over his last 4 counted
+  seasons. Each season's weight = games × 0.55 per year back × league evidence
+  weight. Last season counts about twice the one before.
+- **Best season**: his highest adjusted output in a counted season, preferring
+  well-evidenced leagues. It can never sit below his output level.
+- **Form**: his latest season of 12+ games against his earlier 12+ game seasons.
+  15% higher is *Improving*, 15% lower is *Dropping off*, otherwise *Steady*.
+  Fewer than two such seasons is *Too early to tell*.
+- **Stepped up**: his current league's rate is at least 5% above that of his last
+  counted league elsewhere (8+ games there), both well evidenced.
+- **Cautions** on his profile: under 20 counted games; best season in a league
+  rated 0.70 or below; seasons in thin-evidence leagues.
 
-## Step 1 — What does "proven SL2 success" look like?
+## 4. The ratings
 
-We build a **target profile** from strikers who genuinely did the job in SL2: strong adjusted output, plenty of minutes (the manager kept picking them), and not too old. We average those players together to get one profile, e.g.:
+- **Output score**: the share of current League Two forwards whose output level
+  is at or below his (0 to 1).
+- **Games score**: his counted games ÷ the typical League Two forward's, capped at 1.
 
-> the typical successful SL2 striker: **~0.61 adjusted output/90, age ~24, ~2,300 minutes a season**
+```
+Right now      = 100 × min(1, 0.7 × output score + 0.3 × games score)
+Going forward  = 100 × min(1, Right now base × age factor × form factor)
+```
 
-That profile is the yardstick every available player is measured against.
+| Age | Factor |
+| --- | --- |
+| 19 or under | 0.90 |
+| 20–26 | 1.00 |
+| 27–28 | 0.92 |
+| 29–30 | 0.82 |
+| 31–32 | 0.70 |
+| 33–34 | 0.58 |
+| 35+ | 0.48 |
+| Unknown | 0.90 |
 
----
+| Form | Factor |
+| --- | --- |
+| Improving | 1.08 |
+| Steady / too early to tell | 1.00 |
+| Dropping off | 0.90 |
+| Stepped up | at least 1.15 |
 
-## Step 2 — "How well they fit" (similarity)
+Several players can score 100 if they out-produce every League Two forward.
+Treat those as one top tier, not a strict order.
 
-For each available player we compare three features to the profile — **adjusted output**, **age**, and **minutes/durability** — and turn the gap into a score between 0 and 1, where **1 = a perfect match** for the profile and lower means further away.
+## 5. Contract status
 
-Two sensible rules are baked in:
+Transfermarkt players are matched to FotMob players by name and exact date of
+birth (name plus birth year if FotMob has no date; name alone only when one
+player fits; anything ambiguous is left unmatched). From the contract end date:
+*Contract ended*, *Ending soon* (within 8 months), *Under contract*, or *Date
+unclear*. Status is calculated when `match_market.py` runs, so rerun it with
+every refresh.
 
-- **Output and durability: only being *worse* counts against you.** If a player is *better* than the average SL2 success, that's a good thing, not a penalty. We only dock points when they fall short.
-- **Age counts both ways.** Too old is a risk; too young is unproven. Either direction moves them away from the profile.
+## Where the settings live
 
-Output matters most, so it carries the biggest weight (roughly 60%), with age and durability making up the rest. These weights are visible in the code and easy to tune.
+| Setting | File |
+| --- | --- |
+| Season minimums, recency, form and step-up rules, thin-league caution | `store_pipeline.py` |
+| Rules for which moves count | `equivalency_real.py` |
+| League identity and naming | `db.py`, `league_info.py` |
+| 70/30 weighting, age and form factors | `site_template.html` |
+| Contract window and matching | `match_market.py` |
 
----
+## Limits
 
-## Step 3 — "How gettable they are" (availability)
-
-A player is only useful if you can actually sign him. Each availability type gets a feasibility value:
-
-| Situation | Feasibility |
-|---|---|
-| Free agent (no club) | 1.0 |
-| Contract expiring soon | 0.7 |
-| Young player buried at a bigger club (loan candidate) | 0.6 |
-| Under contract, settled | 0.0 (filtered out) |
-
-Contracted players who aren't going anywhere are dropped before scoring — no point ranking players you can't get.
-
----
-
-## Step 4 — "How affordable they are" (affordability)
-
-We estimate a realistic weekly wage from the player's level, market value, and age, then compare it to a notional small-club budget. If the estimate is **within budget**, affordability = 1.0. If it's **over**, the score tapers off the further above budget it goes. Free agents get a small break, since there's no transfer fee.
-
-This is deliberately a rough proxy, not a real contract — it exists to stop the list recommending players who are financially out of reach.
-
----
-
-## Putting it together — a worked example
-
-Say an available **free-agent striker** comes back with:
-
-- fit (similarity) = **0.90**
-- availability (free agent) = **1.0**
-- affordability (within budget) = **1.0**
-
-> score = 0.90 × 1.0 × 1.0 = **0.90** → near the top of the list.
-
-Now a slightly better *fit* but harder to get:
-
-- fit = **0.96**, but availability (expiring, not free) = **0.7**, affordability = **1.0**
-
-> score = 0.96 × 0.7 × 1.0 = **0.67** → still good, but ranked below the free agent.
-
-That's the trade-off the score is designed to capture: a slightly worse fit you can sign today beats a marginally better one you might not.
-
----
-
-## What the score is — and isn't
-
-- It's a **prioritisation aid**, not a verdict. It puts the most promising, gettable, affordable options at the top so a human spends time on the right names.
-- **A person makes every call.** The tool can't see character, attitude, injuries, or how a player fits the dressing room — exactly the things that decide signings at this level. Those are the human's job.
-- **Flags travel with each row** — "small sample," "age risk," "big translation" (a large weak-league adjustment) — so the reader knows where to be cautious.
-- The numbers are **directional, not precise.** SL2 is a small league; treat a 0.90 vs 0.88 as "both strong," not "one is clearly better."
-
-In short: the score does the heavy lifting of comparing players fairly and surfacing realistic options — and then it gets out of the way and lets a person decide.
+Goals and assists can't separate two strikers with different styles; a 36-game
+season is a small sample; league rates are averages and flatter weaker leagues
+slightly; team strength is invisible; the age and form factors are judgement
+calls, not learned. The tool narrows the field. People make the decision.
