@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dumbarton FC · Forward shortlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Big+Shoulders+Display:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#F5B800;        /* Dumbarton gold */
+  --gold-deep:#C99700;
+  --gold-wash:#FFF4CC;
+  --basalt:#252A2F;      /* the Rock */
+  --slate:#59616A;
+  --mist:#EEF0F1;
+  --rule:#D8DCDF;
+  --paper:#FFFFFF;
+  --up:#2E7A4E;
+  --down:#A8412F;
+  --display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --text:"Atkinson Hyperlegible","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--mist);color:var(--basalt);font-family:var(--text);
+  font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--basalt);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---- programme-cover header: the one bold element ---- */
+.cover{background:var(--gold);color:var(--basalt);position:relative;overflow:hidden}
+.cover .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;
+  padding-top:34px;padding-bottom:26px;position:relative}
+.club{display:flex;align-items:center;gap:14px;font-weight:700;font-size:17px}
+.club img{height:58px;width:auto}
+.cover h1{font-family:var(--display);font-weight:900;font-size:clamp(52px,8.5vw,112px);
+  line-height:.86;letter-spacing:-.5px;margin:14px 0 0}
+.cover .meta{text-align:right;font-size:15px;line-height:1.45;padding-bottom:8px}
+.cover .meta b{display:block;font-family:var(--display);font-weight:800;font-size:30px;line-height:1}
+.cover:after{content:"";position:absolute;left:0;right:0;bottom:0;height:9px;background:var(--basalt)}
+
+/* ---- intro + controls ---- */
+.intro{padding:30px 0 8px;max-width:70ch}
+.intro p{margin:0 0 10px}
+.intro .quiet{color:var(--slate);font-size:15.5px}
+.controls{display:grid;grid-template-columns:auto 1fr;gap:18px 28px;align-items:start;
+  background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:20px 22px;margin:18px 0 22px}
+.lbl{font-weight:700;font-size:15px;margin-bottom:8px;display:block}
+.seg{display:inline-flex;border:2px solid var(--basalt);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--paper);padding:10px 18px;cursor:pointer;font-weight:700;font-size:16px}
+.seg button[aria-pressed="true"]{background:var(--basalt);color:var(--gold)}
+.mode-note{margin:10px 0 0;color:var(--slate);font-size:15px;max-width:44ch}
+.filters{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
+.field select,.field input[type=search]{border:1px solid #A9B0B6;border-radius:5px;background:var(--paper);
+  padding:9px 11px;min-width:190px;font-size:16px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #A9B0B6;background:var(--paper);border-radius:999px;padding:7px 13px;cursor:pointer;font-size:15px}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold-deep);font-weight:700}
+.check{display:flex;gap:8px;align-items:center;font-size:15.5px;padding-bottom:9px;cursor:pointer}
+.check input{width:19px;height:19px;accent-color:var(--basalt)}
+
+/* ---- ranked list ---- */
+.count{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:0 0 10px}
+.count h2{font-family:var(--display);font-weight:800;font-size:34px;margin:0;line-height:1}
+.count span{color:var(--slate);font-size:15px}
+.list{background:var(--paper);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.head,.row{display:grid;grid-template-columns:56px minmax(210px,2.2fr) 1.5fr .95fr 1.05fr 1fr 1.25fr;
+  gap:14px;align-items:center;padding:12px 20px}
+.head{font-size:14px;color:var(--slate);font-weight:700;border-bottom:2px solid var(--basalt);background:var(--paper)}
+.head .n{text-align:right}
+.row{width:100%;border:0;border-top:1px solid var(--rule);background:var(--paper);text-align:left;cursor:pointer}
+.row:first-of-type{border-top:0}
+.row:hover{background:#FAFAF6}
+.row:hover .surname{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.rank{font-family:var(--display);font-weight:800;font-size:30px;color:var(--basalt);line-height:1}
+.who .first{font-size:15px;color:var(--slate);display:block;line-height:1.2}
+.surname{font-family:var(--display);font-weight:800;font-size:29px;line-height:1;display:block;letter-spacing:.2px}
+.who .sub{font-size:14.5px;color:var(--slate);display:block;margin-top:4px}
+.rating{display:flex;align-items:center;gap:12px}
+.rating b{font-family:var(--display);font-weight:800;font-size:30px;min-width:44px;line-height:1}
+.bar{flex:1;height:10px;background:var(--mist);border-radius:2px;position:relative;max-width:150px}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--gold);border-right:3px solid var(--basalt);border-radius:2px}
+.num{font-family:var(--display);font-weight:800;font-size:25px;line-height:1}
+.num small{display:block;font-family:var(--text);font-weight:400;color:var(--slate);font-size:13.5px;line-height:1.3;margin-top:3px}
+.tag{display:inline-block;font-size:14.5px;padding:3px 9px;border-radius:4px;line-height:1.35;font-weight:700}
+.t-up{color:var(--up)} .t-down{color:var(--down)} .t-flat,.t-na{color:var(--slate);font-weight:400}
+.t-step{background:var(--basalt);color:var(--gold)}
+.a-soon{background:var(--gold-wash);color:#6B5000;border:1px solid #F0D67A}
+.a-free{background:var(--gold);color:var(--basalt)}
+.a-held,.a-none{color:var(--slate);font-weight:400;padding-left:0}
+.empty{padding:40px 20px;text-align:center;color:var(--slate)}
+.empty button{margin-top:10px}
+.btn{border:2px solid var(--basalt);background:var(--paper);border-radius:6px;padding:9px 16px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--basalt);color:var(--gold)}
+.under{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:14px 0 0;flex-wrap:wrap}
+.under p{margin:0;color:var(--slate);font-size:15px;max-width:70ch}
+
+/* ---- info sections ---- */
+.section{margin:56px 0 0;padding-top:26px;border-top:2px solid var(--basalt)}
+.section h2{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;margin:0 0 14px}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
+.section p{max-width:66ch;margin:0 0 12px}
+.lg{display:grid;grid-template-columns:minmax(110px,150px) minmax(140px,1fr) 52px 104px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
+.lg .track{height:14px;background:var(--mist);position:relative}
+.lg .track i{position:absolute;top:0;bottom:0;left:0;background:#8C949B}
+.lg .track .base{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--basalt)}
+.lg.anchor .track i{background:var(--gold)}
+.lg .v{font-family:var(--display);font-weight:800;font-size:22px;text-align:right}
+.lg .e{color:var(--slate);font-size:14px}
+.cando{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:6px}
+.cando h3{font-size:17px;margin:0 0 6px}
+.cando ul{margin:0;padding-left:20px}
+.cando li{margin:0 0 6px}
+footer{margin:60px 0 0;padding:22px 0 40px;color:var(--slate);font-size:14.5px;border-top:1px solid var(--rule)}
+
+/* ---- player profile drawer ---- */
+.scrim{position:fixed;inset:0;background:rgba(37,42,47,.45);opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(720px,100%);background:var(--paper);
+  transform:translateX(102%);visibility:hidden;transition:transform .28s cubic-bezier(.2,.7,.2,1),visibility 0s linear .28s;overflow-y:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:none;visibility:visible;transition:transform .28s cubic-bezier(.2,.7,.2,1);box-shadow:-18px 0 40px rgba(37,42,47,.18)}
+.d-top{background:var(--basalt);color:#fff;padding:22px 30px 24px;position:sticky;top:0;z-index:2}
+.d-top .close{float:right;background:transparent;border:2px solid #fff;color:#fff;border-radius:6px;padding:6px 12px;font-weight:700;cursor:pointer}
+.d-top .close:hover{background:#fff;color:var(--basalt)}
+.d-top .first{color:#C9CED3;font-size:17px}
+.d-top h2{font-family:var(--display);font-weight:900;font-size:clamp(46px,8vw,68px);line-height:.9;margin:2px 0 10px;color:var(--gold)}
+.d-top .line{font-size:16.5px;color:#E6E9EB}
+.d-body{padding:26px 30px 44px}
+.ratings{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.rbox{border:2px solid var(--rule);border-radius:6px;padding:14px 16px}
+.rbox.on{border-color:var(--basalt);background:#FFFBEA}
+.rbox .k{font-weight:700;font-size:15px}
+.rbox .v{font-family:var(--display);font-weight:900;font-size:54px;line-height:1;margin:4px 0 2px}
+.rbox .v span{font-size:24px;color:var(--slate);font-weight:600}
+.rbox p{margin:0;color:var(--slate);font-size:14.5px;line-height:1.4}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);margin-bottom:24px}
+.fact{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule)}
+.fact .k{font-size:14px;color:var(--slate)}
+.fact .v{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.05}
+.fact .s{font-size:13.5px;color:var(--slate);line-height:1.3}
+.note{border-left:5px solid var(--gold);background:#FFFCF0;padding:12px 16px;margin:0 0 12px;font-size:16px}
+.note.plain{border-left-color:var(--rule);background:var(--mist)}
+.note b{display:block}
+h3.d{font-family:var(--display);font-weight:800;font-size:26px;margin:28px 0 8px}
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--text);fill:var(--slate)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--slate);margin:6px 0 0}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:560px}
+th{white-space:nowrap;text-align:left;font-size:13.5px;color:var(--slate);font-weight:700;padding:9px 10px;border-bottom:2px solid var(--basalt);background:var(--paper)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+td.n,th.n{text-align:right}
+tr.cup td{color:var(--slate)}
+
+@media (max-width:980px){
+  .controls{grid-template-columns:1fr}
+  .head{display:none}
+  .row{grid-template-columns:44px 1fr auto;grid-template-areas:"r w s" "r d d";row-gap:8px}
+  .row>.rank{grid-area:r}.row>.who{grid-area:w}.row>.rating{grid-area:s}
+  .row>.hide-sm{display:none}
+  .row>.detail-sm{grid-area:d;display:flex!important;gap:12px;flex-wrap:wrap;font-size:14.5px;color:var(--slate)}
+  .bar{display:none}
+  .two,.cando{grid-template-columns:1fr}
+  .lg{grid-template-columns:130px 1fr 56px}.lg .e{display:none}
+  .facts{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:981px){.detail-sm{display:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .cover .wrap{flex-direction:column;align-items:flex-start;gap:14px}
+  .cover .meta{text-align:left}
+  .ratings{grid-template-columns:1fr}
+  .d-top,.d-body{padding-left:18px;padding-right:18px}
+}
+@media (prefers-reduced-motion:reduce){.drawer,.scrim{transition:none}}
+@media print{.controls,.scrim,.d-top .close,footer{display:none}}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div>
+      <div class="club"><img src="crest.png" alt="" onerror="this.remove()">Dumbarton FC recruitment</div>
+      <h1>Forward shortlist</h1>
+    </div>
+    <div class="meta" id="meta"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <p>Forwards from League Two and the leagues around it, ranked by how their goals and assists compare with proven League Two players once league strength is taken into account. Use it to decide who is worth watching. It does not make the decision.</p>
+    <p class="quiet">Select any player to see their full record, both ratings, and contract status.</p>
+  </section>
+
+  <section class="controls" aria-label="Ranking and filters">
+    <div>
+      <span class="lbl" id="modeLbl">Rank players by</span>
+      <div class="seg" role="group" aria-labelledby="modeLbl">
+        <button type="button" data-mode="now" aria-pressed="true">Best right now</button>
+        <button type="button" data-mode="fwd" aria-pressed="false">Best going forward</button>
+      </div>
+      <p class="mode-note" id="modeNote"></p>
+    </div>
+    <div class="filters">
+      <div class="field">
+        <span class="lbl" id="posLbl">Position</span>
+        <div class="chips" id="posChips" role="group" aria-labelledby="posLbl"></div>
+      </div>
+      <label class="field"><span class="lbl">Current league</span>
+        <select id="fLeague"><option value="">All leagues</option></select></label>
+      <label class="field"><span class="lbl">Contract</span>
+        <select id="fAvail">
+          <option value="">Any contract status</option>
+          <option value="gettable">Ending soon or ended</option>
+          <option value="found">Contract found</option>
+        </select></label>
+      <label class="field"><span class="lbl">Find a player or club</span>
+        <input id="fSearch" type="search" placeholder="Type a name"></label>
+      <label class="check"><input id="fOwn" type="checkbox" checked> Hide Dumbarton players</label>
+    </div>
+  </section>
+
+  <div class="count"><h2 id="countTitle"></h2><span id="countSub"></span></div>
+  <div class="list" id="list" aria-live="polite">
+    <div class="head" aria-hidden="true">
+      <span class="n">Rank</span><span>Player</span><span>Rating</span>
+      <span>Goals + assists per game</span><span>Best season</span><span>Form</span><span>Contract</span>
+    </div>
+    <div id="rows"></div>
+  </div>
+  <div class="under">
+    <p>Ratings are a guide. Read 88 and 84 as "both strong", not as a firm order.</p>
+    <button class="btn" id="download" type="button">Download this list</button>
+  </div>
+
+  <section class="section" id="leagues">
+    <div class="two">
+      <div>
+        <h2>How leagues compare</h2>
+        <p>Scoring in the Highland League is easier than scoring in the Championship, so every player's goals and assists are converted onto a League Two scale before anyone is compared.</p>
+        <p>A figure below 1 means a weaker league, so that player's numbers are scaled down. Above 1 means a stronger league, scaled up. The figures come from players who actually moved between these leagues and how their scoring changed.</p>
+      </div>
+      <div id="leagueBars"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What this tool can and cannot do</h2>
+    <div class="cando">
+      <div>
+        <h3>It can</h3>
+        <ul>
+          <li>Look across far more players than anyone has time to watch.</li>
+          <li>Compare players from different leagues fairly.</li>
+          <li>Weigh several seasons, not one lucky run, and show who is improving or has stepped up a level.</li>
+          <li>Show contract end dates where Transfermarkt has them.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>It cannot</h3>
+        <ul>
+          <li>Judge style, attitude, fitness or how a player fits the dressing room. That still needs someone to watch him.</li>
+          <li>Tell apart two strikers with the same tally but very different games. That needs paid match data such as Wyscout.</li>
+          <li>Guarantee a contract date is current. Check before approaching a player.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>Statistics from FotMob. Contract dates from Transfermarkt. Ratings are calculated automatically from those figures and are not anyone's opinion.</footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dName" aria-hidden="true" tabindex="-1"></aside>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+/* ---------- labels in plain words ---------- */
+const LEAGUE = {"SL2":"League Two","Highland / Lowland":"Highland/Lowland League",
+  "League One":"League One","Championship":"Championship","Premiership":"Premiership"};
+const lg = n => LEAGUE[n] || n || "Unknown league";
+const lgThe = n => (["Championship","Premiership"].includes(n) ? "the " : "") + lg(n);
+const SHORT = {"SL2":"League Two","Highland / Lowland":"Highland/Low.","League One":"League One","Championship":"Champ.","Premiership":"Prem."};
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+function niceDate(iso){ if(!iso) return ""; const [y,m,d]=String(iso).slice(0,10).split("-").map(Number);
+  return d && m ? `${d} ${MONTHS[m-1]} ${y}` : String(iso); }
+function niceSeason(s){ if(!s) return ""; s=String(s); const m=s.match(/^(\d{4})\/(\d{4})$/); return m ? `${m[1]}/${m[2].slice(2)}` : s; }
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const f2 = v => (v==null || isNaN(v)) ? "–" : Number(v).toFixed(2);
+
+function form(p){
+  if (p.stepped_up) return {cls:"t-step", text:"Stepped up", long:"Recently moved up to a stronger league."};
+  return ({rising:{cls:"t-up",text:"Improving",long:"His last full season was clearly better than the ones before."},
+           declining:{cls:"t-down",text:"Dropping off",long:"His last full season was clearly weaker than the ones before."},
+           steady:{cls:"t-flat",text:"Steady",long:"Consistent across recent full seasons."}}[p.trend])
+         || {cls:"t-na", text:"Too early to tell", long:"Fewer than two full seasons on record, so no trend yet."};
+}
+function contract(p){
+  const a = p.availability;
+  if (a==="lapsed")    return {cls:"a-free", text:"Contract ended", long:`His contract on Transfermarkt ended on ${niceDate(p.contract_expiry)}. He may be a free agent, or the record may be out of date.`};
+  if (a==="expiring")  return {cls:"a-soon", text:"Ending soon", long:`His contract runs until ${niceDate(p.contract_expiry)}, within the next eight months, so he could be available.`};
+  if (a==="contracted")return {cls:"a-held", text:"Under contract", long:`Under contract until ${niceDate(p.contract_expiry)}.`};
+  if (a==="unknown")   return {cls:"a-none", text:"Date unclear", long:"Found on Transfermarkt, but no contract end date is listed."};
+  return {cls:"a-none", text:"Not found", long:"Not matched to a Transfermarkt profile yet, so contract status is unknown."};
+}
+
+/* ---------- rating: same maths as the Python version ---------- */
+const players = DATA.players;
+const NEWEST = Object.values(DATA.histories).flat().map(h => String(h.season||"")).sort().pop() || "";
+const sl2 = players.filter(p => p.league === "SL2");
+const REF = sl2.map(p => p.level).sort((a,b) => a-b);
+const TARGET = (() => { const a = sl2.map(p => p.career_apps).sort((x,y)=>x-y); return a.length ? a[Math.floor(a.length/2)] : 60; })();
+function pct(v){ let lo=0, hi=REF.length; while(lo<hi){ const m=(lo+hi)>>1; if(REF[m]<=v) lo=m+1; else hi=m; } return REF.length ? lo/REF.length : 0; }
+function ageF(a){ if(a==null) return .9; if(a<=19) return .9; if(a<=26) return 1; if(a<=28) return .92; if(a<=30) return .82; if(a<=32) return .7; if(a<=34) return .58; return .48; }
+function trajF(p){ let f={rising:1.08,steady:1,declining:.9}[p.trend] ?? 1; return p.stepped_up ? Math.max(f,1.15) : f; }
+players.forEach(p => {
+  const base = .7*pct(p.level) + .3*Math.min(1, (p.career_apps||0)/Math.max(1,TARGET));
+  p.rNow = Math.round(Math.min(1, base) * 100);
+  p.rFwd = Math.round(Math.min(1, base * ageF(p.age) * trajF(p)) * 100);
+  const bits = String(p.name||"").trim().split(/\s+/);
+  p.surname = bits.length > 1 ? bits.slice(1).join(" ") : bits[0];
+  p.first = bits.length > 1 ? bits[0] : "";
+});
+
+/* ---------- state + filters ---------- */
+const S = {mode:"now", groups:new Set(), league:"", avail:"", q:"", hideOwn:true};
+const GROUPS = ["Striker","Winger","Attacking midfielder"].filter(g => players.some(p => p.group===g));
+GROUPS.forEach(g => S.groups.add(g));
+const $ = id => document.getElementById(id);
+
+$("meta").innerHTML = `<b>${players.length}</b> forwards assessed<br>Figures as of ${esc(niceDate(DATA.updated))}`;
+$("posChips").innerHTML = GROUPS.map(g => `<button type="button" class="chip" data-g="${esc(g)}" aria-pressed="true">${esc(g)}s</button>`).join("");
+[...new Set(players.map(p => p.league))].sort((a,b)=>lg(a).localeCompare(lg(b)))
+  .forEach(l => $("fLeague").insertAdjacentHTML("beforeend", `<option value="${esc(l)}">${esc(lg(l))}</option>`));
+
+function visible(){
+  const q = S.q.trim().toLowerCase();
+  return players.filter(p =>
+    S.groups.has(p.group) &&
+    (!S.league || p.league === S.league) &&
+    (!S.hideOwn || !/dumbarton/i.test(p.club||"")) &&
+    (!S.avail || (S.avail==="gettable" ? ["expiring","lapsed"].includes(p.availability) : p.availability!=null)) &&
+    (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q))
+  ).sort((a,b) => (S.mode==="fwd" ? b.rFwd-a.rFwd : b.rNow-a.rNow) || b.level-a.level);
+}
+
+function render(){
+  const list = visible();
+  $("modeNote").textContent = S.mode==="fwd"
+    ? "Also counts age and form: younger players and those improving move up, players past their peak move down. Best for a signing you want for a few seasons."
+    : "Based purely on goals and assists over recent seasons, adjusted for league strength. Best for someone to help this season.";
+  $("countTitle").textContent = `${list.length} ${list.length===1?"player":"players"}`;
+  $("countSub").textContent = S.mode==="fwd" ? "Ranked for the next few seasons" : "Ranked on current output";
+  if (!list.length){
+    $("rows").innerHTML = `<div class="empty">No players match these filters.<br><button class="btn" type="button" id="reset">Clear filters</button></div>`;
+    $("reset").onclick = resetFilters; return;
+  }
+  $("rows").innerHTML = list.map((p,i) => {
+    const r = S.mode==="fwd" ? p.rFwd : p.rNow, fm = form(p), ct = contract(p);
+    return `<button type="button" class="row" data-id="${p.player_id}" aria-label="${esc(p.name)}, rated ${r}. Open profile">
+      <span class="rank">${i+1}</span>
+      <span class="who"><span class="first">${esc(p.first)}</span><span class="surname">${esc(p.surname)}</span>
+        <span class="sub">${esc(p.club||"Club unknown")}, ${esc(lg(p.league))}${p.age!=null?`, ${p.age}`:""}</span></span>
+      <span class="rating"><b>${r}</b><span class="bar"><i style="width:${r}%"></i></span></span>
+      <span class="num hide-sm">${f2(p.level)}<small>league-adjusted</small></span>
+      <span class="num hide-sm">${f2(p.peak)}<small>${esc(niceSeason(p.peak_season))}</small></span>
+      <span class="hide-sm"><span class="tag ${fm.cls}">${fm.text}</span></span>
+      <span class="hide-sm"><span class="tag ${ct.cls}">${ct.text}</span></span>
+      <span class="detail-sm"><span>${f2(p.level)} per game</span><span class="tag ${fm.cls}">${fm.text}</span><span class="tag ${ct.cls}">${ct.text}</span></span>
+    </button>`;
+  }).join("");
+}
+
+function resetFilters(){
+  S.league=""; S.avail=""; S.q=""; S.hideOwn=true; GROUPS.forEach(g=>S.groups.add(g));
+  $("fLeague").value=""; $("fAvail").value=""; $("fSearch").value=""; $("fOwn").checked=true;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","true"));
+  render();
+}
+
+document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
+  S.mode = b.dataset.mode;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
+  render();
+});
+$("posChips").onclick = e => {
+  const c = e.target.closest(".chip"); if(!c) return;
+  const g = c.dataset.g;
+  if (S.groups.has(g) && S.groups.size===1) return;       // keep at least one
+  S.groups.has(g) ? S.groups.delete(g) : S.groups.add(g);
+  c.setAttribute("aria-pressed", String(S.groups.has(g))); render();
+};
+$("fLeague").onchange = e => { S.league = e.target.value; render(); };
+$("fAvail").onchange  = e => { S.avail = e.target.value; render(); };
+$("fSearch").oninput  = e => { S.q = e.target.value; render(); };
+$("fOwn").onchange    = e => { S.hideOwn = e.target.checked; render(); };
+$("rows").onclick = e => { const r = e.target.closest(".row"); if (r) openPlayer(Number(r.dataset.id), r); };
+
+/* ---------- download ---------- */
+$("download").onclick = () => {
+  const cols = ["Rank","Player","Club","League","Position","Age","Rating right now","Rating going forward",
+    "Goals+assists per game (adjusted)","Best season (adjusted)","Best season year","Form","Contract","Contract ends"];
+  const rows = visible().map((p,i) => [i+1,p.name,p.club,lg(p.league),p.position,p.age??"",p.rNow,p.rFwd,
+    f2(p.level),f2(p.peak),niceSeason(p.peak_season),form(p).text,contract(p).text,p.contract_expiry?String(p.contract_expiry).slice(0,10):""]);
+  const csv = [cols,...rows].map(r => r.map(v => `"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff"+csv], {type:"text/csv"}));
+  a.download = `dumbarton-forward-shortlist-${S.mode==="fwd"?"going-forward":"right-now"}.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+};
+
+/* ---------- league section ---------- */
+(() => {
+  const L = [...DATA.leagues].sort((a,b)=>a.rate-b.rate);
+  const max = Math.max(...L.map(l=>l.rate), 1.5);
+  $("leagueBars").innerHTML = L.map(l => `
+    <div class="lg${l.name==="SL2"?" anchor":""}">
+      <span>${esc(lg(l.name))}</span>
+      <span class="track"><i style="width:${(l.rate/max*100).toFixed(1)}%"></i><span class="base" style="left:${(1/max*100).toFixed(1)}%"></span></span>
+      <span class="v">${l.rate.toFixed(2)}</span>
+      <span class="e">${l.name==="SL2" ? "the baseline" : `from ${l.movers} moves`}</span>
+    </div>`).join("");
+})();
+
+/* ---------- player profile ---------- */
+let lastFocus = null;
+function chart(hist){
+  const rows = hist.filter(h => h.apps >= 3).slice(0, 8).reverse();
+  if (!rows.length) return `<p class="note plain">No league seasons with enough games to chart.</p>`;
+  const W=640, H=246, padL=36, padB=62, padT=16, bw=Math.min(96,(W-padL-10)/rows.length);
+  const vals = rows.map(h => h.adj ?? h.raw ?? 0);
+  const top = Math.max(1, ...vals) * 1.1;
+  const y = v => padT + (H-padT-padB) * (1 - v/top);
+  const peak = Math.max(...rows.filter(h=>h.adj!=null && h.apps>=10).map(h=>h.adj), -1);
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Goals and assists per game by season">`;
+  const stepG = top > 2.2 ? 1 : .5; const ticks=[]; for(let t=0; t<=top+1e-9; t+=stepG) ticks.push(t);
+  ticks.forEach(t =>
+    s += `<line x1="${padL}" x2="${W}" y1="${y(t)}" y2="${y(t)}" stroke="#D8DCDF"/><text x="${padL-6}" y="${y(t)+4}" font-size="12" text-anchor="end">${t.toFixed(1)}</text>`);
+  rows.forEach((h,i) => {
+    const x = padL + i*bw + bw*.18, w = Math.min(bw*.64, 60), v = h.adj ?? h.raw ?? 0;
+    const unrated = h.adj == null, small = h.apps < 10, isPeak = !unrated && !small && h.adj === peak;
+    const fill = unrated ? "url(#hatch)" : isPeak ? "#F5B800" : small ? "#C3C8CD" : "#252A2F";
+    s += `<rect x="${x}" y="${y(v)}" width="${w}" height="${Math.max(1, y(0)-y(v))}" fill="${fill}" stroke="${isPeak?"#252A2F":"none"}" stroke-width="${isPeak?2:0}"><title>${esc(niceSeason(h.season))}, ${esc(h.club)}, ${esc(lg(h.league))}: ${h.apps} games, ${f2(v)} per game${unrated?" (not adjusted)":""}</title></rect>`;
+    s += `<text x="${x+w/2}" y="${H-padB+18}" font-size="12.5" text-anchor="middle">${esc(niceSeason(h.season))}</text>`;
+    s += `<text x="${x+w/2}" y="${H-padB+33}" font-size="11.5" text-anchor="middle">${esc(SHORT[h.league] || String(h.league||"").split(" ")[0])}</text>`;
+    s += `<text x="${x+w/2}" y="${H-padB+48}" font-size="11.5" text-anchor="middle">${h.apps} games</text>`;
+  });
+  s += `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#EEF0F1"/><line x1="0" y1="0" x2="0" y2="6" stroke="#9AA2A9" stroke-width="2"/></pattern></defs></svg>`;
+  return s + `<div class="legend"><span><i style="background:#252A2F"></i>League season, adjusted</span><span><i style="background:#F5B800;outline:2px solid #252A2F"></i>Best season</span><span><i style="background:#C3C8CD"></i>Under 10 games</span><span><i style="background:repeating-linear-gradient(45deg,#EEF0F1 0 3px,#9AA2A9 3px 5px)"></i>League we can't adjust yet</span></div>`;
+}
+
+function openPlayer(id, from){
+  const p = players.find(x => x.player_id === id); if (!p) return;
+  lastFocus = from || document.activeElement;
+  const hist = DATA.histories[String(id)] || [];
+  const fm = form(p), ct = contract(p);
+  const pos = p.position ? p.position : p.group;
+  const isCurrent = p.cur_season && String(p.cur_season) === NEWEST;
+  const cur = isCurrent && p.cur_apps
+    ? `${p.cur_apps} ${p.cur_apps===1?"game":"games"}, ${p.cur_goals} ${p.cur_goals===1?"goal":"goals"} and ${p.cur_assists} ${p.cur_assists===1?"assist":"assists"} in ${esc(niceSeason(p.cur_season))}.` : "";
+  const curNote = p.cur_counted ? "" : " Not yet counted in his rating: a season needs ten games before it does.";
+  const notes = [];
+  if (p.stepped_up) notes.push(`<div class="note"><b>Stepped up a level</b>${p.peak_league !== p.league
+      ? `He now plays in ${esc(lgThe(p.league))}, a stronger league than ${esc(lgThe(p.peak_league).replace(/^(?!the )/,'the '))} where his best numbers came. His rating leans on that earlier form, so watch how he copes at the new level.`
+      : `He recently moved up to ${esc(lgThe(p.league))} and has kept producing at the higher level.`}</div>`);
+  if ((p.flags||"").includes("weaker league")) notes.push(`<div class="note"><b>Best form came in a weaker league</b>His numbers have been scaled down to reflect that, but the gap between levels is real.</div>`);
+  if ((p.flags||"").includes("few games")) notes.push(`<div class="note plain"><b>Not many games to go on</b>Fewer than 20 games in the seasons we rate, so treat the figures with care.</div>`);
+
+  $("drawer").innerHTML = `
+    <div class="d-top">
+      <button class="close" type="button" id="dClose">Close</button>
+      <div class="first">${esc(p.first)}</div>
+      <h2 id="dName">${esc(p.surname)}</h2>
+      <div class="line">${esc(pos)} at ${esc(p.club||"an unknown club")}, ${esc(lg(p.league))}${p.age!=null?`. Age ${p.age}`:""}</div>
+    </div>
+    <div class="d-body">
+      <div class="ratings">
+        <div class="rbox${S.mode==="now"?" on":""}"><div class="k">Right now</div><div class="v">${p.rNow}<span> / 100</span></div><p>Output over recent seasons, adjusted for league strength.</p></div>
+        <div class="rbox${S.mode==="fwd"?" on":""}"><div class="k">Going forward</div><div class="v">${p.rFwd}<span> / 100</span></div><p>Also weighs age${p.age!=null?` (${p.age})`:""} and form (${fm.text.toLowerCase()}).</p></div>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Goals + assists per game</div><div class="v">${f2(p.level)}</div><div class="s">adjusted to League Two, recent seasons</div></div>
+        <div class="fact"><div class="k">Before adjustment</div><div class="v">${f2(p.raw_level)}</div><div class="s">his actual rate in his own leagues</div></div>
+        <div class="fact"><div class="k">Best season</div><div class="v">${f2(p.peak)}</div><div class="s">${esc(niceSeason(p.peak_season))}${p.peak_club?`, ${esc(p.peak_club)}`:""}, ${esc(lg(p.peak_league))}</div></div>
+        <div class="fact"><div class="k">Games counted</div><div class="v">${p.career_apps}</div><div class="s">across ${p.seasons_rated} ${p.seasons_rated===1?"season":"seasons"}</div></div>
+        <div class="fact"><div class="k">Goals</div><div class="v">${p.career_goals}</div><div class="s">in those games</div></div>
+        <div class="fact"><div class="k">Assists</div><div class="v">${p.career_assists}</div><div class="s">in those games</div></div>
+      </div>
+      <div class="note${["expiring","lapsed"].includes(p.availability)?"":" plain"}"><b>Contract: ${ct.text.toLowerCase()}</b>${ct.long}</div>
+      ${p.stepped_up ? "" : `<div class="note plain"><b>Form: ${fm.text.toLowerCase()}</b>${fm.long}</div>`}
+      ${cur ? `<div class="note plain"><b>This season so far</b>${cur}${curNote}</div>` : ""}
+      ${notes.join("")}
+      <h3 class="d">Season by season</h3>
+      ${chart(hist)}
+      <h3 class="d">Full record</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Season</th><th>Club</th><th>League</th><th class="n">Games</th><th class="n">Goals</th><th class="n">Assists</th><th class="n">Per game</th><th class="n">Adjusted</th><th>Move</th></tr></thead>
+        <tbody>${hist.map(h => `<tr><td>${esc(niceSeason(h.season))}</td><td>${esc(h.club)}</td><td>${esc(lg(h.league))}</td><td class="n">${h.apps}</td><td class="n">${h.goals}</td><td class="n">${h.assists}</td><td class="n">${f2(h.raw)}</td><td class="n">${h.adj==null?"–":f2(h.adj)}</td><td>${esc(h.move||"")}</td></tr>`).join("")}</tbody>
+      </table></div>
+    </div>`;
+  $("drawer").classList.add("open"); $("scrim").classList.add("open");
+  $("drawer").setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+  $("dClose").onclick = closePlayer; $("dClose").focus();
+  history.replaceState(null, "", `#player-${id}`);
+}
+function closePlayer(){
+  $("drawer").classList.remove("open"); $("scrim").classList.remove("open");
+  $("drawer").setAttribute("aria-hidden","true"); document.body.style.overflow="";
+  history.replaceState(null, "", location.pathname);
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$("scrim").onclick = closePlayer;
+document.addEventListener("keydown", e => {
+  if (e.key==="Escape" && $("drawer").classList.contains("open")) closePlayer();
+  if (e.key==="Tab" && $("drawer").classList.contains("open")){
+    const f = $("drawer").querySelectorAll("button,[href],input,select,[tabindex]:not([tabindex='-1'])");
+    if (!f.length) return; const a=f[0], z=f[f.length-1];
+    if (e.shiftKey && document.activeElement===a){ z.focus(); e.preventDefault(); }
+    else if (!e.shiftKey && document.activeElement===z){ a.focus(); e.preventDefault(); }
+  }
+});
+
+render();
+const m = location.hash.match(/^#player-(\d+)$/); if (m) openPlayer(Number(m[1]));
+</script>
+</body>
+</html>
