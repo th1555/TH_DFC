@@ -80,7 +80,7 @@ def main():
     names = db.league_names(conn, zip(hist.league_id, hist.league_name))
     hist["canonical"] = [names[(int(i) if pd.notna(i) else 0, str(n))]
                          for i, n in zip(hist.league_id, hist.league_name)]
-    hist["cup"] = [bool(cupmap.get(i, bool(c))) or ("cup" in str(n).lower())
+    hist["cup"] = [bool(cupmap.get(i, bool(c))) or db.is_not_league(n)
                    for i, c, n in zip(hist.league_id, hist.is_cup, hist.league_name)]
     hist = hist[~hist.cup & (hist.appearances > 0)]
     hist["rate"] = hist.canonical.map(rate)

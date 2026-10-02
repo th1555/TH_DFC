@@ -8,6 +8,7 @@ Stores club (team) per season and age per player; shortlist is a computed
 table replaced wholesale each run.
 """
 from __future__ import annotations
+import re
 import sqlite3
 from datetime import datetime, timezone
 import pandas as pd
@@ -171,6 +172,15 @@ def load_countries(path=COUNTRIES_CSV):
     df = pd.read_csv(path)
     df = df.dropna(subset=["league_id", "country"])
     return {int(i): str(c) for i, c in zip(df.league_id, df.country)}
+
+
+NON_LEAGUE = re.compile(r"cup|trophy|europa|conference league|champions league|"
+                        r"qualification|play-?offs?|super cup|shield", re.I)
+
+
+def is_not_league(name):
+    """Cups, European games, trophies and play-offs are not league seasons."""
+    return bool(NON_LEAGUE.search(str(name or "")))
 
 
 def league_names(conn, pairs):

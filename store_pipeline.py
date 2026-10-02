@@ -46,7 +46,7 @@ def prepare_stats(conn):
     names = db.league_names(conn, zip(stats.league_id, stats.league_name))
     stats["league_c"] = [names[(int(i) if pd.notna(i) else 0, str(n))]
                          for i, n in zip(stats.league_id, stats.league_name)]
-    stats["is_cup2"] = [bool(cupmap.get(i, bool(c))) or ("cup" in str(n).lower())
+    stats["is_cup2"] = [bool(cupmap.get(i, bool(c))) or db.is_not_league(n)
                         for i, c, n in zip(stats.league_id, stats.is_cup, stats.league_name)]
     stats = stats[(~stats.is_cup2) & (stats.appearances > 0)].copy()
     stats["season_yr"] = stats.season.astype(str).str[:4].astype(int)
