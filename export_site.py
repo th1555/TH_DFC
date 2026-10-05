@@ -96,10 +96,19 @@ def main():
                  move=clean(r.transfer_type))
             for r in g.itertuples()]
 
+    # country of every league, so the site can tell Scottish / UK & Irish clubs apart
+    allp = pd.read_sql("SELECT DISTINCT league_id, league_name FROM player_season_stats", conn)
+    allnames = db.league_names(conn, zip(allp.league_id, allp.league_name))
+    countries = db.load_countries()
+    canon_country = {}
+    for (i, n), c in allnames.items():
+        canon_country.setdefault(c, countries.get(i) or ("Scotland" if i in (123, 124, 125) else None))
+
     players = []
     for r in sl.to_dict("records"):
         rec = {k: clean(v) for k, v in r.items() if k != "computed_at"}
         rec["group"] = pos_group(rec.get("position"))
+        rec["league_country"] = canon_country.get(rec.get("league"))
         players.append(rec)
 
     updated = str(sl.computed_at.max())[:10] if "computed_at" in sl.columns and len(sl) else None
@@ -108,7 +117,8 @@ def main():
         players=players,
         histories=histories,
         leagues=[dict(name=r.canonical, rate=round(float(r.coeff_to_sl2), 3),
-                      movers=int(r.n_movers), confidence=round(float(r.confidence), 2))
+                      movers=int(r.n_movers), confidence=round(float(r.confidence), 2),
+                      country=canon_country.get(r.canonical))
                  for r in co.itertuples()],
     )
     conn.close()

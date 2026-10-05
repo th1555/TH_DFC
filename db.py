@@ -92,6 +92,7 @@ MIGRATIONS = [
     ("players", "dob", "TEXT"),
     ("league_coefficients", "confidence", "REAL"),
     ("ref_leagues", "country", "TEXT"),
+    ("players", "nationality", "TEXT"),
 ]
 
 
@@ -119,14 +120,17 @@ def upsert_players(conn, df):
         pid = _int_safe(r.player_id, None)
         if pid is None or pid in seen:
             continue
+        nat = r.get("nationality")
+        nat = None if (nat is None or (isinstance(nat, float) and pd.isna(nat))) else str(nat)
         seen[pid] = (pid, r.get("player_name"), r.get("position"),
-                     _int_safe(r.get("age"), None), r.get("dob"), None, "fotmob", now())
+                     _int_safe(r.get("age"), None), r.get("dob"), nat, None, "fotmob", now())
     conn.executemany(
-        "INSERT INTO players (player_id,name,position,age,dob,current_team_id,source,fetched_at) "
-        "VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
+        "INSERT INTO players (player_id,name,position,age,dob,nationality,current_team_id,source,fetched_at) "
+        "VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(player_id) DO UPDATE SET "
         "name=excluded.name, position=excluded.position, "
         "age=COALESCE(excluded.age, players.age), "
-        "dob=COALESCE(excluded.dob, players.dob), fetched_at=excluded.fetched_at",
+        "dob=COALESCE(excluded.dob, players.dob), "
+        "nationality=COALESCE(excluded.nationality, players.nationality), fetched_at=excluded.fetched_at",
         list(seen.values()))
     conn.commit()
 
@@ -171,7 +175,16 @@ def load_countries(path=COUNTRIES_CSV):
         return {}
     df = pd.read_csv(path)
     df = df.dropna(subset=["league_id", "country"])
-    return {int(i): str(c) for i, c in zip(df.league_id, df.country)}
+    return {int(i): CODE_NAMES.get(str(c).strip().upper(), str(c).strip())
+            for i, c in zip(df.league_id, df.country)}
+
+
+CODE_NAMES = {"SCO": "Scotland", "ENG": "England", "IRL": "Ireland", "NIR": "Northern Ireland",
+              "WAL": "Wales", "TUR": "Turkey", "AUT": "Austria", "POL": "Poland", "ISR": "Israel",
+              "LVA": "Latvia", "ROU": "Romania", "EGY": "Egypt", "KSA": "Saudi Arabia",
+              "GRE": "Greece", "SUI": "Switzerland", "INT": "International", "UKR": "Ukraine",
+              "BUL": "Bulgaria", "SRB": "Serbia", "CRO": "Croatia", "CZE": "Czechia",
+              "SVK": "Slovakia", "HUN": "Hungary", "LTU": "Lithuania", "EST": "Estonia"}
 
 
 NON_LEAGUE = re.compile(r"cup|trophy|europa|conference league|champions league|"
@@ -254,7 +267,8 @@ def get_market(conn):
 
 def get_stats_df(conn):
     return pd.read_sql(
-        "SELECT s.*, p.name AS player_name, p.position AS position, p.age AS age "
+        "SELECT s.*, p.name AS player_name, p.position AS position, p.age AS age, "
+        "p.nationality AS nationality "
         "FROM player_season_stats s LEFT JOIN players p USING(player_id)", conn)
 
 

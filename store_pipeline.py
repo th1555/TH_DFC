@@ -152,6 +152,8 @@ def summarise_player(g, coeff):
         player_id=int(latest.player_id), name=latest.get("player_name"),
         club=latest.get("team"), league=latest.league_c,
         position=latest.get("position"),
+        nationality=(None if pd.isna(latest.get("nationality")) else latest.get("nationality"))
+        if "nationality" in latest else None,
         age=None if pd.isna(latest.get("age")) else int(latest.age),
         level=round(level, 3), raw_level=round(raw_level, 3),
         peak=round(float(pk.adj), 3), peak_season=str(pk.get("season")),

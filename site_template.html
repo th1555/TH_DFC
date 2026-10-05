@@ -64,6 +64,19 @@ button,input,select{font:inherit;color:inherit}
 .check{display:flex;gap:8px;align-items:center;font-size:15.5px;padding-bottom:9px;cursor:pointer}
 .check input{width:19px;height:19px;accent-color:var(--basalt)}
 
+/* ---- view tabs (the funnel) ---- */
+.views{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:26px 0 0;border:2px solid var(--basalt);border-radius:8px;overflow:hidden;background:var(--paper)}
+.views button{border:0;border-left:2px solid var(--basalt);background:var(--paper);padding:14px 16px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.views button:first-child{border-left:0}
+.views button b{font-family:var(--display);font-weight:800;font-size:25px;line-height:1.05}
+.views button span{font-size:14.5px;color:var(--slate)}
+.views button[aria-pressed="true"]{background:var(--basalt);color:var(--gold)}
+.views button[aria-pressed="true"] span{color:#D4D8DC}
+.view-note{margin:12px 0 0;max-width:80ch;font-size:16px}
+.view-note.warn{background:var(--gold-wash);border:1px solid #F0D67A;border-radius:6px;padding:10px 14px}
+.why{display:block;margin-top:6px;font-size:14.5px;color:#4F4100;font-weight:700}
+@media (max-width:760px){.views{grid-template-columns:repeat(2,minmax(0,1fr))}.views button:nth-child(3){border-left:0}.views button:nth-child(n+3){border-top:2px solid var(--basalt)}}
+
 /* ---- ranked list ---- */
 .count{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:0 0 10px}
 .count h2{font-family:var(--display);font-weight:800;font-size:34px;margin:0;line-height:1}
@@ -202,8 +215,16 @@ tr.cup td{color:var(--slate)}
     <p class="quiet">Select any player to see their full record, both ratings, and contract status.</p>
   </section>
 
+  <nav class="views" id="views" aria-label="Which players to show">
+    <button type="button" data-view="all" aria-pressed="false"><b>All players</b><span id="cnt-all"></span></button>
+    <button type="button" data-view="uki" aria-pressed="false"><b>UK &amp; Irish</b><span id="cnt-uki"></span></button>
+    <button type="button" data-view="sco" aria-pressed="false"><b>Scottish</b><span id="cnt-sco"></span></button>
+    <button type="button" data-view="rec" aria-pressed="true"><b>Recommended</b><span id="cnt-rec"></span></button>
+  </nav>
+  <p class="view-note" id="viewNote"></p>
+
   <section class="controls" aria-label="Ranking and filters">
-    <div>
+    <div id="rankBlock">
       <span class="lbl" id="modeLbl">Rank players by</span>
       <div class="seg" role="group" aria-labelledby="modeLbl">
         <button type="button" data-mode="now" aria-pressed="true">Best right now</button>
@@ -342,7 +363,60 @@ players.forEach(p => {
 });
 
 /* ---------- state + filters ---------- */
-const S = {mode:"now", groups:new Set(), league:"", avail:"", q:"", hideOwn:true};
+const S = {view:"rec", mode:"now", groups:new Set(), league:"", avail:"", q:"", hideOwn:true};
+
+/* ---------- nationality + recommendation rules ---------- */
+const UKI = new Set(["Scotland","England","Wales","Northern Ireland","Ireland","Republic of Ireland"]);
+const DEMONYM = {"Scotland":"Scottish","England":"English","Wales":"Welsh","Northern Ireland":"Northern Irish","Ireland":"Irish","Republic of Ireland":"Irish",
+  "France":"French","Nigeria":"Nigerian","Poland":"Polish","Netherlands":"Dutch","Germany":"German","Spain":"Spanish","Portugal":"Portuguese",
+  "Italy":"Italian","Belgium":"Belgian","USA":"American","United States":"American","Canada":"Canadian","Australia":"Australian",
+  "New Zealand":"New Zealander","Jamaica":"Jamaican","Ghana":"Ghanaian","Cameroon":"Cameroonian","Senegal":"Senegalese",
+  "Ivory Coast":"Ivorian","DR Congo":"Congolese","Congo":"Congolese","South Africa":"South African","Zimbabwe":"Zimbabwean",
+  "Sweden":"Swedish","Norway":"Norwegian","Denmark":"Danish","Finland":"Finnish","Iceland":"Icelandic","Greece":"Greek",
+  "Turkey":"Turkish","Brazil":"Brazilian","Argentina":"Argentine","Lithuania":"Lithuanian","Latvia":"Latvian","Estonia":"Estonian",
+  "Czechia":"Czech","Slovakia":"Slovak","Croatia":"Croatian","Serbia":"Serbian","Romania":"Romanian","Bulgaria":"Bulgarian",
+  "Hungary":"Hungarian","Austria":"Austrian","Switzerland":"Swiss","Albania":"Albanian","Kosovo":"Kosovan","Cyprus":"Cypriot",
+  "Malta":"Maltese","Gibraltar":"Gibraltarian","Faroe Islands":"Faroese","Japan":"Japanese","South Korea":"South Korean","India":"Indian"};
+const HAS_NAT = players.some(p => p.nationality);
+const RATE = Object.fromEntries((DATA.leagues||[]).map(l => [l.name, l.rate]));
+const AFFORD = 1.45, STRETCH = 2.0, REC_MAX = 25, AGE_MIN = 18, AGE_MAX = 32, REC_FLOOR = 50;
+const natWord = p => p.nationality ? (DEMONYM[p.nationality] || p.nationality) : "";
+function recInfo(p){
+  if (/dumbarton/i.test(p.club||"")) return {ok:false};
+  if (p.age!=null && (p.age < AGE_MIN || p.age > AGE_MAX)) return {ok:false};
+  const nat = p.nationality;
+  if (nat ? !UKI.has(nat) : p.league_country !== "Scotland") return {ok:false};
+  const rate = RATE[p.league];
+  if (rate == null) return {ok:false};
+  const gettable = ["expiring","lapsed"].includes(p.availability);
+  const affordable = rate <= AFFORD;
+  if (!(affordable || (gettable && rate <= STRETCH))) return {ok:false};
+  if (p.rFwd < REC_FLOOR) return {ok:false};
+  const natF = nat==="Scotland" ? 1 : nat ? .92 : .88;
+  const ctF = {lapsed:1.08, expiring:1.05, contracted:.9}[p.availability] ?? 1;
+  const why = [];   /* nationality and age are already on the line above */
+  if (!nat) why.push("nationality not checked yet");
+  if (p.availability==="lapsed") why.push("contract has ended");
+  else if (p.availability==="expiring") why.push(`contract ends ${niceDate(p.contract_expiry)}`);
+  why.push(affordable ? "plays at a level the club can afford" : "higher level, but his contract is ending");
+  if (p.stepped_up) why.push("recently stepped up a level");
+  else if (p.trend==="rising") why.push("improving");
+  const text = why.join(", ");
+  return {ok:true, score:p.rFwd*natF*ctF, why:text.charAt(0).toUpperCase()+text.slice(1)};
+}
+players.forEach(p => { p.rec = recInfo(p); });
+function inView(p, v){
+  if (v==="all") return true;
+  if (v==="uki") return UKI.has(p.nationality);
+  if (v==="sco") return p.nationality==="Scotland";
+  return p.rec.ok;
+}
+const VIEW_NOTE = {
+  all: "Every forward in the data, from every league. Many would need a work permit to play in Scotland.",
+  uki: "Players with UK or Irish nationality, wherever they play now. These players don't normally need a work permit to play in Scotland.",
+  sco: "Scottish players, wherever they play now: the most likely to want to live and play near Dumbarton.",
+  rec: `Up to ${REC_MAX} players worth looking at first. UK and Irish players aged ${AGE_MIN} to ${AGE_MAX}, Scottish players first, at a level the club can realistically afford or with a contract ending. Ranked on the Going forward rating.`
+};
 const GROUPS = ["Striker","Winger","Attacking midfielder"].filter(g => players.some(p => p.group===g));
 GROUPS.forEach(g => S.groups.add(g));
 const $ = id => document.getElementById(id);
@@ -352,34 +426,50 @@ $("posChips").innerHTML = GROUPS.map(g => `<button type="button" class="chip" da
 [...new Set(players.map(p => p.league))].sort((a,b)=>lg(a).localeCompare(lg(b)))
   .forEach(l => $("fLeague").insertAdjacentHTML("beforeend", `<option value="${esc(l)}">${esc(lg(l))}</option>`));
 
-function visible(){
+function baseFilter(p){
   const q = S.q.trim().toLowerCase();
-  return players.filter(p =>
+  return (
     S.groups.has(p.group) &&
     (!S.league || p.league === S.league) &&
     (!S.hideOwn || !/dumbarton/i.test(p.club||"")) &&
     (!S.avail || (S.avail==="gettable" ? ["expiring","lapsed"].includes(p.availability) : p.availability!=null)) &&
-    (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q))
-  ).sort((a,b) => (S.mode==="fwd" ? b.rFwd-a.rFwd : b.rNow-a.rNow) || b.level-a.level);
+    (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q)));
+}
+function visible(v = S.view){
+  const list = players.filter(p => baseFilter(p) && inView(p, v));
+  if (v === "rec") return list.sort((a,b) => b.rec.score - a.rec.score).slice(0, REC_MAX);
+  return list.sort((a,b) => (S.mode==="fwd" ? b.rFwd-a.rFwd : b.rNow-a.rNow) || b.level-a.level);
 }
 
 function render(){
   const list = visible();
+  ["all","uki","sco","rec"].forEach(v => {
+    const c = visible(v).length;
+    $("cnt-"+v).textContent = v==="rec" ? `${c} to look at first` : `${c} ${c===1?"player":"players"}`;
+  });
+  const noNat = !HAS_NAT && (S.view==="uki" || S.view==="sco");
+  $("viewNote").className = "view-note" + (noNat || (!HAS_NAT && S.view==="rec") ? " warn" : "");
+  $("viewNote").textContent = noNat
+    ? "Nationality hasn't been loaded yet, so this view is empty. Run refresh_players.py at home, then rebuild."
+    : VIEW_NOTE[S.view] + (!HAS_NAT && S.view==="rec" ? " Until nationality is loaded, this only includes players at Scottish clubs." : "");
+  $("rankBlock").style.display = S.view==="rec" ? "none" : "";
   $("modeNote").textContent = S.mode==="fwd"
     ? "Also counts age and form: younger players and those improving move up, players past their peak move down. Best for a signing you want for a few seasons."
     : "Based purely on goals and assists over recent seasons, adjusted for league strength. Best for someone to help this season.";
   $("countTitle").textContent = `${list.length} ${list.length===1?"player":"players"}`;
-  $("countSub").textContent = S.mode==="fwd" ? "Ranked for the next few seasons" : "Ranked on current output";
+  $("countSub").textContent = S.view==="rec" ? "Best fit first, using the Going forward rating"
+    : S.mode==="fwd" ? "Ranked for the next few seasons" : "Ranked on current output";
   if (!list.length){
     $("rows").innerHTML = `<div class="empty">No players match these filters.<br><button class="btn" type="button" id="reset">Clear filters</button></div>`;
     $("reset").onclick = resetFilters; return;
   }
   $("rows").innerHTML = list.map((p,i) => {
-    const r = S.mode==="fwd" ? p.rFwd : p.rNow, fm = form(p), ct = contract(p);
+    const r = (S.view==="rec" || S.mode==="fwd") ? p.rFwd : p.rNow, fm = form(p), ct = contract(p);
     return `<button type="button" class="row" data-id="${p.player_id}" aria-label="${esc(p.name)}, rated ${r}. Open profile">
       <span class="rank">${i+1}</span>
       <span class="who"><span class="first">${esc(p.first)}</span><span class="surname">${esc(p.surname)}</span>
-        <span class="sub">${esc(p.club||"Club unknown")}, ${esc(lg(p.league))}${p.age!=null?`, ${p.age}`:""}</span></span>
+        <span class="sub">${esc(p.club||"Club unknown")}, ${esc(lg(p.league))}${p.age!=null?`, ${p.age}`:""}${p.nationality?`, ${esc(natWord(p))}`:""}</span>
+        ${S.view==="rec" && p.rec.ok ? `<span class="why">${esc(p.rec.why)}</span>` : ""}</span>
       <span class="rating"><b>${r}</b><span class="bar"><i style="width:${r}%"></i></span></span>
       <span class="num hide-sm">${f2(p.level)}<small>league-adjusted</small></span>
       <span class="num hide-sm">${f2(p.peak)}<small>${esc(niceSeason(p.peak_season))}</small></span>
@@ -397,6 +487,12 @@ function resetFilters(){
   render();
 }
 
+$("views").onclick = e => {
+  const b = e.target.closest("button[data-view]"); if (!b) return;
+  S.view = b.dataset.view;
+  document.querySelectorAll("#views button").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
+  render();
+};
 document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
   S.mode = b.dataset.mode;
   document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
@@ -417,14 +513,14 @@ $("rows").onclick = e => { const r = e.target.closest(".row"); if (r) openPlayer
 
 /* ---------- download ---------- */
 $("download").onclick = () => {
-  const cols = ["Rank","Player","Club","League","Position","Age","Rating right now","Rating going forward",
+  const cols = ["Rank","Player","Club","League","Position","Age","Nationality","Why recommended","Rating right now","Rating going forward",
     "Goals+assists per game (adjusted)","Best season (adjusted)","Best season year","Form","Contract","Contract ends"];
-  const rows = visible().map((p,i) => [i+1,p.name,p.club,lg(p.league),p.position,p.age??"",p.rNow,p.rFwd,
+  const rows = visible().map((p,i) => [i+1,p.name,p.club,lg(p.league),p.position,p.age??"",p.nationality??"",p.rec.ok?p.rec.why:"",p.rNow,p.rFwd,
     f2(p.level),f2(p.peak),niceSeason(p.peak_season),form(p).text,contract(p).text,p.contract_expiry?String(p.contract_expiry).slice(0,10):""]);
   const csv = [cols,...rows].map(r => r.map(v => `"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob(["\ufeff"+csv], {type:"text/csv"}));
-  a.download = `dumbarton-forward-shortlist-${S.mode==="fwd"?"going-forward":"right-now"}.csv`;
+  a.download = `dumbarton-forwards-${S.view==="rec"?"recommended":S.view==="sco"?"scottish":S.view==="uki"?"uk-irish":"all"}.csv`;
   document.body.appendChild(a); a.click(); a.remove();
 };
 
@@ -493,7 +589,7 @@ function openPlayer(id, from){
       <button class="close" type="button" id="dClose">Close</button>
       <div class="first">${esc(p.first)}</div>
       <h2 id="dName">${esc(p.surname)}</h2>
-      <div class="line">${esc(pos)} at ${esc(p.club||"an unknown club")}, ${esc(lg(p.league))}${p.age!=null?`. Age ${p.age}`:""}</div>
+      <div class="line">${esc(pos)} at ${esc(p.club||"an unknown club")}, ${esc(lg(p.league))}${p.age!=null?`. Age ${p.age}`:""}${p.nationality?`. ${esc(natWord(p))}`:""}</div>
     </div>
     <div class="d-body">
       <div class="ratings">

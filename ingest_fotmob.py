@@ -80,6 +80,48 @@ def _age_from(dob):
     return today.year - y - ((today.month, today.day) < (m, d))
 
 
+def _find(obj, key):
+    if isinstance(obj, dict):
+        if key in obj:
+            return obj[key]
+        for v in obj.values():
+            r = _find(v, key)
+            if r is not None:
+                return r
+    elif isinstance(obj, list):
+        for v in obj:
+            r = _find(v, key)
+            if r is not None:
+                return r
+    return None
+
+
+def _nationality_from(data: dict):
+    """Best-effort nationality. FotMob's layout isn't guaranteed, so check the
+    player-information list first, then any 'nationality' field on the page."""
+    for item in (data.get("playerInformation") or []):
+        if not isinstance(item, dict):
+            continue
+        label = " ".join(str(item.get(k) or "") for k in ("title", "translationKey", "key")).lower()
+        if "country" in label or "nation" in label:
+            v = item.get("value")
+            if isinstance(v, dict):
+                v = v.get("fallback") or v.get("name") or v.get("countryName") or v.get("key")
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+            for k in ("countryName", "country"):
+                if isinstance(item.get(k), str) and item[k].strip():
+                    return item[k].strip()
+    hit = _find(data, "nationality")
+    if isinstance(hit, list) and hit:
+        hit = hit[0]
+    if isinstance(hit, dict):
+        hit = hit.get("name") or hit.get("fallback")
+    if isinstance(hit, str) and hit.strip():
+        return hit.strip()
+    return None
+
+
 def _int(x, default=0):
     try:
         return int(str(x).strip())
@@ -106,6 +148,7 @@ def parse_player(data: dict) -> list[dict]:
     name = data.get("name")
     age = _age_from(data.get("birthDate"))
     dob = _dob_from(data.get("birthDate"))
+    nat = _nationality_from(data)
     pos = ((data.get("positionDescription") or {}).get("primaryPosition") or {}).get("label")
 
     cur = current_minutes(data)                       # (season, leagueId, minutes)
@@ -128,7 +171,7 @@ def parse_player(data: dict) -> list[dict]:
             if cur and season == cur[0] and lid == cur[1]:
                 minutes = cur[2]                       # fill current-season minutes
             rows.append(dict(
-                player_id=pid, player_name=name, position=pos, age=age, dob=dob,
+                player_id=pid, player_name=name, position=pos, age=age, dob=dob, nationality=nat,
                 season=season, league=t.get("leagueName"), league_id=lid,
                 tournament_id=t.get("tournamentId"), team=team,
                 appearances=apps, goals=goals, assists=assists, goal_contribs=gc,
