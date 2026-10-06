@@ -160,6 +160,11 @@ footer{margin:60px 0 0;padding:22px 0 40px;color:var(--slate);font-size:14.5px;b
 .fact .s{font-size:13.5px;color:var(--slate);line-height:1.3}
 .note{border-left:5px solid var(--gold);background:#FFFCF0;padding:12px 16px;margin:0 0 12px;font-size:16px}
 .note.plain{border-left-color:var(--rule);background:var(--mist)}
+.summary{border:2px solid var(--basalt);border-radius:6px;padding:16px 18px;margin:0 0 22px}
+.summary h3{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;margin:0 0 8px}
+.summary p{margin:0 0 10px;font-size:16.5px;line-height:1.55}
+.summary .draft{display:inline-block;font-size:13.5px;font-weight:700;background:var(--mist);border:1px solid var(--rule);border-radius:4px;padding:2px 8px;margin-bottom:10px}
+.summary .future{margin:0;font-size:14px;color:var(--slate);border-top:1px solid var(--rule);padding-top:8px}
 .note b{display:block}
 h3.d{font-family:var(--display);font-weight:800;font-size:26px;margin:28px 0 8px}
 .chart{width:100%;height:auto;display:block}
@@ -392,7 +397,7 @@ function recInfo(p){
   const affordable = rate <= AFFORD;
   if (!(affordable || (gettable && rate <= STRETCH))) return {ok:false};
   if (p.rFwd < REC_FLOOR) return {ok:false};
-  const natF = nat==="Scotland" ? 1 : nat ? .92 : .88;
+  const natF = nat==="Scotland" ? 1 : nat ? .85 : .8;      /* strong priority to Scottish players */
   const ctF = {lapsed:1.08, expiring:1.05, contracted:.9}[p.availability] ?? 1;
   const why = [];   /* nationality and age are already on the line above */
   if (!nat) why.push("nationality not checked yet");
@@ -415,7 +420,7 @@ const VIEW_NOTE = {
   all: "Every forward in the data, from every league. Many would need a work permit to play in Scotland.",
   uki: "Players with UK or Irish nationality, wherever they play now. These players don't normally need a work permit to play in Scotland.",
   sco: "Scottish players, wherever they play now: the most likely to want to live and play near Dumbarton.",
-  rec: `Up to ${REC_MAX} players worth looking at first. UK and Irish players aged ${AGE_MIN} to ${AGE_MAX}, Scottish players first, at a level the club can realistically afford or with a contract ending. Ranked on the Going forward rating.`
+  rec: `Up to ${REC_MAX} players worth looking at first. UK and Irish players aged ${AGE_MIN} to ${AGE_MAX}, with strong priority to Scottish players, at a level the club can realistically afford or with a contract ending. Ranked on the Going forward rating. Open a player for his summary: these are template drafts for now, and will be AI-written in the full release.`
 };
 const GROUPS = ["Striker","Winger","Attacking midfielder"].filter(g => players.some(p => p.group===g));
 GROUPS.forEach(g => S.groups.add(g));
@@ -513,9 +518,9 @@ $("rows").onclick = e => { const r = e.target.closest(".row"); if (r) openPlayer
 
 /* ---------- download ---------- */
 $("download").onclick = () => {
-  const cols = ["Rank","Player","Club","League","Position","Age","Nationality","Why recommended","Rating right now","Rating going forward",
+  const cols = ["Rank","Player","Club","League","Position","Age","Nationality","Why recommended","Summary (draft)","Rating right now","Rating going forward",
     "Goals+assists per game (adjusted)","Best season (adjusted)","Best season year","Form","Contract","Contract ends"];
-  const rows = visible().map((p,i) => [i+1,p.name,p.club,lg(p.league),p.position,p.age??"",p.nationality??"",p.rec.ok?p.rec.why:"",p.rNow,p.rFwd,
+  const rows = visible().map((p,i) => [i+1,p.name,p.club,lg(p.league),p.position,p.age??"",p.nationality??"",p.rec.ok?p.rec.why:"",summary(p),p.rNow,p.rFwd,
     f2(p.level),f2(p.peak),niceSeason(p.peak_season),form(p).text,contract(p).text,p.contract_expiry?String(p.contract_expiry).slice(0,10):""]);
   const csv = [cols,...rows].map(r => r.map(v => `"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");
   const a = document.createElement("a");
@@ -566,6 +571,41 @@ function chart(hist, p){
   return s + `<div class="legend"><span><i style="background:#252A2F"></i>League season, adjusted</span><span><i style="background:#F5B800;outline:2px solid #252A2F"></i>Best season</span><span><i style="background:#8C949B"></i>League with little evidence</span><span><i style="background:#C3C8CD"></i>Under 10 games</span><span><i style="background:repeating-linear-gradient(45deg,#EEF0F1 0 3px,#9AA2A9 3px 5px)"></i>League we can't adjust yet</span></div>`;
 }
 
+/* ---------- template summary (placeholder for AI-written cases) ---------- */
+function band(p){
+  const s = pct(p.level);
+  if (s >= .9) return "among the most productive forwards at League Two level";
+  if (s >= .7) return "well above the League Two average";
+  if (s >= .4) return "around the League Two average";
+  return "below the League Two average";
+}
+const plural = (n, w) => `${n} ${w}${n===1?"":"s"}`;
+function summary(p){
+  const out = [];
+  const role = String(p.position || p.group || "forward").toLowerCase();
+  const who = [natWord(p), role].filter(Boolean).join(" ");
+  out.push(`${who.charAt(0).toUpperCase()+who.slice(1)} at ${p.club || "an unknown club"} in ${lgThe(p.league)}${p.age!=null?`, aged ${p.age}`:""}.`);
+  let o = `Across his recent seasons he has ${plural(p.career_goals,"goal")} and ${plural(p.career_assists,"assist")} in ${plural(p.career_apps,"game")}, which puts him ${band(p)} once league strength is taken into account`;
+  if (p.league !== "SL2" && RATE[p.league] != null) o += ` (${f2(p.level)} per game on a League Two scale)`;
+  out.push(o + ".");
+  if (p.stepped_up) out.push(p.peak_league !== p.league
+    ? `He has recently stepped up to ${lgThe(p.league)}, and his best figures came at a lower level, so how he copes at the new level is the thing to watch.`
+    : `He has recently stepped up to ${lgThe(p.league)} and kept producing.`);
+  else if (p.trend==="rising") out.push("His last full season was clearly his best recent one.");
+  else if (p.trend==="declining") out.push("His output has dropped off compared with earlier seasons.");
+  else if (p.trend==="steady") out.push("His output has been consistent across recent full seasons.");
+  else out.push("There isn't enough full-season history yet to judge his form.");
+  if (p.availability==="lapsed") out.push(`Transfermarkt shows his contract ended on ${niceDate(p.contract_expiry)}, so check whether he is now a free agent.`);
+  else if (p.availability==="expiring") out.push(`His contract runs until ${niceDate(p.contract_expiry)}, so he could be available.`);
+  else if (p.availability==="contracted") out.push(`He is under contract until ${niceDate(p.contract_expiry)}.`);
+  else out.push("His contract status isn't known yet.");
+  const f = p.flags || "";
+  if (f.includes("few games")) out.push("There are fewer than 20 counted games to go on, so treat the figures with care.");
+  if (f.includes("thin league evidence")) out.push("Some of his seasons came in leagues we know less about, and they count for less.");
+  if (p.nationality && !UKI.has(p.nationality)) out.push("As a non-UK, non-Irish national he would probably need a work permit to play in Scotland.");
+  return out.join(" ");
+}
+
 function openPlayer(id, from){
   const p = players.find(x => x.player_id === id); if (!p) return;
   lastFocus = from || document.activeElement;
@@ -592,9 +632,15 @@ function openPlayer(id, from){
       <div class="line">${esc(pos)} at ${esc(p.club||"an unknown club")}, ${esc(lg(p.league))}${p.age!=null?`. Age ${p.age}`:""}${p.nationality?`. ${esc(natWord(p))}`:""}</div>
     </div>
     <div class="d-body">
+      <section class="summary" aria-label="Player summary">
+        <h3>${p.rec && p.rec.ok ? "Why he's recommended" : "Summary"}</h3>
+        <span class="draft">Draft summary</span>
+        <p>${esc(summary(p))}</p>
+        <p class="future">This is a placeholder built from a fixed template. In the full release, each summary will be written by AI from the same facts, reading like a scout's report.</p>
+      </section>
       <div class="ratings">
-        <div class="rbox${S.mode==="now"?" on":""}"><div class="k">Right now</div><div class="v">${p.rNow}<span> / 100</span></div><p>Output over recent seasons, adjusted for league strength.</p></div>
-        <div class="rbox${S.mode==="fwd"?" on":""}"><div class="k">Going forward</div><div class="v">${p.rFwd}<span> / 100</span></div><p>Also weighs age${p.age!=null?` (${p.age})`:""} and form (${fm.text.toLowerCase()}).</p></div>
+        <div class="rbox${(S.view!=="rec" && S.mode==="now")?" on":""}"><div class="k">Right now</div><div class="v">${p.rNow}<span> / 100</span></div><p>Output over recent seasons, adjusted for league strength.</p></div>
+        <div class="rbox${(S.view==="rec" || S.mode==="fwd")?" on":""}"><div class="k">Going forward</div><div class="v">${p.rFwd}<span> / 100</span></div><p>Also weighs age${p.age!=null?` (${p.age})`:""} and form (${fm.text.toLowerCase()}).</p></div>
       </div>
       <div class="facts">
         <div class="fact"><div class="k">Goals + assists per game</div><div class="v">${f2(p.level)}</div><div class="s">adjusted to League Two, recent seasons</div></div>
