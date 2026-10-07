@@ -165,7 +165,45 @@ def summarise_player(g, coeff):
         cur_season=str(latest.get("season")), cur_apps=cur_apps,
         cur_goals=int(latest.goals), cur_assists=int(latest.assists),
         cur_counted=int(cur_apps >= MEANINGFUL_APPS and pd.notna(latest.coeff)),
+        prev_season=(str(g.iloc[1].get("season")) if len(g) > 1 else None),
+        prev_league=(g.iloc[1].league_c if len(g) > 1 else None),
+        prev_apps=(int(g.iloc[1].appearances) if len(g) > 1 else None),
         flags=", ".join(fl))
+
+
+POOL_SEASONS = 5     # look at moves into League Two over this many recent seasons
+POOL_SHARE = 0.90    # the pool is the leagues that supplied this share of those moves
+
+
+def recruitment_pool(conn, stats):
+    """Where League Two clubs actually sign from, observed in the data: for every
+    player who joined a League Two club, the league he played in the season
+    before. The pool is the smallest set of leagues covering POOL_SHARE of
+    those arrivals over the last POOL_SEASONS seasons."""
+    s = stats.loc[stats.groupby(["player_id", "season_yr"]).appearances.idxmax()]
+    s = s.sort_values(["player_id", "season_yr"])
+    latest = int(s.season_yr.max())
+    arrivals = []
+    for _, g in s.groupby("player_id"):
+        rows = list(g.itertuples())
+        for a, b in zip(rows, rows[1:]):
+            if (b.season_yr == a.season_yr + 1 and b.league_c == le.ANCHOR
+                    and str(b.team) != str(a.team) and b.season_yr > latest - POOL_SEASONS):
+                arrivals.append(a.league_c)
+    if not arrivals:
+        db.save_pool(conn, pd.DataFrame(columns=["league", "arrivals", "share", "in_pool"]))
+        return pd.DataFrame()
+    pool = pd.Series(arrivals).value_counts().rename_axis("league").reset_index(name="arrivals")
+    pool["share"] = pool.arrivals / pool.arrivals.sum()
+    before = pool.share.cumsum() - pool.share          # share covered before this league
+    pool["in_pool"] = (before < POOL_SHARE).astype(int)
+    db.save_pool(conn, pool)
+    inside = pool[pool.in_pool == 1]
+    print(f"\nwhere League Two clubs sign from ({len(arrivals)} moves, last {POOL_SEASONS} seasons):")
+    print("  " + "\n  ".join(f"{r.league:<34} {r.arrivals:>4}  {r.share:5.1%}"
+                              + ("" if r.in_pool else "   (outside pool)")
+                              for r in pool.head(len(inside) + 3).itertuples()))
+    return pool
 
 
 def surface(conn, stats, coeff, conf=None):
@@ -201,6 +239,7 @@ def main(csv):
     coeff, conf = compute_equivalency(conn, stats)
     print("\ncoefficients in the store:")
     print(db.get_coefficients(conn).to_string(index=False))
+    recruitment_pool(conn, stats)
     sl = surface(conn, stats, coeff, conf)
     if sl.empty:
         print("\nnothing surfaced yet — need more data.")

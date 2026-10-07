@@ -228,6 +228,12 @@ def league_names(conn, pairs):
     return out
 
 
+def save_pool(conn, df):
+    """Where League Two clubs sign from (computed, replaced each run)."""
+    df.to_sql("recruit_pool", conn, if_exists="replace", index=False)
+    conn.commit()
+
+
 def save_shortlist(conn, df):
     # computed table — replace wholesale, take whatever columns surface() emits
     df = df.copy(); df["computed_at"] = now()

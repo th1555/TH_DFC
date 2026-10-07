@@ -5,7 +5,8 @@ export_site.py  —  build the shareable website from dumbarton.db
 Reads the finished store (shortlist, season histories, league exchange rates,
 Transfermarkt contract data) and writes ONE self-contained page:
 
-    site/index.html      <- this is what Cloudflare Pages serves
+    site/index.html      <- the shipped page (numbers + league-adjusted estimate)
+    site/lab.html        <- the prototype (ratings, Recommended, contracts, summaries)
 
 The page design lives in site_template.html; this script injects the data into
 it. Run it after store_pipeline.py and match_market.py:
@@ -23,7 +24,8 @@ import sqlite3
 import pandas as pd
 import db
 
-TEMPLATE = "site_template.html"
+PAGES = [("site_core.html", "index.html"),      # shipped
+         ("site_template.html", "lab.html")]     # prototype, same login, not linked
 OUT_DIR = "site"
 MARK = "/*__DATA__*/null"
 
@@ -121,22 +123,28 @@ def main():
                       country=canon_country.get(r.canonical))
                  for r in co.itertuples()],
     )
+    if "recruit_pool" in tables:
+        pool = pd.read_sql("SELECT * FROM recruit_pool", conn)
+        data["pool"] = [dict(league=r.league, arrivals=int(r.arrivals),
+                             share=round(float(r.share), 3), in_pool=int(r.in_pool))
+                        for r in pool.itertuples()]
     conn.close()
 
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     payload = payload.replace("</", "<\\/")            # safe inside <script>
-    html = open(TEMPLATE, encoding="utf-8").read()
-    if MARK not in html:
-        raise SystemExit(f"{TEMPLATE} is missing the data marker {MARK}")
-    html = html.replace(MARK, payload, 1)
-
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
-        f.write(html)
+    # the shipped page (recorded numbers + the league-adjusted estimate) and the
+    # prototype (ratings, Recommended, contracts, summaries) share the same data
+    for template, out in PAGES:
+        html = open(template, encoding="utf-8").read()
+        if MARK not in html:
+            raise SystemExit(f"{template} is missing the data marker {MARK}")
+        with open(os.path.join(OUT_DIR, out), "w", encoding="utf-8") as f:
+            f.write(html.replace(MARK, payload, 1))
     if os.path.exists("crest.png"):
         shutil.copy("crest.png", os.path.join(OUT_DIR, "crest.png"))
     kb = os.path.getsize(os.path.join(OUT_DIR, "index.html")) // 1024
-    print(f"wrote {OUT_DIR}/index.html ({kb} KB): {len(players)} players, "
+    print(f"wrote {OUT_DIR}/index.html (shipped) and {OUT_DIR}/lab.html (prototype), {kb} KB: {len(players)} players, "
           f"{sum(len(v) for v in histories.values())} history rows, "
           f"{len(data['leagues'])} leagues, data as of {updated}")
 

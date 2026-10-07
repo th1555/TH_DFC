@@ -56,6 +56,7 @@ button,input,select{font:inherit;color:inherit}
 .seg button[aria-pressed="true"]{background:var(--basalt);color:var(--gold)}
 .mode-note{margin:10px 0 0;color:var(--slate);font-size:15px;max-width:44ch}
 .filters{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
+#fAgeMin,#fAgeMax{min-width:0!important;width:84px}
 .field select,.field input[type=search]{border:1px solid #A9B0B6;border-radius:5px;background:var(--paper);
   padding:9px 11px;min-width:190px;font-size:16px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
@@ -237,6 +238,14 @@ tr.cup td{color:var(--slate)}
       </div>
       <p class="mode-note" id="modeNote"></p>
     </div>
+    <div id="recBlock">
+      <span class="lbl" id="natLbl">Nationality</span>
+      <div class="seg" id="recNat" role="group" aria-labelledby="natLbl">
+        <button type="button" data-nat="sco" aria-pressed="true">Scottish only</button>
+        <button type="button" data-nat="uki" aria-pressed="false">UK &amp; Irish</button>
+      </div>
+      <p class="mode-note">Players without UK or Irish nationality would normally need a work permit to play in Scotland.</p>
+    </div>
     <div class="filters">
       <div class="field">
         <span class="lbl" id="posLbl">Position</span>
@@ -244,11 +253,16 @@ tr.cup td{color:var(--slate)}
       </div>
       <label class="field"><span class="lbl">Current league</span>
         <select id="fLeague"><option value="">All leagues</option></select></label>
+      <div class="field"><span class="lbl" id="ageLbl">Age</span>
+        <span role="group" aria-labelledby="ageLbl" style="display:flex;gap:8px;align-items:center">
+          <select id="fAgeMin" aria-label="Youngest age"></select><span>to</span>
+          <select id="fAgeMax" aria-label="Oldest age"></select></span></div>
       <label class="field"><span class="lbl">Contract</span>
         <select id="fAvail">
           <option value="">Any contract status</option>
-          <option value="gettable">Ending soon or ended</option>
-          <option value="found">Contract found</option>
+          <option value="free">Not tied down beyond this season</option>
+          <option value="gettable">Ending soon or ended only</option>
+          <option value="found">Contract date known</option>
         </select></label>
       <label class="field"><span class="lbl">Find a player or club</span>
         <input id="fSearch" type="search" placeholder="Type a name"></label>
@@ -278,6 +292,7 @@ tr.cup td{color:var(--slate)}
         <p>Leagues in other countries are rated the same way. Where only a few moves are on record, the figure is a cautious estimate (shaded) and seasons there count for less in a player's rating.</p>
       </div>
       <div id="leagueBars"></div>
+      <div id="poolBox"></div>
     </div>
   </section>
 
@@ -317,12 +332,13 @@ const DATA = /*__DATA__*/null;
 const LEAGUE = {"SL2":"League Two","Highland / Lowland":"Highland/Lowland League",
   "League One":"League One","Championship":"Championship","Premiership":"Premiership"};
 const lg = n => LEAGUE[n] || n || "Unknown league";
+const plural = (n, w) => `${n} ${w}${n===1?"":"s"}`;
 const lgThe = n => (/^(Championship|Premiership|National League)/.test(n||"") ? "the " : "") + lg(n);
 const CSHORT = {"England":"Eng","Ireland":"Irl","Northern Ireland":"NI","Wales":"Wal","USA":"USA","Scotland":"Sco"};
 function shortLg(n){
   if (SHORT[n]) return SHORT[n];
   const m = String(n||"").match(/^(.*) \((.*)\)$/);
-  if (m) return m[1].split(" ")[0].slice(0,9) + " " + (CSHORT[m[2]] || m[2].replace(/^league /,"#").slice(0,4));
+  if (m) return m[1].slice(0,12).trim() + " " + (CSHORT[m[2]] || m[2].replace(/^league /,"#").slice(0,4));
   return String(n||"").split(" ")[0];
 }
 const SHORT = {"SL2":"League Two","Highland / Lowland":"Highland/Low.","League One":"League One","Championship":"Champ.","Premiership":"Prem."};
@@ -368,7 +384,8 @@ players.forEach(p => {
 });
 
 /* ---------- state + filters ---------- */
-const S = {view:"rec", mode:"now", groups:new Set(), league:"", avail:"", q:"", hideOwn:true};
+const AGE_DEFAULT_MIN = 18, AGE_DEFAULT_MAX = 32;
+const S = {view:"rec", recNat:"sco", ageMin:AGE_DEFAULT_MIN, ageMax:AGE_DEFAULT_MAX, mode:"now", groups:new Set(), league:"", avail:"", q:"", hideOwn:true};
 
 /* ---------- nationality + recommendation rules ---------- */
 const UKI = new Set(["Scotland","England","Wales","Northern Ireland","Ireland","Republic of Ireland"]);
@@ -384,33 +401,35 @@ const DEMONYM = {"Scotland":"Scottish","England":"English","Wales":"Welsh","Nort
   "Malta":"Maltese","Gibraltar":"Gibraltarian","Faroe Islands":"Faroese","Japan":"Japanese","South Korea":"South Korean","India":"Indian"};
 const HAS_NAT = players.some(p => p.nationality);
 const RATE = Object.fromEntries((DATA.leagues||[]).map(l => [l.name, l.rate]));
-const AFFORD = 1.45, STRETCH = 2.0, REC_MAX = 25, AGE_MIN = 18, AGE_MAX = 32, REC_FLOOR = 50;
+const REC_MAX = 25;
 const natWord = p => p.nationality ? (DEMONYM[p.nationality] || p.nationality) : "";
+/* Where League Two clubs actually sign from, observed in the data (built by the pipeline). */
+const POOL_ROWS = DATA.pool || [];
+const POOL = new Set(POOL_ROWS.filter(x => x.in_pool).map(x => x.league));
+if (POOL.size) POOL.add("SL2");   /* players already at League Two level are always within reach */
+const HAS_POOL = POOL.size > 0;
+/* Recommended = fact-based filters, ranked on the Going forward rating alone.
+   Contract, last season's games and form are SHOWN, never scored. */
 function recInfo(p){
   if (/dumbarton/i.test(p.club||"")) return {ok:false};
-  if (p.age!=null && (p.age < AGE_MIN || p.age > AGE_MAX)) return {ok:false};
   const nat = p.nationality;
   if (nat ? !UKI.has(nat) : p.league_country !== "Scotland") return {ok:false};
-  const rate = RATE[p.league];
-  if (rate == null) return {ok:false};
-  const gettable = ["expiring","lapsed"].includes(p.availability);
-  const affordable = rate <= AFFORD;
-  if (!(affordable || (gettable && rate <= STRETCH))) return {ok:false};
-  if (p.rFwd < REC_FLOOR) return {ok:false};
-  const natF = nat==="Scotland" ? 1 : nat ? .85 : .8;      /* strong priority to Scottish players */
-  const ctF = {lapsed:1.08, expiring:1.05, contracted:.9}[p.availability] ?? 1;
-  const why = [];   /* nationality and age are already on the line above */
+  if (HAS_POOL ? !POOL.has(p.league) : RATE[p.league] == null) return {ok:false};
+  const why = [];
   if (!nat) why.push("nationality not checked yet");
+  if (p.prev_apps != null && p.prev_season) why.push(`${plural(p.prev_apps, "league game")} in ${niceSeason(p.prev_season)}`);
   if (p.availability==="lapsed") why.push("contract has ended");
   else if (p.availability==="expiring") why.push(`contract ends ${niceDate(p.contract_expiry)}`);
-  why.push(affordable ? "plays at a level the club can afford" : "higher level, but his contract is ending");
+  else if (p.availability==="contracted") why.push(`under contract until ${niceDate(p.contract_expiry)}`);
   if (p.stepped_up) why.push("recently stepped up a level");
   else if (p.trend==="rising") why.push("improving");
+  else if (p.trend==="declining") why.push("dropping off");
   const text = why.join(", ");
-  return {ok:true, score:p.rFwd*natF*ctF, why:text.charAt(0).toUpperCase()+text.slice(1)};
+  return {ok:true, why: text ? text.charAt(0).toUpperCase()+text.slice(1) : ""};
 }
 players.forEach(p => { p.rec = recInfo(p); });
 function inView(p, v){
+  if (v==="rec") return p.rec.ok && (S.recNat !== "sco" || p.nationality === "Scotland");
   if (v==="all") return true;
   if (v==="uki") return UKI.has(p.nationality);
   if (v==="sco") return p.nationality==="Scotland";
@@ -420,7 +439,7 @@ const VIEW_NOTE = {
   all: "Every forward in the data, from every league. Many would need a work permit to play in Scotland.",
   uki: "Players with UK or Irish nationality, wherever they play now. These players don't normally need a work permit to play in Scotland.",
   sco: "Scottish players, wherever they play now: the most likely to want to live and play near Dumbarton.",
-  rec: `Up to ${REC_MAX} players worth looking at first. UK and Irish players aged ${AGE_MIN} to ${AGE_MAX}, with strong priority to Scottish players, at a level the club can realistically afford or with a contract ending. Ranked on the Going forward rating. Open a player for his summary: these are template drafts for now, and will be AI-written in the full release.`
+  rec: `Up to ${REC_MAX} players, ranked on the Going forward rating alone. Included: Scottish players (or all UK and Irish players, using the switch below), within the age range below, currently playing in a league that League Two clubs actually sign from${HAS_POOL ? " (the leagues that supplied 90% of moves into League Two over the last five seasons)" : ""}. Contract status, last season's games and form are shown for each player but do not change the order. Player summaries are template drafts for now and will be AI-written in the full release.`
 };
 const GROUPS = ["Striker","Winger","Attacking midfielder"].filter(g => players.some(p => p.group===g));
 GROUPS.forEach(g => S.groups.add(g));
@@ -437,12 +456,14 @@ function baseFilter(p){
     S.groups.has(p.group) &&
     (!S.league || p.league === S.league) &&
     (!S.hideOwn || !/dumbarton/i.test(p.club||"")) &&
-    (!S.avail || (S.avail==="gettable" ? ["expiring","lapsed"].includes(p.availability) : p.availability!=null)) &&
+    (p.age == null || (p.age >= S.ageMin && p.age <= S.ageMax)) &&
+    (!S.avail || (S.avail==="free" ? p.availability !== "contracted"
+                 : S.avail==="gettable" ? ["expiring","lapsed"].includes(p.availability) : p.availability!=null)) &&
     (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q)));
 }
 function visible(v = S.view){
   const list = players.filter(p => baseFilter(p) && inView(p, v));
-  if (v === "rec") return list.sort((a,b) => b.rec.score - a.rec.score).slice(0, REC_MAX);
+  if (v === "rec") return list.sort((a,b) => (b.rFwd - a.rFwd) || (b.level - a.level)).slice(0, REC_MAX);
   return list.sort((a,b) => (S.mode==="fwd" ? b.rFwd-a.rFwd : b.rNow-a.rNow) || b.level-a.level);
 }
 
@@ -458,6 +479,7 @@ function render(){
     ? "Nationality hasn't been loaded yet, so this view is empty. Run refresh_players.py at home, then rebuild."
     : VIEW_NOTE[S.view] + (!HAS_NAT && S.view==="rec" ? " Until nationality is loaded, this only includes players at Scottish clubs." : "");
   $("rankBlock").style.display = S.view==="rec" ? "none" : "";
+  $("recBlock").style.display = S.view==="rec" ? "" : "none";
   $("modeNote").textContent = S.mode==="fwd"
     ? "Also counts age and form: younger players and those improving move up, players past their peak move down. Best for a signing you want for a few seasons."
     : "Based purely on goals and assists over recent seasons, adjusted for league strength. Best for someone to help this season.";
@@ -487,11 +509,25 @@ function render(){
 
 function resetFilters(){
   S.league=""; S.avail=""; S.q=""; S.hideOwn=true; GROUPS.forEach(g=>S.groups.add(g));
+  S.ageMin=AGE_DEFAULT_MIN; S.ageMax=AGE_DEFAULT_MAX; $("fAgeMin").value=S.ageMin; $("fAgeMax").value=S.ageMax;
   $("fLeague").value=""; $("fAvail").value=""; $("fSearch").value=""; $("fOwn").checked=true;
   document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","true"));
   render();
 }
 
+for (let a = 16; a <= 40; a++) {
+  $("fAgeMin").insertAdjacentHTML("beforeend", `<option value="${a}">${a}</option>`);
+  $("fAgeMax").insertAdjacentHTML("beforeend", `<option value="${a}">${a}</option>`);
+}
+$("fAgeMin").value = S.ageMin; $("fAgeMax").value = S.ageMax;
+$("fAgeMin").onchange = e => { S.ageMin = +e.target.value; if (S.ageMin > S.ageMax) { S.ageMax = S.ageMin; $("fAgeMax").value = S.ageMax; } render(); };
+$("fAgeMax").onchange = e => { S.ageMax = +e.target.value; if (S.ageMax < S.ageMin) { S.ageMin = S.ageMax; $("fAgeMin").value = S.ageMin; } render(); };
+$("recNat").onclick = e => {
+  const b = e.target.closest("button[data-nat]"); if (!b) return;
+  S.recNat = b.dataset.nat;
+  document.querySelectorAll("#recNat button").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
+  render();
+};
 $("views").onclick = e => {
   const b = e.target.closest("button[data-view]"); if (!b) return;
   S.view = b.dataset.view;
@@ -542,6 +578,17 @@ $("download").onclick = () => {
     </div>`).join("");
 })();
 
+/* ---------- where League Two clubs sign from ---------- */
+(() => {
+  if (!POOL_ROWS.length) return;
+  const total = POOL_ROWS.reduce((a,b) => a + b.arrivals, 0);
+  $("poolBox").innerHTML = `<h3 style="font-family:var(--display);font-weight:800;font-size:26px;margin:26px 0 6px">Where League Two clubs sign from</h3>
+    <p style="margin:0 0 8px;font-size:15.5px">From ${total} moves into League Two over the last five seasons, the league each player came from. The leagues covering 90% of moves, plus League Two itself, form the Recommended pool.</p>` +
+    POOL_ROWS.slice(0, 10).map(r => `<div class="lg${r.in_pool ? "" : " thin"}"><span>${esc(lg(r.league))}</span>
+      <span class="track"><i style="width:${(r.share*100).toFixed(1)}%"></i></span>
+      <span class="v">${Math.round(r.share*100)}%</span><span class="e">${r.in_pool ? "in the pool" : "outside the pool"}</span></div>`).join("");
+})();
+
 /* ---------- player profile ---------- */
 let lastFocus = null;
 const LCONF = Object.fromEntries((DATA.leagues||[]).map(l => [l.name, l.confidence ?? 1]));
@@ -579,7 +626,6 @@ function band(p){
   if (s >= .4) return "around the League Two average";
   return "below the League Two average";
 }
-const plural = (n, w) => `${n} ${w}${n===1?"":"s"}`;
 function summary(p){
   const out = [];
   const role = String(p.position || p.group || "forward").toLowerCase();

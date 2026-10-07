@@ -326,3 +326,1269 @@ tm_id,tm_name,position,dob,contract_until,market_value,club
 522777,Mikey Anderson,Central Midfield,2000-02-07,2027-05-31,,Stenhousemuir FC
 450843,Euan O'Reilly,Left Midfield,2000-05-02,2027-05-31,,Stenhousemuir FC
 129971,Dale Carrick,Centre-Forward,1994-01-07,2027-05-31,,Stenhousemuir FC
+404381,Brandon Cooper,Centre-Back,2000-01-14,2027-06-30,€350k,Salford City
+154219,Michael Rose,Centre-Back,1995-10-11,2028-06-30,€300k,Salford City
+919149,Adebola Oluwo,Centre-Back,1999-11-19,2028-06-30,€300k,Salford City
+697282,Zach Awe,Centre-Back,2004-01-09,2027-06-30,€100k,Salford City
+110860,Luke Garbutt,Left-Back,1993-05-21,2027-06-30,€125k,Salford City
+148660,Ollie Turton,Right-Back,1992-12-06,2027-06-30,€150k,Salford City
+391132,Matt Butcher,Defensive Midfield,1997-05-14,2027-06-30,€300k,Salford City
+696183,Kallum Cesay,Defensive Midfield,2002-09-04,2028-06-30,€250k,Salford City
+334964,Jorge Grant,Central Midfield,1994-12-19,2027-06-30,€225k,Salford City
+344015,Ben Woodburn,Attacking Midfield,1999-10-15,2027-06-30,€250k,Salford City
+871692,Kelly Nmai,Left Winger,2004-05-01,2027-06-30,€300k,Salford City
+1193520,Kyrell Malcolm,Right Winger,2007-06-12,2027-06-30,€50k,Salford City
+428446,Daniel Udoh,Centre-Forward,1996-08-30,2027-06-30,€350k,Salford City
+535785,Ryan Graydon,Centre-Forward,1999-04-11,,€300k,Salford City
+289411,Marko Marosi,Goalkeeper,1993-10-23,2027-06-30,€100k,Port Vale FC
+277723,Cameron Humphreys,Centre-Back,1998-08-22,2027-06-30,€600k,Port Vale FC
+650476,Connor Hall,Centre-Back,1993-05-23,2027-06-30,€125k,Port Vale FC
+474225,Liam Gordon,Left-Back,1999-05-15,2027-06-30,€250k,Port Vale FC
+425900,Jordan Gabriel,Right-Back,1998-09-25,2027-06-30,€600k,Port Vale FC
+504507,Kyle John,Right-Back,2001-02-13,2027-06-30,€225k,Port Vale FC
+293570,Ryan Croasdale,Defensive Midfield,1994-09-26,2027-06-30,€175k,Port Vale FC
+1072759,Rhys Walters,Defensive Midfield,2005-11-18,2028-06-30,€125k,Port Vale FC
+871229,George Hall,Central Midfield,2004-07-15,2028-06-30,€750k,Port Vale FC
+741948,Ben Garrity,Central Midfield,1997-02-21,2028-06-30,€300k,Port Vale FC
+240083,George Byers,Central Midfield,1996-05-29,2027-06-30,€225k,Port Vale FC
+731755,Jaheim Headley,Left Midfield,2001-09-24,2027-06-30,€550k,Port Vale FC
+109751,Onel Hernández,Left Winger,1993-02-01,2027-06-30,€250k,Port Vale FC
+539502,Ben Waine,Centre-Forward,2001-06-11,2027-06-30,€400k,Port Vale FC
+457528,Zach Hemming,Goalkeeper,2000-03-07,2028-06-30,€400k,Chesterfield FC
+259916,Ryan Boot,Goalkeeper,1994-11-09,,€75k,Chesterfield FC
+813065,Malik Owolabi-Belewu,Centre-Back,2002-07-03,2028-06-30,€100k,Chesterfield FC
+32526,Kyle McFadzean,Centre-Back,1987-02-20,2027-06-30,€25k,Chesterfield FC
+530384,Tom Pearce,Left-Back,1998-04-12,2027-06-30,€350k,Chesterfield FC
+563754,Lewis Gordon,Left-Back,2001-02-12,2027-06-30,€250k,Chesterfield FC
+496644,Ryan Stirk,Defensive Midfield,2000-09-25,,€300k,Chesterfield FC
+126225,Tom Naylor,Defensive Midfield,1991-06-28,2028-06-30,€75k,Chesterfield FC
+530807,Dilan Markanday,Right Midfield,2001-08-20,2028-06-30,€350k,Chesterfield FC
+745728,Dylan Duffy,Left Midfield,2002-11-28,2027-06-30,€250k,Chesterfield FC
+369563,Liam Mandeville,Attacking Midfield,1997-02-17,2028-06-30,€275k,Chesterfield FC
+1100014,Connor Cook,Attacking Midfield,2004-07-14,2027-06-30,,Chesterfield FC
+713479,Lee Bonis,Centre-Forward,1999-08-03,,€450k,Chesterfield FC
+908779,Will Dickson,Centre-Forward,2004-11-25,2027-06-30,€100k,Chesterfield FC
+106676,Will Grigg,Centre-Forward,1991-07-03,2027-06-30,€75k,Chesterfield FC
+503880,Ted Cann,Goalkeeper,2000-12-27,2027-06-30,€150k,Rotherham United
+1069449,Emmanuel Adegboyega,Centre-Back,2003-09-16,2027-06-30,€350k,Rotherham United
+909487,Lenny Agbaire,Centre-Back,2005-03-04,2028-06-30,€125k,Rotherham United
+967295,Hamish Douglas,Centre-Back,2005-06-04,2027-06-30,€125k,Rotherham United
+412949,Denzel Hall,Right-Back,2001-05-22,2028-06-30,€500k,Rotherham United
+175740,Joe Rafferty,Right-Back,1993-10-06,2027-06-30,€200k,Rotherham United
+508265,Kian Spence,Defensive Midfield,2001-01-09,2027-06-30,€300k,Rotherham United
+814526,Brandon Cover,Defensive Midfield,2003-09-25,2027-06-30,€125k,Rotherham United
+883433,Marvin Kaleta,Right Midfield,2004-09-14,2027-06-30,€200k,Rotherham United
+211076,Ross Fitzsimons,Goalkeeper,1994-05-28,2027-06-30,€100k,Northampton Town
+1053879,James Dadge,Goalkeeper,2004-10-18,2026-06-30,,Northampton Town
+341993,Elliott Moore,Centre-Back,1997-03-16,2027-06-30,€400k,Northampton Town
+382686,Conor McCarthy,Centre-Back,1998-04-11,2027-06-30,€275k,Northampton Town
+816002,Max Dyche,Centre-Back,2003-02-22,2027-06-30,€150k,Northampton Town
+222108,Jon Guthrie,Centre-Back,1992-07-29,2027-06-30,€100k,Northampton Town
+630076,Jack Burroughs,Right-Back,2001-03-21,2027-06-30,€275k,Northampton Town
+814524,Joe Wormleighton,Right-Back,2003-10-16,2027-06-30,€125k,Northampton Town
+623560,Liam Shaw,Defensive Midfield,2001-03-12,2027-06-30,€150k,Northampton Town
+503918,Tyrese Fornah,Central Midfield,1999-09-11,2028-06-30,€350k,Northampton Town
+925104,Jack Perkins,Central Midfield,2003-12-07,2027-06-30,€175k,Northampton Town
+693066,Kamarai Swyer,Attacking Midfield,2002-12-04,2027-06-30,€100k,Northampton Town
+198861,Sam Hoskins,Right Winger,1993-02-04,,€125k,Northampton Town
+372714,Elliott List,Right Winger,1997-05-12,2027-06-30,€100k,Northampton Town
+703487,Brad Young,Goalkeeper,2002-05-05,2030-06-30,€200k,Bristol Rovers
+565674,Riley Harbottle,Centre-Back,2000-09-26,2028-06-30,€275k,Bristol Rovers
+396678,Alfie Kilgour,Centre-Back,1998-05-18,2027-06-30,€250k,Bristol Rovers
+470594,Clinton Mola,Centre-Back,2001-03-15,2027-06-30,€250k,Bristol Rovers
+527791,Jack Sparkes,Left-Back,2000-09-29,2027-06-30,€400k,Bristol Rovers
+538678,Macauley Southam-Hales,Right-Back,1996-02-02,2027-06-30,€150k,Bristol Rovers
+505307,Ryan De Havilland,Central Midfield,2001-06-15,2028-06-30,€200k,Bristol Rovers
+852517,Shaq Forde,Right Winger,2004-05-05,2027-06-30,€225k,Bristol Rovers
+707550,Fabrizio Cavegn,Centre-Forward,2002-08-28,2028-06-30,€350k,Bristol Rovers
+386148,Joe Quigley,Centre-Forward,1996-12-10,2028-06-30,€100k,Bristol Rovers
+185109,Ellis Harrison,Centre-Forward,1994-01-29,2027-06-30,€75k,Bristol Rovers
+163531,Connor Ripley,Goalkeeper,1993-02-13,2027-06-30,€125k,Swindon Town
+258910,Lewis Ward,Goalkeeper,1997-03-05,2027-06-30,€75k,Swindon Town
+244154,Ryan Tafazolli,Centre-Back,1991-09-28,2027-06-30,€50k,Swindon Town
+928577,Billy Kirkman,Left-Back,2004-02-26,2027-06-30,€100k,Swindon Town
+1205846,Joel McGregor,Right-Back,2006-03-24,2027-06-30,€250k,Swindon Town
+469064,Gavin Kilkenny,Defensive Midfield,2000-02-01,2028-06-30,€350k,Swindon Town
+297571,James Ball,Central Midfield,1995-12-01,2027-06-30,€75k,Swindon Town
+146542,Ollie Clarke,Central Midfield,1992-06-29,2027-06-30,€75k,Swindon Town
+922463,Ben Middlemas,Central Midfield,2004-12-13,2028-06-30,€50k,Swindon Town
+745692,Joe Snowdon,Right Midfield,2004-02-14,2027-06-30,€100k,Swindon Town
+186597,Tom Nichols,Attacking Midfield,1993-08-28,2027-06-30,€100k,Swindon Town
+478637,Daniel Butterworth,Attacking Midfield,1999-09-14,2027-02-01,€100k,Swindon Town
+466106,Aaron Drinan,Centre-Forward,1998-05-06,2030-06-30,€500k,Swindon Town
+470604,Paul Glatzel,Centre-Forward,2001-02-20,2029-06-30,€275k,Swindon Town
+452019,Harry Smith,Centre-Forward,1995-05-18,2027-06-30,€100k,Swindon Town
+1080392,Fletcher Holman,Centre-Forward,2004-10-12,2027-06-30,€100k,Swindon Town
+282256,Ollie Palmer,Centre-Forward,1992-01-21,2027-06-30,€50k,Swindon Town
+965728,Tom Booth,Goalkeeper,2004-08-02,2027-06-30,€175k,Crewe Alexandra
+183166,Ian Lawlor,Goalkeeper,1994-10-27,2027-06-30,€75k,Crewe Alexandra
+194189,Mickey Demetriou,Centre-Back,1990-03-12,2027-06-30,€50k,Crewe Alexandra
+578937,Reece Hutchinson,Left-Back,2000-04-14,2027-06-30,€300k,Crewe Alexandra
+1003023,Lewis Billington,Right-Back,2004-02-17,2029-06-30,€300k,Crewe Alexandra
+1205843,Stan Dancey,Right-Back,2007-03-08,2027-06-30,€50k,Crewe Alexandra
+965744,Owen Lunt,Defensive Midfield,2004-09-02,2028-06-30,€250k,Crewe Alexandra
+131980,Conor Thomas,Defensive Midfield,1993-10-29,2027-06-30,€50k,Crewe Alexandra
+1211228,Luca Moore,Defensive Midfield,2005-09-28,2028-06-30,€50k,Crewe Alexandra
+726634,Matus Holicek,Central Midfield,2005-01-25,2027-06-30,€300k,Crewe Alexandra
+943893,Joel Tabiner,Central Midfield,2003-11-30,2027-06-30,€150k,Crewe Alexandra
+602544,Jack Lankester,Attacking Midfield,2000-01-19,2027-06-30,€200k,Crewe Alexandra
+883543,Calum Agius,Left Winger,2005-09-05,2027-06-30,€250k,Crewe Alexandra
+735677,Josh March,Centre-Forward,1997-03-18,2028-06-30,€150k,Crewe Alexandra
+1110023,Adrien Thibaut,Centre-Forward,2004-07-11,2028-06-30,€100k,Crewe Alexandra
+540690,Tom Smith,Goalkeeper,2002-01-30,,€75k,Colchester United
+542516,Jack Tucker,Centre-Back,1999-11-12,2027-06-30,€350k,Colchester United
+965095,Frankie Terry,Centre-Back,2004-01-30,2027-06-30,€100k,Colchester United
+878357,Samuel Kuffour Jr.,Centre-Back,2003-10-25,2027-06-30,€50k,Colchester United
+386937,Ellis Iandolo,Left-Back,1997-08-22,,€200k,Colchester United
+335591,Rob Hunt,Right-Back,1995-07-07,,€150k,Colchester United
+350232,Kane Vincent-Young,Right-Back,1996-03-15,,€125k,Colchester United
+276266,Teddy Bishop,Central Midfield,1996-07-15,2027-06-30,€200k,Colchester United
+925105,Ben Perry,Central Midfield,2004-12-01,2028-06-30,€100k,Colchester United
+278092,Jack Payne,Attacking Midfield,1994-10-25,2027-06-30,€275k,Colchester United
+666588,Adrian Akande,Left Winger,2003-10-22,2027-06-30,€75k,Colchester United
+335765,Harry Anderson,Right Winger,1997-01-09,2027-06-30,€275k,Colchester United
+907220,Jaden Williams,Centre-Forward,2004-09-06,2027-06-30,€125k,Colchester United
+183301,Luke McGee,Goalkeeper,1995-09-02,2027-06-30,€75k,Tranmere Rovers
+321416,Nathan Smith,Centre-Back,1996-04-03,2027-06-30,€275k,Tranmere Rovers
+226978,Jordan Turnbull,Centre-Back,1994-10-30,2027-06-30,€150k,Tranmere Rovers
+283478,Patrick Brough,Left-Back,1996-02-20,2027-06-30,€150k,Tranmere Rovers
+366681,Lee O'Connor,Right-Back,2000-07-28,2027-06-30,€200k,Tranmere Rovers
+652979,Lewis Warrington,Central Midfield,2002-10-10,2028-06-30,€250k,Tranmere Rovers
+217806,Sam Finley,Central Midfield,1992-08-04,2027-06-30,€75k,Tranmere Rovers
+1053935,James Plant,Left Midfield,2004-11-03,2027-06-30,€175k,Tranmere Rovers
+726992,Charlie Whitaker,Attacking Midfield,2003-09-16,2027-06-30,€250k,Tranmere Rovers
+177901,Joe Ironside,Centre-Forward,1993-10-16,2028-06-30,€150k,Tranmere Rovers
+212426,Connor Jennings,Centre-Forward,1991-10-29,2027-06-30,€50k,Tranmere Rovers
+805895,Will Brook,Goalkeeper,2003-11-09,2028-06-30,€100k,Shrewsbury Town
+425872,Sam Stubbs,Centre-Back,1998-11-20,2027-06-30,€300k,Shrewsbury Town
+247400,Will Boyle,Centre-Back,1995-09-01,2027-06-30,€150k,Shrewsbury Town
+1289516,Isaac Lee,Centre-Back,2003-09-03,,€50k,Shrewsbury Town
+176632,Josh Ruffels,Left-Back,1993-10-23,,€175k,Shrewsbury Town
+509156,Kevin Berkoe,Left-Back,2001-07-05,,€150k,Shrewsbury Town
+698895,Luca Hoole,Right-Back,2002-06-02,2028-06-30,€200k,Shrewsbury Town
+396176,Tom Sang,Defensive Midfield,1999-06-29,2027-06-30,€225k,Shrewsbury Town
+1399959,Isaac England,Defensive Midfield,2008-04-29,2028-06-30,€75k,Shrewsbury Town
+1441310,Will Gray,Defensive Midfield,2009-04-19,2029-06-30,€50k,Shrewsbury Town
+532192,George Lloyd,Centre-Forward,2000-02-11,,€150k,Shrewsbury Town
+260368,Christy Pym,Goalkeeper,1995-04-24,2027-06-30,€200k,Grimsby Town
+1253588,Sebastian Auton,Goalkeeper,2006-11-17,2027-06-30,,Grimsby Town
+903189,Maldini Kacurri,Centre-Back,2005-10-04,2027-06-30,€450k,Grimsby Town
+459873,Harvey Rodgers,Centre-Back,1996-10-20,2028-06-30,€350k,Grimsby Town
+425715,Cameron McJannet,Centre-Back,1998-09-06,2028-06-30,€350k,Grimsby Town
+285846,Sam Lavelle,Centre-Back,1996-10-03,2027-06-30,€125k,Grimsby Town
+537864,Doug Tharme,Centre-Back,1999-08-17,2028-06-30,€125k,Grimsby Town
+550641,Reece Staunton,Left-Back,2001-12-10,2029-06-30,€300k,Grimsby Town
+676168,Jayden Sweeney,Left-Back,2001-12-04,2027-06-30,€200k,Grimsby Town
+692906,Géza Dávid Turi,Central Midfield,2001-10-06,2028-06-30,€250k,Grimsby Town
+343301,Kieran Green,Attacking Midfield,1997-06-30,2029-06-30,€350k,Grimsby Town
+72518,Jamie Walker,Attacking Midfield,1993-06-25,2027-06-30,€125k,Grimsby Town
+335181,Charles Vernam,Left Winger,1996-10-08,2027-06-30,€150k,Grimsby Town
+380026,Justin Amaluzor,Right Winger,1996-10-17,2027-06-30,€125k,Grimsby Town
+1179574,Cameron Gardner,Centre-Forward,2005-09-22,2028-06-30,€50k,Grimsby Town
+425895,Jordan Wright,Goalkeeper,1999-02-27,,€125k,Newport County
+386507,Shaun MacDonald,Goalkeeper,1996-10-20,2027-06-30,€50k,Newport County
+814290,Lee Jenkins,Centre-Back,2001-08-30,,€200k,Newport County
+535485,Cameron Evans,Centre-Back,2001-02-23,,€150k,Newport County
+550134,Ciaran Brennan,Centre-Back,2000-05-05,,€75k,Newport County
+854853,Tom Davies,Left-Back,2003-11-11,2027-06-30,€100k,Newport County
+924699,Joe Thomas,Right-Back,2002-03-12,2027-06-30,€150k,Newport County
+365877,Matthew Smith,Defensive Midfield,1999-11-22,,€150k,Newport County
+1184522,Cole Jarvis,Central Midfield,2001-07-15,,€75k,Newport County
+547006,Keenan Patten,Central Midfield,2001-04-07,2026-12-31,€50k,Newport County
+1167037,Moses Alexander-Walker,Right Winger,2007-07-27,2027-06-30,,Newport County
+747255,James Crole,Centre-Forward,2004-02-22,2028-06-30,€100k,Newport County
+618883,Gerard Garner,Centre-Forward,1998-11-02,2027-06-30,€100k,Newport County
+487428,Nikola Tavares,Centre-Back,1999-01-17,2028-06-30,€250k,Barnet FC
+314205,Danny Collinge,Centre-Back,1998-04-09,,€200k,Barnet FC
+689891,Romoney Crichlow,Centre-Back,1999-06-03,,€175k,Barnet FC
+387391,Myles Kenlock,Left-Back,1996-11-26,2027-06-30,,Barnet FC
+672607,Adam Senior,Right-Back,2002-01-20,,€400k,Barnet FC
+525850,Kane Smith,Right-Back,1996-06-18,,€100k,Barnet FC
+611906,Nnamdi Ofoborh,Central Midfield,1999-11-07,2027-06-30,€275k,Barnet FC
+1434712,Bright Siaw,Left Winger,2006-12-30,2029-06-30,,Barnet FC
+405982,Idris Kanu,Right Winger,1999-12-05,,€250k,Barnet FC
+346237,Kabongo Tshimanga,Centre-Forward,1997-07-22,,€175k,Barnet FC
+1080558,Taite Holtam,Goalkeeper,2005-02-14,2027-06-30,,Gillingham FC
+743741,Andy Smith,Centre-Back,2001-09-11,2028-06-30,€300k,Gillingham FC
+136580,Omar Beckles,Centre-Back,1991-10-25,,€50k,Gillingham FC
+1350450,Logan Dobbs,Centre-Back,2006-09-21,2027-06-30,,Gillingham FC
+1313578,Harry Webster,Right-Back,2006-09-08,2027-06-30,,Gillingham FC
+532079,Robbie McKenzie,Defensive Midfield,1998-09-25,2027-06-30,€400k,Gillingham FC
+424903,Ethan Coleman,Defensive Midfield,2000-01-28,,€250k,Gillingham FC
+1300764,Harry Waldock,Defensive Midfield,2006-12-20,,€50k,Gillingham FC
+337279,Armani Little,Central Midfield,1997-04-05,2027-06-30,€200k,Gillingham FC
+565824,Cameron Antwi,Central Midfield,2001-10-07,2028-06-30,€150k,Gillingham FC
+238556,Bradley Dack,Attacking Midfield,1993-12-31,2027-06-30,€150k,Gillingham FC
+1362295,Damien Theodore,Left Winger,2007-08-24,2027-06-30,,Gillingham FC
+69653,Garath McCleary,Right Winger,1987-05-15,2027-06-30,€25k,Gillingham FC
+436034,Ronan Hale,Centre-Forward,1998-09-08,2028-06-30,€350k,Gillingham FC
+733305,Rico Browne,Centre-Back,2003-12-28,2028-06-30,€150k,Walsall FC
+918868,Harrison Burke,Centre-Back,2002-09-13,2028-06-30,€100k,Walsall FC
+533615,Harry Williams,Centre-Back,2002-08-15,2027-06-30,€100k,Walsall FC
+808454,Mason Hancock,Left-Back,2003-02-10,2027-06-30,€225k,Walsall FC
+875571,Elicha Ahui,Right-Back,2003-12-28,2027-06-30,€50k,Walsall FC
+399454,Alex Pattison,Central Midfield,1997-09-06,2027-06-30,€250k,Walsall FC
+819863,Courtney Clarke,Right Midfield,2003-04-20,2027-06-30,€150k,Walsall FC
+83430,Albert Adomah,Right Winger,1987-12-13,2027-06-30,€25k,Walsall FC
+471003,Aaron Pressley,Centre-Forward,2001-11-07,2028-06-30,€300k,Walsall FC
+104564,Joe Day,Goalkeeper,1990-08-13,2027-06-30,€50k,Cheltenham Town
+696762,Jonathan Tomkinson,Centre-Back,2002-04-11,2027-06-30,€200k,Cheltenham Town
+379711,Robbie Cundy,Centre-Back,1997-05-30,2027-06-30,€200k,Cheltenham Town
+48098,James Wilson,Centre-Back,1989-02-26,2027-06-30,€25k,Cheltenham Town
+633129,George Nurse,Left-Back,1999-04-30,2027-06-30,€100k,Cheltenham Town
+375044,Ben Stevenson,Defensive Midfield,1997-03-23,2027-06-30,€175k,Cheltenham Town
+1072526,Freddy Willcox,Defensive Midfield,2005-12-11,,€50k,Cheltenham Town
+380029,Ryan Broom,Right Midfield,1996-09-04,2026-06-30,€150k,Cheltenham Town
+414892,George Miller,Centre-Forward,1998-08-11,2027-06-30,€125k,Cheltenham Town
+705159,Jake Bickerstaff,Centre-Forward,2001-09-11,2027-06-30,€100k,Cheltenham Town
+506230,Jack Bycroft,Goalkeeper,2001-09-21,2027-06-30,€175k,Exeter City
+1404686,Frankie Phillips,Goalkeeper,2006-09-20,2027-06-30,,Exeter City
+580809,Ed Turns,Centre-Back,2002-10-18,2027-06-30,€450k,Exeter City
+342047,Jack Fitzwater,Centre-Back,1997-09-23,2027-06-30,€300k,Exeter City
+926307,Luca Woodhouse,Centre-Back,2004-07-25,2027-06-30,€100k,Exeter City
+876166,Ed James,Centre-Back,2004-12-23,2027-06-30,€75k,Exeter City
+340921,Jake Doyle-Hayes,Central Midfield,1998-12-30,2027-06-30,€350k,Exeter City
+1169146,Charlie Cummins,Central Midfield,2005-06-13,2027-06-30,€75k,Exeter City
+1186528,Liam Oakes,Left Midfield,2007-01-10,2027-06-30,€75k,Exeter City
+432179,Reece Cole,Attacking Midfield,1998-02-17,2027-06-30,€200k,Exeter City
+1337026,George Birch,Attacking Midfield,2006-09-24,2027-06-30,,Exeter City
+949413,Andrew Oluwabori,Right Winger,2001-09-30,2027-06-30,,Exeter City
+811292,Sonny Cox,Centre-Forward,2004-10-11,2027-06-30,€350k,Exeter City
+747258,Charlie Barker,Centre-Back,2003-02-12,2027-06-30,€350k,Crawley Town
+473544,Akin Odimayo,Centre-Back,1999-11-28,2027-06-30,€150k,Crawley Town
+571827,Lewis Richards,Left-Back,2001-10-15,2027-06-30,€150k,Crawley Town
+823762,Jonny Russell,Left-Back,2004-09-19,,€75k,Crawley Town
+370138,Kellan Gordon,Right-Back,1997-12-25,2027-06-30,€100k,Crawley Town
+741271,Justin Ferizaj,Central Midfield,2005-01-13,2028-06-30,€50k,Crawley Town
+1433785,Fate Kotey,Right Midfield,2007-09-28,,,Crawley Town
+839807,Ade Adeyemo,Left Midfield,1998-07-13,2028-06-30,€150k,Crawley Town
+505548,Louie Watson,Attacking Midfield,2001-06-07,2028-06-30,€125k,Crawley Town
+499604,Dion Pereira,Right Winger,1999-03-25,,€175k,Crawley Town
+641124,Danilo Orsi,Centre-Forward,1996-04-19,2028-06-30,€175k,Crawley Town
+129067,Ethan Ebanks-Landell,Centre-Back,1992-12-16,2027-06-30,,Rochdale AFC
+987566,Bryant Bilongo,Left-Back,2001-09-15,2027-06-30,,Rochdale AFC
+802229,Sam Beckwith,Left-Back,2001-12-11,2027-06-30,,Rochdale AFC
+369555,Tobi Adebayo-Rowling,Right-Back,1996-11-16,2027-06-30,,Rochdale AFC
+725701,Dan Moss,Right-Back,2000-11-04,2027-06-30,,Rochdale AFC
+424884,Ryan East,Defensive Midfield,1998-08-07,2027-06-30,,Rochdale AFC
+332327,Ed Francis,Defensive Midfield,1999-09-11,2028-06-30,,Rochdale AFC
+802233,Casey Pettit,Defensive Midfield,2002-10-15,2027-06-30,,Rochdale AFC
+473079,Harvey Gilmour,Central Midfield,1998-12-15,2027-06-30,,Rochdale AFC
+462068,Luke Hannant,Left Midfield,1993-11-04,2027-06-30,,Rochdale AFC
+483383,Devante Rodney,Right Winger,1998-05-19,2027-06-30,,Rochdale AFC
+268451,Emmanuel Dieseruvwe,Centre-Forward,1995-02-20,2027-06-30,,Rochdale AFC
+11686,Ian Henderson,Centre-Forward,1985-01-24,2027-06-30,,Rochdale AFC
+128273,Jay Lynch,Goalkeeper,1993-03-31,2027-06-30,€75k,Fleetwood Town
+945771,Finley Potter,Centre-Back,2004-03-14,2027-06-30,€250k,Fleetwood Town
+1091011,Kayden Hughes,Centre-Back,2005-11-28,2027-06-30,€125k,Fleetwood Town
+794816,Rhys Bennett,Centre-Back,2003-10-30,2028-06-30,€75k,Fleetwood Town
+280409,Shaun Rooney,Right-Back,1996-07-26,2028-06-30,€300k,Fleetwood Town
+746736,Harrison Neal,Defensive Midfield,2001-05-12,2028-06-30,€275k,Fleetwood Town
+1224159,David Animasaun,Central Midfield,2007-09-09,,,Fleetwood Town
+596217,Mark Helm,Attacking Midfield,2001-10-21,2027-06-30,€350k,Fleetwood Town
+586938,Lewis McCann,Centre-Forward,2001-06-07,2028-06-30,€150k,Fleetwood Town
+106376,Will Davies,Centre-Forward,1999-06-06,2027-06-30,€100k,Fleetwood Town
+345282,Ronan Coughlan,Centre-Forward,1996-10-02,2028-06-30,€100k,Fleetwood Town
+61622,Ched Evans,Centre-Forward,1988-12-28,2027-06-30,€25k,Fleetwood Town
+354303,Mathew Hudson,Goalkeeper,1998-07-29,2028-06-30,€200k,Oldham Athletic
+319630,Manny Monthe,Centre-Back,1995-01-26,2028-06-30,€150k,Oldham Athletic
+816519,Will Sutton,Centre-Back,2002-10-30,2027-06-30,€150k,Oldham Athletic
+199522,Donervon Daniels,Centre-Back,1993-11-24,2027-06-30,€75k,Oldham Athletic
+326585,Jamie Robson,Left-Back,1997-12-19,2027-06-30,€300k,Oldham Athletic
+646214,Oliver Hammond,Central Midfield,2002-11-13,2027-06-30,€100k,Oldham Athletic
+329205,Tom Pett,Central Midfield,1991-12-03,2027-06-30,€75k,Oldham Athletic
+488416,Josh Hawkes,Left Midfield,1999-01-28,2027-06-30,€150k,Oldham Athletic
+804330,Jack Stevens,Left Winger,2000-12-14,2027-06-30,€150k,Oldham Athletic
+698196,Calum Kavanagh,Centre-Forward,2003-09-05,2028-06-30,€250k,Oldham Athletic
+1263583,Kane Drummond,Centre-Forward,2000-12-19,2027-06-30,€150k,Oldham Athletic
+542439,Mike Fondop,Centre-Forward,1993-11-27,2027-06-30,€75k,Oldham Athletic
+1305987,James Rogerson,Goalkeeper,2006-11-20,2027-06-30,,Accrington Stanley
+335177,Farrend Rawson,Centre-Back,1996-07-11,2028-06-30,€300k,Accrington Stanley
+1045997,Devon Matthews,Centre-Back,2000-01-04,2027-06-30,€250k,Accrington Stanley
+1091370,Josh Smith,Centre-Back,2005-09-17,2027-06-30,€100k,Accrington Stanley
+966649,Connor O'Brien,Right-Back,2004-07-12,2027-06-30,€200k,Accrington Stanley
+179451,Donald Love,Right-Back,1994-12-02,2028-06-30,€175k,Accrington Stanley
+425268,Liam Coyle,Defensive Midfield,1999-12-06,2027-06-30,€175k,Accrington Stanley
+70019,Seamus Conneely,Defensive Midfield,1988-07-09,2027-06-30,€25k,Accrington Stanley
+1164610,Isaac Sinclair,Central Midfield,2001-07-26,2027-06-30,€200k,Accrington Stanley
+218355,Conor Grant,Left Midfield,1995-04-18,2027-06-30,€75k,Accrington Stanley
+966681,Alex Henderson,Attacking Midfield,2004-09-25,2027-06-30,€125k,Accrington Stanley
+49637,Shaun Whalley,Right Winger,1987-08-07,2027-06-30,€25k,Accrington Stanley
+461477,Tyler Walton,Centre-Forward,1998-09-23,2026-06-30,€225k,Accrington Stanley
+445548,Charlie Brown,Centre-Forward,1999-09-23,2027-06-30,€125k,Accrington Stanley
+914370,Josh Woods,Centre-Forward,2000-07-05,2027-06-30,€100k,Accrington Stanley
+425764,Kelsey Mooney,Centre-Forward,1999-02-05,2027-06-30,€75k,Accrington Stanley
+744754,Charlie Caton,Centre-Forward,2002-11-25,2027-06-30,€75k,Accrington Stanley
+560111,George Sykes-Kenworthy,Goalkeeper,1999-10-01,2027-06-30,,York City
+295639,Mark Kitching,Centre-Back,1995-09-04,2027-06-30,,York City
+160154,Ashley Palmer,Centre-Back,1992-11-09,2027-06-30,,York City
+594683,Morgan Williams,Centre-Back,1999-08-30,2028-06-30,,York City
+450736,Ryan Fallowfield,Centre-Back,1996-01-03,2027-06-30,,York City
+483346,Joe Felix,Right-Back,1999-09-29,2028-06-30,,York City
+606006,Alex Hunt,Central Midfield,2000-05-29,2028-06-30,,York City
+244125,Hiram Boateng,Central Midfield,1996-01-08,2027-06-30,,York City
+158702,Ollie Banks,Central Midfield,1992-09-21,2027-06-30,,York City
+330593,Jeff King,Right Midfield,1995-12-19,2027-06-30,,York City
+1066935,Craig Hewitt,Left Midfield,2003-09-28,2027-06-30,,York City
+730305,Joe Grey,Attacking Midfield,2003-05-04,2027-06-30,,York City
+390687,Alex Newby,Attacking Midfield,1995-11-21,2028-06-30,,York City
+952941,Josh Stones,Centre-Forward,2003-11-12,2031-06-30,,York City
+1001391,Ollie Pearce,Centre-Forward,1995-08-08,2028-06-30,,York City
+67232,Mark Oxley,Goalkeeper,1990-09-28,2027-06-30,€25k,Harrogate Town
+474382,Lewis Cass,Centre-Back,2000-02-27,2027-06-30,€150k,Harrogate Town
+601512,Tom Bradbury,Centre-Back,1998-02-27,,€100k,Harrogate Town
+698896,Grant Horton,Centre-Back,2001-09-13,2026-06-30,€75k,Harrogate Town
+104535,Warren Burrell,Centre-Back,1990-06-03,2027-06-30,€25k,Harrogate Town
+236508,Bryn Morris,Defensive Midfield,1996-04-25,2026-06-30,€200k,Harrogate Town
+452708,Ben Fox,Defensive Midfield,1998-02-01,2027-06-30,€100k,Harrogate Town
+1209669,Lucas Barnes,Central Midfield,2007-05-17,,,Harrogate Town
+353800,George Thomson,Right Midfield,1992-05-19,2026-06-30,€50k,Harrogate Town
+632350,Ellis Taylor,Left Midfield,2003-04-14,2027-06-30,€250k,Harrogate Town
+195637,Mason Bennett,Centre-Forward,1996-07-15,2027-06-30,€100k,Harrogate Town
+470371,Shawn McCoulsky,Centre-Forward,1997-01-06,2027-06-30,€75k,Harrogate Town
+325607,Jack Muldoon,Centre-Forward,1989-05-19,2027-06-30,€25k,Harrogate Town
+505046,Ben Winterbottom,Goalkeeper,2001-07-16,2027-06-30,€50k,Barrow AFC
+1338614,Killian Barrett,Goalkeeper,2004-03-15,2027-06-30,,Barrow AFC
+689892,Ben Jackson,Left-Back,2001-02-22,2027-06-30,€300k,Barrow AFC
+647392,Scott Smith,Defensive Midfield,2001-02-07,2027-06-30,€175k,Barrow AFC
+279454,MJ Williams,Defensive Midfield,1995-11-06,2027-06-30,€125k,Barrow AFC
+456877,Rekeem Harper,Central Midfield,2000-03-08,2027-06-30,€175k,Barrow AFC
+460216,Jack Earing,Central Midfield,1999-01-21,2027-06-30,€100k,Barrow AFC
+450854,Innes Cameron,Centre-Forward,2000-08-22,2027-06-30,€175k,Barrow AFC
+807260,Louis Chadwick,Goalkeeper,2003-02-23,2027-06-30,,Boston United
+810489,Connor Teale,Centre-Back,2002-10-08,2027-06-30,,Boston United
+1165478,Jacob Scott,Centre-Back,2005-09-08,2027-06-30,,Boston United
+698637,Arjan Raikhy,Central Midfield,2002-10-20,2027-06-30,,Boston United
+952183,Dylan Hill,Central Midfield,2004-04-22,2027-06-30,,Boston United
+1368899,Tom Cursons,Centre-Forward,2001-12-08,,,Boston United
+67386,Lenell John-Lewis,Centre-Forward,1989-05-17,2026-06-30,,Boston United
+454239,Ben Goodliffe,Centre-Back,1999-06-19,2027-06-30,,Southend United
+380028,Harry Taylor,Centre-Back,1997-05-05,2027-06-30,,Southend United
+658563,Leon Chambers-Parillon,Central Midfield,2001-11-05,2027-06-30,,Southend United
+335843,Sam Austin,Left Midfield,1996-12-19,2027-06-30,,Southend United
+810541,Oliver Coker,Attacking Midfield,2003-03-09,2027-06-30,,Southend United
+837207,Charley Kendall,Centre-Forward,2000-12-15,2027-06-30,,Southend United
+653353,Luke McNicholas,Goalkeeper,2000-01-01,,,Forest Green Rovers
+1062935,Gabe Kircough,Centre-Back,2004-03-22,,,Forest Green Rovers
+834839,Neil Kengni,Left-Back,2000-02-29,,,Forest Green Rovers
+696180,Max Robson,Right-Back,2002-10-17,,,Forest Green Rovers
+684279,Tate Campbell,Defensive Midfield,2002-06-27,,,Forest Green Rovers
+1478431,Akai Bonnick,Central Midfield,2006-06-11,2027-06-30,,Forest Green Rovers
+411228,Tre Pemberton,Right Midfield,1999-01-03,,,Forest Green Rovers
+1046775,Jayden Clarke,Left Midfield,2001-05-08,,,Forest Green Rovers
+341889,Nick Haughton,Attacking Midfield,1994-09-20,,,Forest Green Rovers
+399260,Kyle McAllister,Right Winger,1999-01-21,2027-06-30,,Forest Green Rovers
+802420,Sean Etaluku,Right Winger,2003-12-05,,,Forest Green Rovers
+710026,Joshua Osude,Right Winger,1999-06-08,,,Forest Green Rovers
+531678,D'Mani Mellor,Centre-Forward,2000-09-20,,,Forest Green Rovers
+428214,Kairo Mitchell,Centre-Forward,1997-10-21,,,Forest Green Rovers
+873965,Ricardo Rees,Centre-Forward,1999-12-29,,,Forest Green Rovers
+163532,Adam Smith,Goalkeeper,1992-11-23,2027-06-30,,Hartlepool United
+365204,Maxim Kouogun,Centre-Back,1997-03-14,2027-06-30,,Hartlepool United
+707953,Reiss McNally,Centre-Back,2000-08-03,2027-06-30,,Hartlepool United
+820704,Jay Benn,Right-Back,2001-08-22,2027-06-30,,Hartlepool United
+702583,Jamie Miley,Defensive Midfield,2004-01-14,2027-06-30,,Hartlepool United
+475441,Nathan Sheron,Defensive Midfield,1997-10-04,2027-06-30,,Hartlepool United
+1579096,Jacob Penprase,Midfielder,2008-02-20,,,Hartlepool United
+373558,Jack Hunter,Central Midfield,1997-10-14,2027-06-30,,Hartlepool United
+399393,Luke Charman,Centre-Forward,1997-12-09,2027-06-30,,Hartlepool United
+1579093,Charlie Thornton,Striker,2008-06-23,,,Hartlepool United
+256221,Nick Townsend,Goalkeeper,1994-11-01,,,Eastleigh FC
+128292,Aaron Pierre,Centre-Back,1993-02-17,2027-06-30,,Eastleigh FC
+1045015,Temi Eweka,Centre-Back,1999-07-22,2027-06-30,,Eastleigh FC
+1343526,Connor Underhill,Midfielder,2006-03-18,,,Eastleigh FC
+128902,Jordan Cousins,Central Midfield,1994-03-06,,,Eastleigh FC
+505693,Josh Lundstram,Central Midfield,1999-02-19,,,Eastleigh FC
+925797,Aaron Blair,Centre-Forward,2000-04-20,2026-06-30,,Eastleigh FC
+1443445,Barney Stone,Striker,2025-10-28,,,Eastleigh FC
+699225,Pete Jameson,Goalkeeper,1993-04-21,,,Gateshead FC
+835872,Ben Williams,Centre-Back,2004-12-06,,,Gateshead FC
+214023,David Ferguson,Left-Back,1994-06-07,2027-06-30,,Gateshead FC
+802235,Tyrelle Newton,Defensive Midfield,2003-10-28,2027-06-30,,Gateshead FC
+547038,Sam Bowen,Central Midfield,2001-01-14,2027-06-30,,Gateshead FC
+921665,Josh Home,Central Midfield,2005-06-21,2028-06-30,,Gateshead FC
+837277,Joshua Anifowose,Right Midfield,2004-02-02,2027-06-30,,Gateshead FC
+348488,Harry Chapman,Attacking Midfield,1997-11-05,2026-06-30,,Gateshead FC
+1216834,Lucas Lowery,Attacking Midfield,2006-12-10,,,Gateshead FC
+732201,Fenton John,Attacking Midfield,2003-12-29,2028-05-31,,Gateshead FC
+1370643,Callum Bone,Attacking Midfield,2008-09-13,2027-06-30,,Gateshead FC
+810454,Billy Chadwick,Left Winger,2000-01-19,2027-06-30,,Gateshead FC
+333782,Dom Telford,Centre-Forward,1996-12-05,2027-06-30,,Gateshead FC
+893416,Ashley Boatswain,Centre-Forward,2005-04-19,2027-06-30,,Gateshead FC
+399373,Morgan Feeney,Centre-Back,1999-02-08,2027-06-30,,Carlisle United
+226971,Bevis Mugabi,Centre-Back,1995-05-01,2027-06-30,,Carlisle United
+563903,Cameron Harper,Left-Back,2001-11-10,2027-06-30,,Carlisle United
+647382,Ryan Galvin,Left-Back,2001-01-31,2028-06-30,,Carlisle United
+854875,Jack Ellis,Right-Back,2003-10-24,2027-06-30,,Carlisle United
+733304,Josh Williams,Right-Back,2002-11-24,2027-06-30,,Carlisle United
+396165,Callum Whelan,Defensive Midfield,1998-09-24,2027-06-30,,Carlisle United
+970393,Harvey Macadam,Central Midfield,2001-01-09,2027-06-30,,Carlisle United
+364828,Elliot Embleton,Attacking Midfield,1999-04-02,2028-06-30,,Carlisle United
+532175,Stephen Wearne,Attacking Midfield,2000-12-16,2027-06-30,,Carlisle United
+485994,David Ajiboye,Right Winger,1998-09-28,2027-06-30,,Carlisle United
+809096,Junior Luamba,Right Winger,2003-04-27,2027-06-30,,Carlisle United
+363881,Georgie Kelly,Centre-Forward,1996-11-12,2027-06-30,,Carlisle United
+383046,Luke Armstrong,Centre-Forward,1996-07-02,2027-06-30,,Carlisle United
+837156,Regan Linney,Centre-Forward,1997-05-12,2028-06-30,,Carlisle United
+159827,Sam Johnson,Goalkeeper,1992-12-01,,,FC Halifax Town
+562257,Shaun Hobson,Centre-Back,1998-06-29,2026-06-30,,FC Halifax Town
+433319,Dylan Crowe,Right-Back,2001-04-13,2026-06-30,,FC Halifax Town
+746080,Owen Bray,Central Midfield,2002-12-05,,,FC Halifax Town
+1043656,Cody Johnson,Central Midfield,2004-10-03,,,FC Halifax Town
+802422,Will Hugill,Central Midfield,2003-11-06,,,FC Halifax Town
+1437269,AJ Warburton,Right Winger,2005-08-04,,,FC Halifax Town
+966936,David Kawa,Centre-Forward,2003-12-16,,,FC Halifax Town
+643162,Jake Cooper,Centre-Back,2001-01-02,2027-06-30,,Altrincham FC
+890897,Charlie Olson,Centre-Back,2004-10-26,2027-06-30,,Altrincham FC
+503786,Sam Barnes,Centre-Back,2001-03-10,2027-06-30,,Altrincham FC
+1331033,Joel Bailey,Centre-Back,2005-09-28,,,Altrincham FC
+657259,Eddy Jones,Left-Back,2001-10-25,2027-06-30,,Altrincham FC
+345782,Lewis Banks,Right-Back,1997-04-14,2027-06-30,,Altrincham FC
+1192246,Owen German,Defensive Midfield,2005-03-18,,,Altrincham FC
+681491,Kian Breckin,Central Midfield,2003-12-10,2027-06-30,,Altrincham FC
+523536,Tom Crawford,Central Midfield,1999-05-30,2028-06-30,,Altrincham FC
+1447683,Remi Raymond,Central Midfield,2025-07-01,,,Altrincham FC
+146494,Anthony Forde,Right Midfield,1993-11-16,2027-06-30,,Altrincham FC
+318799,Otis Khan,Left Winger,1995-09-05,2027-06-30,€50k,Altrincham FC
+147468,Matty Kosylo,Left Winger,1992-08-17,2027-06-30,,Altrincham FC
+421443,Charlie Kirk,Left Winger,1997-12-24,2027-06-30,,Altrincham FC
+1265114,Lucas Weaver,Right Winger,2002-01-22,,,Altrincham FC
+747571,Kahrel Reddin,Right Winger,2004-01-13,2026-06-30,,Altrincham FC
+663889,Jimmy Knowles,Centre-Forward,2001-02-27,,,Altrincham FC
+428366,Louis Jones,Goalkeeper,1998-10-12,,,Scunthorpe United
+750908,Maison Campbell,Goalkeeper,2003-07-16,2027-06-30,,Scunthorpe United
+550218,Branden Horton,Centre-Back,2000-09-09,,,Scunthorpe United
+156672,Will Evans,Centre-Back,1991-10-09,2027-06-30,,Scunthorpe United
+472044,Ross Barrows,Centre-Back,1997-11-09,2026-06-30,,Scunthorpe United
+452809,Tyler Denton,Left-Back,1995-09-06,2027-06-30,,Scunthorpe United
+804041,Jean Belehouan,Right-Back,2000-09-01,2026-06-30,,Scunthorpe United
+727228,Joe Starbuck,Right-Back,2002-08-03,,,Scunthorpe United
+1350617,Harry Shipstone,Right-Back,2006-12-05,,,Scunthorpe United
+451862,Alfie Beestin,Central Midfield,1997-10-01,2027-06-30,,Scunthorpe United
+495034,Joe Rowley,Attacking Midfield,1999-06-03,2028-06-30,,Scunthorpe United
+720269,Patrick Jones,Left Winger,2003-06-09,2028-06-30,,Scunthorpe United
+1172132,Declan Howe,Centre-Forward,1998-03-28,,,Scunthorpe United
+1450907,Charlie Watts,Defender,2025-07-01,,,Solihull Moors
+385917,Alex Whitmore,Centre-Back,1995-09-07,2027-06-30,,Solihull Moors
+676307,Tyler French,Centre-Back,1999-02-12,,,Solihull Moors
+1097808,Finn Howell,Left-Back,2005-02-10,,,Solihull Moors
+503763,Cameron Green,Left-Back,1999-04-24,,,Solihull Moors
+929691,Oscar Rutherford,Right-Back,2003-12-21,2027-06-30,,Solihull Moors
+728982,Scott High,Central Midfield,2001-02-15,2027-06-30,,Solihull Moors
+533919,Ben Worman,Central Midfield,2001-08-30,,,Solihull Moors
+552615,Jacob Wakeling,Centre-Forward,2001-09-15,,,Solihull Moors
+1031256,Callum McFarlane,Centre-Forward,2003-09-08,2027-06-30,,Solihull Moors
+463694,Ollie Harfield,Left-Back,1998-01-09,2027-06-30,,Aldershot Town
+1126901,Brody Peart,Right Winger,2005-08-26,2027-06-30,,Aldershot Town
+492391,Tristan Abrahams,Centre-Forward,1998-12-29,2027-06-30,,Aldershot Town
+565947,Dante Baptiste,Goalkeeper,2002-02-07,,,Wealdstone FC
+966344,Endurance Johnson,Goalkeeper,2003-11-10,2026-06-30,,Wealdstone FC
+504966,Mason Barrett,Centre-Back,1999-09-24,,,Wealdstone FC
+565817,Connor McAvoy,Centre-Back,2002-02-16,2026-06-30,,Wealdstone FC
+636885,Jack Cook,Centre-Back,1993-09-16,2027-06-30,,Wealdstone FC
+1484975,Joshua Clay,Right-Back,,,,Wealdstone FC
+766253,Dylan Kadji,Defensive Midfield,2003-09-01,2027-06-30,,Wealdstone FC
+814811,Jack Wells-Morrison,Central Midfield,2004-02-18,2027-06-30,,Wealdstone FC
+356569,Olufela Olomola,Right Winger,1997-09-05,,,Wealdstone FC
+241696,Craig Ross,Goalkeeper,1990-01-29,2028-06-30,,Woking FC
+328651,Will Jääskeläinen,Goalkeeper,1998-07-25,2027-06-30,,Woking FC
+424878,Timi Odusina,Centre-Back,1999-10-28,2028-06-30,,Woking FC
+347212,Tunji Akinola,Centre-Back,1998-11-21,2027-06-30,,Woking FC
+746105,Chinwike Okoli,Centre-Back,2003-09-14,2027-06-30,,Woking FC
+527679,Caleb Richards,Left-Back,1998-09-08,2027-06-30,,Woking FC
+462112,Tariq Hinds,Right-Back,2000-06-15,2027-06-30,,Woking FC
+454269,Roy Syla,Central Midfield,2000-06-20,2027-06-30,,Woking FC
+638647,Tim Akinola,Central Midfield,2001-05-08,2028-06-30,,Woking FC
+148151,Jake Forster-Caskey,Central Midfield,1994-04-25,2027-06-30,,Woking FC
+920194,Matt Ward,Right Midfield,2003-08-16,2027-06-30,,Woking FC
+148908,Aiden O'Brien,Left Winger,1993-10-04,2027-06-30,,Woking FC
+203501,Matt Gould,Goalkeeper,1994-01-07,2027-06-30,,Yeovil Town
+506213,Joy Mukena,Centre-Back,1999-07-03,2027-06-30,,Yeovil Town
+824937,Ryan Jones,Left-Back,2002-05-23,2028-06-30,,Yeovil Town
+718253,Brett McGavin,Defensive Midfield,1999-12-21,2028-06-30,,Yeovil Town
+396858,Luke McCormick,Central Midfield,1999-01-21,2026-06-30,,Yeovil Town
+577779,James Daly,Left Winger,2000-01-12,,,Yeovil Town
+893241,Rhys Byrne,Goalkeeper,2002-08-24,2026-06-30,,Hornchurch FC
+530910,Will Greenidge,Right-Back,2002-05-15,,,Hornchurch FC
+302459,Sam Ling,Right-Back,1996-12-17,,,Hornchurch FC
+966399,Charlie Pegrum,Right Midfield,2004-10-11,,,Hornchurch FC
+526276,Tom Wraight,Left Midfield,1994-06-29,,,Hornchurch FC
+43696,Ángelo Balanta,Attacking Midfield,1990-07-01,,,Hornchurch FC
+55525,Myles Weston,Left Winger,1988-03-12,,,Hornchurch FC
+237011,Dominic Poleon,Centre-Forward,1993-09-07,,,Hornchurch FC
+854779,Henry Hearn,Centre-Forward,2004-09-13,,,Hornchurch FC
+1047361,Henry Sandat,Centre-Forward,2005-03-22,,,Hornchurch FC
+1488818,Bobby Kelman,Centre-Forward,,,,Hornchurch FC
+120575,Jas Singh,Goalkeeper,1990-03-12,2027-06-30,,Tamworth FC
+965948,Daniel Rachel,Goalkeeper,2006-07-15,2027-06-30,,Tamworth FC
+142353,Haydn Hollis,Centre-Back,1992-10-14,2027-06-30,,Tamworth FC
+527562,Jordan Cullinane-Liburd,Centre-Back,1995-05-23,2027-06-30,,Tamworth FC
+106150,Luke Fairlamb,Left-Back,1993-09-05,2027-06-30,,Tamworth FC
+1223113,Teo Kurtaran,Central Midfield,2002-05-07,2027-06-30,,Tamworth FC
+194358,Ben Milnes,Central Midfield,1991-09-12,2027-06-30,,Tamworth FC
+1397117,Charlie Edge,Central Midfield,2007-06-27,2027-06-30,,Tamworth FC
+331037,Tom McGlinchey,Right Midfield,1996-11-03,2027-06-30,,Tamworth FC
+1484126,CJ Nyakuhwa,Right Midfield,2005-08-10,2027-06-30,,Tamworth FC
+870970,Ben Acquaye,Left Midfield,1999-12-28,2027-06-30,,Tamworth FC
+198787,Dan Creaney,Centre-Forward,1994-07-27,2027-06-30,,Tamworth FC
+1583885,Vanylson Silva,Centre-Forward,2005-05-02,2027-06-30,,Tamworth FC
+485667,Zac Jones,Goalkeeper,2000-11-27,2027-06-30,,AFC Fylde
+884864,Patrick Boyes,Goalkeeper,2002-09-25,2027-06-30,,AFC Fylde
+460683,Max Taylor,Centre-Back,2000-01-10,2027-06-30,,AFC Fylde
+734354,Will Lancaster,Centre-Back,2002-08-03,2027-06-30,,AFC Fylde
+308615,Corey Whelan,Centre-Back,1997-12-10,2028-06-30,,AFC Fylde
+1119822,Alex Healy-Byrne,Right-Back,2004-04-19,2028-06-30,,AFC Fylde
+837279,Ethan Mitchell,Defensive Midfield,2002-10-23,2027-06-30,,AFC Fylde
+425879,Chris Merrie,Central Midfield,1998-11-02,2027-06-30,,AFC Fylde
+106708,Danny Mayor,Central Midfield,1990-10-18,2027-06-30,,AFC Fylde
+691063,Tom Whelan,Central Midfield,1996-04-05,2027-06-30,,AFC Fylde
+1297299,Jack Morris,Attacking Midfield,2006-06-14,2027-06-30,,AFC Fylde
+745693,Luca Thomas,Right Winger,2004-09-16,2027-06-30,,AFC Fylde
+1257755,Josh Bishop,Goalkeeper,2005-10-07,,,Kidderminster Harriers
+906426,Richard Faakye,Centre-Back,2005-03-06,2026-06-30,,Kidderminster Harriers
+470608,Reece Devine,Left-Back,2001-12-18,,,Kidderminster Harriers
+610579,Owen Evans,Left-Back,2000-09-30,,,Kidderminster Harriers
+845794,Reece Hall,Right-Back,2003-09-25,,,Kidderminster Harriers
+129054,David Davis,Central Midfield,1991-02-20,2027-06-30,,Kidderminster Harriers
+1066966,Samson Hewett,Central Midfield,2005-07-08,,,Kidderminster Harriers
+1462112,Arthur Squire,Central Midfield,2025-09-01,,,Kidderminster Harriers
+55520,Callum Reynolds,Centre-Back,1989-11-10,,,Boreham Wood FC
+574585,Ollie Kensdale,Centre-Back,2000-04-20,,,Boreham Wood FC
+170407,Chris Bush,Centre-Back,1992-06-12,,,Boreham Wood FC
+625407,James Clarke,Right-Back,2000-04-02,2028-06-30,,Boreham Wood FC
+496786,Tom White,Defensive Midfield,1997-05-09,2028-06-30,,Boreham Wood FC
+678238,Charlie O'Connell,Defensive Midfield,2002-12-19,,,Boreham Wood FC
+652836,Marley Marshall-Miranda,Defensive Midfield,2002-10-22,2027-06-30,,Boreham Wood FC
+425951,Regan Booty,Defensive Midfield,1998-03-04,2028-06-30,,Boreham Wood FC
+1577949,Hayden Stapelberg,Midfielder,2027-06-30,2027-06-30,,Boreham Wood FC
+657863,Lewis Richardson,Right Midfield,2003-02-07,2028-06-30,,Boreham Wood FC
+746777,Zak Brunt,Attacking Midfield,2001-11-17,,,Boreham Wood FC
+718546,Matt Rush,Centre-Forward,2001-03-11,,,Boreham Wood FC
+395734,Chris Haigh,Goalkeeper,1997-04-05,,,Sutton United
+586980,Alex Kirk,Centre-Back,2002-10-27,2027-06-30,,Sutton United
+989117,Toby Byron,Centre-Back,2001-08-24,2026-06-30,,Sutton United
+747562,Besart Topalloj,Left-Back,2001-05-16,,,Sutton United
+969399,Kwaku Donkor,Right-Back,2004-09-15,,,Sutton United
+130230,Jake Taylor,Central Midfield,1991-12-01,2028-06-30,,Sutton United
+1466631,Charlie Bell,Central Midfield,2026-01-01,,,Sutton United
+1165695,David Ogbonna,Left Winger,2001-09-30,,,Sutton United
+1171100,Jermaine Francis,Right Winger,2002-03-15,,,Sutton United
+976070,Brandon Njoku,Centre-Forward,2005-01-29,,,Sutton United
+844609,Taylor Seymour,Goalkeeper,2001-09-17,,,Worthing FC
+820702,Harry Ransom,Centre-Back,1999-10-01,2026-06-30,,Worthing FC
+1070812,Joe Cook,Centre-Back,1999-07-31,,,Worthing FC
+567595,Sam Packham,Right-Back,2001-11-08,,,Worthing FC
+1001382,Joel Colbran,Right-Back,1999-03-26,2027-06-30,,Worthing FC
+1522301,Owen Spicer,Central Midfield,2004-03-01,2027-06-30,,Worthing FC
+733499,Matt Burgess,Central Midfield,2003-02-12,,,Worthing FC
+833747,Razzaq Coleman De-Graft,Left Winger,1998-02-27,,,Worthing FC
+882391,Bailey Smith,Right Winger,2005-05-02,,,Worthing FC
+478712,Ed McGinty,Goalkeeper,1999-08-05,,€300k,Shamrock Rovers
+217752,Lee Steacy,Goalkeeper,1993-01-18,,€50k,Shamrock Rovers
+1366903,Todd Bazunu,Goalkeeper,2007-10-04,,,Shamrock Rovers
+264193,Dan Cleary,Centre-Back,1996-03-09,,€300k,Shamrock Rovers
+166158,Roberto Lopes,Centre-Back,1992-06-17,,€250k,Shamrock Rovers
+957327,Cory O'Sullivan,Centre-Back,2006-05-02,,€250k,Shamrock Rovers
+365180,Lee Grace,Centre-Back,1992-12-01,,€100k,Shamrock Rovers
+85706,Enda Stevens,Left-Back,1990-07-09,,€75k,Shamrock Rovers
+108878,Adam Matthews,Right-Back,1992-01-13,,€175k,Shamrock Rovers
+307513,Gary O'Neill,Defensive Midfield,1995-01-27,,€125k,Shamrock Rovers
+586628,Matthew Healy,Central Midfield,2002-04-12,2027-11-30,€500k,Shamrock Rovers
+217757,Jack Byrne,Central Midfield,1996-04-24,2026-11-30,€400k,Shamrock Rovers
+365201,Dylan Watts,Central Midfield,1997-04-11,,€250k,Shamrock Rovers
+485998,Connor Malley,Central Midfield,2000-03-20,2027-11-30,€150k,Shamrock Rovers
+1061560,John O'Sullivan,Central Midfield,2006-01-29,,€100k,Shamrock Rovers
+577557,Danny Grant,Right Midfield,1999-12-23,2026-11-30,€250k,Shamrock Rovers
+957295,Naj Razi,Attacking Midfield,2006-10-28,,€275k,Shamrock Rovers
+293783,Daniel Mandroiu,Attacking Midfield,1998-10-20,2026-11-30,€250k,Shamrock Rovers
+1259889,Adam Brennan,Attacking Midfield,2007-05-29,,€150k,Shamrock Rovers
+264206,Jake Mulraney,Right Winger,1996-04-05,,€275k,Shamrock Rovers
+1134229,Max Kovalevskis,Right Winger,2008-02-09,,€75k,Shamrock Rovers
+177892,Graham Burke,Second Striker,1993-09-21,,€250k,Shamrock Rovers
+713240,John McGovern,Centre-Forward,2002-10-17,,€325k,Shamrock Rovers
+122407,Aaron Greene,Centre-Forward,1990-01-02,,€50k,Shamrock Rovers
+1380362,Ben Mahon,Centre-Forward,2009-03-06,2028-11-30,,Shamrock Rovers
+576099,Joseph Anang,Goalkeeper,2000-06-08,2026-11-30,€350k,St. Patrick's Athletic
+200956,Danny Rogers,Goalkeeper,1994-03-23,2026-11-30,€100k,St. Patrick's Athletic
+941427,Sean Molloy,Goalkeeper,2004-08-02,,,St. Patrick's Athletic
+1260402,Darragh Brunton,Goalkeeper,2009-06-01,,,St. Patrick's Athletic
+1165129,Luke Cullen,Goalkeeper,2008-12-10,,,St. Patrick's Athletic
+434218,Joe Redmond,Centre-Back,2000-01-23,2028-11-30,€350k,St. Patrick's Athletic
+586755,Luke Turner,Centre-Back,2002-05-20,2029-11-30,€225k,St. Patrick's Athletic
+249879,Sean Hoare,Centre-Back,1994-03-15,2027-11-30,€150k,St. Patrick's Athletic
+1380428,Josh O'Connor,Centre-Back,2009-06-09,,,St. Patrick's Athletic
+1134241,Sam Steward,Centre-Back,2008-02-13,,,St. Patrick's Athletic
+224799,Anto Breslin,Left-Back,1997-02-13,2027-11-30,€150k,St. Patrick's Athletic
+437573,James Brown,Right-Back,1998-06-04,2028-11-30,€250k,St. Patrick's Athletic
+718846,Ronan Boyce,Right-Back,2001-05-12,2027-11-30,€175k,St. Patrick's Athletic
+1238018,Billy Canny,Right-Back,2008-05-28,,,St. Patrick's Athletic
+567750,Jamie Lennon,Defensive Midfield,1998-05-09,2027-11-30,€250k,St. Patrick's Athletic
+1260400,Kian Quigley,Defensive Midfield,2009-02-28,,,St. Patrick's Athletic
+737861,Romal Palmer,Central Midfield,1998-09-30,2026-11-30,€250k,St. Patrick's Athletic
+540872,Darragh Nugent,Central Midfield,2001-03-01,2027-11-30,€150k,St. Patrick's Athletic
+515550,Barry Baggley,Central Midfield,2002-01-11,2027-11-30,€150k,St. Patrick's Athletic
+180497,Chris Forrester,Central Midfield,1992-12-17,2026-11-30,€100k,St. Patrick's Athletic
+1260394,Niall Sullivan,Central Midfield,2009-02-11,,,St. Patrick's Athletic
+392860,Simon Power,Right Midfield,1998-05-13,2026-11-30,€150k,St. Patrick's Athletic
+1260405,Joe Carroll-Byrne,Right Midfield,2009-08-03,,,St. Patrick's Athletic
+385704,Jason McClelland,Left Midfield,1997-03-05,2027-11-30,€150k,St. Patrick's Athletic
+614554,Kian Leavy,Attacking Midfield,2002-03-21,2026-11-30,€250k,St. Patrick's Athletic
+957294,Luke Kehir,Attacking Midfield,2006-02-02,,,St. Patrick's Athletic
+1442224,Ryan Sheridan,Attacking Midfield,2009-03-31,,,St. Patrick's Athletic
+1134228,Billy Hayes,Left Winger,2008-06-06,,,St. Patrick's Athletic
+293779,Zack Elbouzedi,Right Winger,1998-04-05,2027-11-30,€225k,St. Patrick's Athletic
+1260406,Samuel Ogungbe,Right Winger,2009-04-28,,,St. Patrick's Athletic
+559806,Ryan Edmondson,Centre-Forward,2001-05-20,,€325k,St. Patrick's Athletic
+401323,Aidan Keena,Centre-Forward,1999-04-25,2026-11-30,€250k,St. Patrick's Athletic
+408965,Max Mata,Centre-Forward,2000-07-10,,€250k,St. Patrick's Athletic
+1519078,Yssouf Soro,Striker,2006-10-08,,,St. Patrick's Athletic
+1165138,Sam Rooney,Centre-Forward,2008-11-24,,,St. Patrick's Athletic
+320897,Kacper Chorazka,Goalkeeper,1999-03-18,2026-12-31,€200k,Bohemian Football Club
+1260710,Finn McDonnell,Goalkeeper,2008-01-10,,,Bohemian Football Club
+1033923,Patrick Hickey,Centre-Back,1998-07-02,2027-11-30,€275k,Bohemian Football Club
+451942,Sam Todd,Centre-Back,1998-04-28,2027-11-30,€175k,Bohemian Football Club
+995598,Cian Byrne,Centre-Back,2003-01-31,2027-11-30,€125k,Bohemian Football Club
+334703,Jordan Flores,Left-Back,1995-10-04,2027-11-30,€200k,Bohemian Football Club
+434217,Ryan Burke,Left-Back,2000-11-23,2026-12-31,€125k,Bohemian Football Club
+683670,Darragh Power,Right-Back,2000-12-29,,€175k,Bohemian Football Club
+585658,Niall Morahan,Right-Back,2000-05-30,2026-11-30,€150k,Bohemian Football Club
+314365,Sadou Diallo,Defensive Midfield,1999-06-10,,€200k,Bohemian Football Club
+683530,Dawson Devoy,Central Midfield,2001-11-20,2027-11-30,€350k,Bohemian Football Club
+623740,Ross Tierney,Central Midfield,2001-03-06,2026-11-30,€325k,Bohemian Football Club
+251822,Adam McDonnell,Central Midfield,1997-05-14,2027-11-30,€125k,Bohemian Football Club
+1121731,Markuss Strods,Attacking Midfield,2006-10-05,2027-11-30,€150k,Bohemian Football Club
+1339597,Christopher Conlon,Attacking Midfield,2007-04-21,,,Bohemian Football Club
+491629,Dayle Rooney,Left Winger,1998-02-24,2027-11-30,€200k,Bohemian Football Club
+504198,Connor Parsons,Left Winger,2000-10-26,2026-11-30,€125k,Bohemian Football Club
+906411,Zane Myers,Right Winger,2005-08-11,,€150k,Bohemian Football Club
+535670,Colm Whelan,Centre-Forward,2000-06-29,2026-11-30,€225k,Bohemian Football Club
+814340,Douglas James-Taylor,Centre-Forward,2001-11-18,2027-11-30,€175k,Bohemian Football Club
+1380190,Hugh Martin,Centre-Forward,2010-01-01,,,Bohemian Football Club
+741226,Conor Walsh,Goalkeeper,2005-03-17,,€50k,Shelbourne FC
+1284436,Cillian Campion,Goalkeeper,2007-10-21,,,Shelbourne FC
+1365582,Finn Moylan,Goalkeeper,2008-02-03,,,Shelbourne FC
+1134234,Ali Topcu,Goalkeeper,2008-04-01,,,Shelbourne FC
+434221,Kameron Ledwidge,Centre-Back,2001-04-07,2029-11-30,€200k,Shelbourne FC
+630884,Odhran Casey,Centre-Back,2002-04-09,,€175k,Shelbourne FC
+122736,Paddy Barrett,Centre-Back,1993-07-22,2026-11-30,€175k,Shelbourne FC
+495178,Sam Bone,Centre-Back,1998-02-06,,€150k,Shelbourne FC
+1005770,James Roche,Centre-Back,2007-10-07,,,Shelbourne FC
+618495,James Norris,Left-Back,2003-04-04,,€175k,Shelbourne FC
+854959,Milan Mbeng,Right-Back,2002-04-06,2027-11-30,€175k,Shelbourne FC
+184670,Sean Gannon,Right-Back,1991-07-11,2026-11-30,€75k,Shelbourne FC
+796024,Jack Henry-Francis,Defensive Midfield,2003-09-23,2027-11-30,€250k,Shelbourne FC
+293782,JJ Lunney,Defensive Midfield,1998-02-02,2029-11-30,€125k,Shelbourne FC
+423757,Kerr McInroy,Central Midfield,2000-08-31,2026-11-30,€325k,Shelbourne FC
+1461853,Alex Flynn,Central Midfield,2008-07-19,,,Shelbourne FC
+745722,Evan Caffrey,Right Midfield,2003-02-27,2027-11-30,€175k,Shelbourne FC
+1165133,Cillian Ryan,Right Midfield,2008-03-05,,,Shelbourne FC
+285282,Ali Coote,Attacking Midfield,1998-06-11,2027-11-30,€175k,Shelbourne FC
+746613,Will Jarvis,Left Winger,2002-12-17,2028-11-30,€300k,Shelbourne FC
+567749,Daniel Kelly,Right Winger,1996-05-21,2026-11-30,€150k,Shelbourne FC
+955724,Sean Moore,Right Winger,2005-08-13,,€125k,Shelbourne FC
+504115,John Martin,Centre-Forward,1999-01-05,2027-11-30,€225k,Shelbourne FC
+379347,Sean Boyd,Centre-Forward,1998-06-20,2027-11-30,€150k,Shelbourne FC
+655880,Mipo Odubeko,Centre-Forward,2002-10-21,2026-11-30,€150k,Shelbourne FC
+681724,Rodrigo Freitas,Centre-Forward,2002-04-28,2028-11-30,€75k,Shelbourne FC
+1442225,Joey Wuna,Centre-Forward,2009-08-19,,,Shelbourne FC
+434205,Brian Maher,Goalkeeper,2000-11-01,2028-11-30,€175k,Derry City
+471624,Jamie Stott,Centre-Back,1997-12-22,2026-11-30,€175k,Derry City
+363880,Patrick McClean,Centre-Back,1996-11-22,2027-11-30,€125k,Derry City
+532078,Brandon Fleming,Left-Back,1999-12-03,2028-11-30,€250k,Derry City
+1079594,Conor Barr,Right-Back,2005-12-19,2027-11-30,€125k,Derry City
+248576,Cameron Dummigan,Right-Back,1996-06-02,2026-11-30,€100k,Derry City
+1468362,Ciaran Mullan,Right-Back,2007-03-20,,,Derry City
+1559827,Oisin O'Brien,Right-Back,2010-07-08,,,Derry City
+169625,Carl Winchester,Defensive Midfield,1993-04-12,2028-11-30,€175k,Derry City
+552652,Adam O'Reilly,Central Midfield,2001-05-11,2026-11-30,€250k,Derry City
+506965,James Olayinka,Central Midfield,2000-10-05,2027-11-30,€175k,Derry City
+1260732,Callum Downey,Central Midfield,2008-01-01,,,Derry City
+1334062,Liam Kelly,Central Midfield,2010-08-07,,,Derry City
+85935,James McClean,Left Midfield,1989-04-22,2027-11-30,€100k,Derry City
+719980,James Clarke,Attacking Midfield,2001-01-28,2028-11-30,€225k,Derry City
+315385,Darragh Markey,Attacking Midfield,1997-05-23,2027-11-30,€150k,Derry City
+1559828,Caolan O'Donnell,Attacking Midfield,2008-06-07,,,Derry City
+232068,Michael Duffy,Left Winger,1994-07-28,2028-11-30,€275k,Derry City
+671805,Kevin dos Santos,Left Winger,1999-11-20,2027-11-30,€175k,Derry City
+325588,Gavin Whyte,Right Winger,1996-01-31,2027-11-30,€300k,Derry City
+117793,Liam Boyce,Centre-Forward,1991-04-08,2026-11-30,€100k,Derry City
+1551670,Terence Doherty,Centre-Forward,2009-06-21,,,Derry City
+745768,Luke Dennison,Goalkeeper,1996-08-21,2027-11-30,€175k,Drogheda United FC
+568176,Fynn Talley,Goalkeeper,2002-09-14,2026-11-30,€175k,Drogheda United FC
+1371606,Theo Hennessy,Goalkeeper,2007-07-12,2026-11-30,,Drogheda United FC
+377180,Conor Keeley,Centre-Back,1997-12-13,2027-11-30,€250k,Drogheda United FC
+748019,Andrew Quinn,Centre-Back,2002-01-24,2026-11-30,€175k,Drogheda United FC
+612121,Leo Burney,Centre-Back,2001-11-02,2026-11-30,€125k,Drogheda United FC
+1283632,James Bolger,Centre-Back,2000-11-19,2027-11-30,€125k,Drogheda United FC
+1539218,Calum Donnelly,Centre-Back,2007-08-21,,,Drogheda United FC
+429247,Conor Kane,Left-Back,1998-11-05,2026-11-30,€200k,Drogheda United FC
+953139,Kieran Cruise,Left-Back,2004-01-03,2026-11-30,€100k,Drogheda United FC
+1501888,Jamie Brennan,Left-Back,2008-04-28,,,Drogheda United FC
+888478,Owen Lambe,Right-Back,2000-08-15,2026-11-30,€200k,Drogheda United FC
+648044,Edwin Agbaje,Right-Back,2004-01-25,2027-11-30,€175k,Drogheda United FC
+794700,Jason Bucknor,Right-Back,2002-03-17,2026-11-30,€100k,Drogheda United FC
+567574,Shane Farrell,Central Midfield,2000-06-26,2026-11-30,€175k,Drogheda United FC
+1243646,Ethan O'Brien,Central Midfield,2001-01-24,2026-11-30,€100k,Drogheda United FC
+137591,Ryan Brennan,Central Midfield,1991-11-11,2026-11-30,€50k,Drogheda United FC
+1371605,Sean McGrath,Left Midfield,2008-12-22,,,Drogheda United FC
+469065,Brandon Kavanagh,Attacking Midfield,2000-09-21,2027-11-30,€200k,Drogheda United FC
+428907,Mark Doyle,Centre-Forward,1998-11-19,2027-11-30,€225k,Drogheda United FC
+1110018,Warren Davis,Centre-Forward,2005-04-02,2027-11-30,€200k,Drogheda United FC
+677356,Thomas Oluwa,Centre-Forward,2001-02-08,2026-11-30,€150k,Drogheda United FC
+1303687,Ryan Markey,Centre-Forward,2006-02-23,,,Drogheda United FC
+1523368,Cian O'Connor,Centre-Forward,2008-05-27,,,Drogheda United FC
+369945,Sam Sargeant,Goalkeeper,1997-09-23,2026-11-30,€125k,Sligo Rovers
+494284,Liam Hughes,Goalkeeper,2001-08-19,2026-11-30,€100k,Sligo Rovers
+10015,Richard Brush,Goalkeeper,1984-11-26,2026-11-30,,Sligo Rovers
+1333928,Charlie McGarvey,Goalkeeper,2010-04-11,,,Sligo Rovers
+596215,Ollie Denham,Centre-Back,2002-05-04,2026-11-30,€150k,Sligo Rovers
+1148282,Gareth McElroy,Centre-Back,2004-11-24,2028-11-30,€150k,Sligo Rovers
+624263,Sean Stewart,Left-Back,2003-01-21,,€125k,Sligo Rovers
+635019,Seb Quirk,Left-Back,2001-12-05,2026-11-30,€100k,Sligo Rovers
+512691,Jeannot Esua,Right-Back,1996-08-06,2027-11-30,€200k,Sligo Rovers
+1151999,Conor Reynolds,Right-Back,2006-12-16,2026-11-30,€100k,Sligo Rovers
+1261926,Aidan Gabbidon,Right-Back,2009-01-23,,,Sligo Rovers
+148957,Carl McHugh,Defensive Midfield,1993-02-05,2027-11-30,€275k,Sligo Rovers
+1558013,Seamus Maughan,Defensive Midfield,2009-10-22,,,Sligo Rovers
+1269989,Conor Cannon,Midfielder,2006-06-30,,,Sligo Rovers
+1427981,Callum Lynch,Left Midfield,2007-10-15,,,Sligo Rovers
+967162,Jad Hakiki,Attacking Midfield,2004-06-23,2026-11-30,€200k,Sligo Rovers
+396537,Archie Meekison,Attacking Midfield,2002-05-04,2026-11-30,€175k,Sligo Rovers
+1167208,Daire Patton,Attacking Midfield,2006-01-15,2026-11-30,€100k,Sligo Rovers
+1162910,Kyle McDonagh,Attacking Midfield,2006-01-23,2026-11-30,€75k,Sligo Rovers
+1515330,Oisin Kelly,Attacking Midfield,2007-04-27,,,Sligo Rovers
+745729,Alex Nolan,Left Winger,2003-03-20,,€125k,Sligo Rovers
+693750,Ryan O'Kane,Left Winger,2003-08-16,,€125k,Sligo Rovers
+741225,Kevin Zefi,Second Striker,2005-02-11,2026-11-30,€50k,Sligo Rovers
+701072,Cian Kavanagh,Centre-Forward,2003-01-03,2026-11-30,€125k,Sligo Rovers
+603084,Enda Minogue,Goalkeeper,2002-01-12,2026-11-30,€125k,Dundalk FC
+18197,Peter Cherrie,Goalkeeper,1983-10-01,,,Dundalk FC
+1226570,Samuel Safaei,Goalkeeper,2005-03-09,,,Dundalk FC
+1335736,Calum Woods,Defender,2009-02-20,,,Dundalk FC
+1260391,Sean Spaight,Defender,2009-01-25,,,Dundalk FC
+888899,Mayowa Animasahun,Centre-Back,2003-08-08,2026-11-30,€125k,Dundalk FC
+1041609,Harvey Warren,Centre-Back,2004-04-11,2026-11-30,€125k,Dundalk FC
+261902,Rob Cornwall,Centre-Back,1994-10-16,2026-11-30,€100k,Dundalk FC
+357671,Tyreke Wilson,Left-Back,1999-12-02,,€175k,Dundalk FC
+386942,Bobby Burns,Left-Back,1999-10-07,2027-11-30,€150k,Dundalk FC
+539577,John Ross Wilson,Right-Back,1998-12-13,2026-11-30,€150k,Dundalk FC
+204401,Conor O'Keeffe,Right-Back,1993-09-19,2026-11-30,€100k,Dundalk FC
+1005773,Luke Mulligan,Right-Back,2007-11-13,2026-11-30,,Dundalk FC
+1319776,Ethan Hall,Right-Back,2006-03-26,,,Dundalk FC
+1472546,Shay Casey,Defensive Midfield,2008-01-27,,,Dundalk FC
+498175,Aodh Dervin,Central Midfield,1999-07-21,2026-11-30,€125k,Dundalk FC
+877192,Harry Groome,Central Midfield,2001-11-09,2026-11-30,€125k,Dundalk FC
+1018097,Shane Tracey,Central Midfield,2006-04-04,2026-11-30,€100k,Dundalk FC
+181349,Keith Buckley,Central Midfield,1992-06-17,2026-11-30,€50k,Dundalk FC
+1231250,Cian Spaight,Central Midfield,2007-04-15,,,Dundalk FC
+1461851,Aaron Keogh,Central Midfield,2008-01-10,,,Dundalk FC
+182587,Declan McDaid,Left Midfield,1995-11-22,2027-11-30,€125k,Dundalk FC
+178139,Daryl Horgan,Left Midfield,1992-08-10,2028-11-30,€100k,Dundalk FC
+1455252,Conall Alfred,Left Midfield,2025-09-05,,,Dundalk FC
+1101078,Ronan Teahan,Attacking Midfield,2004-08-31,,€125k,Dundalk FC
+878241,Norman Garbett,Right Winger,2004-02-27,2026-11-30,,Dundalk FC
+238288,Danny Mullen,Centre-Forward,1995-03-01,2026-11-30,€200k,Dundalk FC
+586758,Leo Gaxha,Centre-Forward,2002-07-27,2026-11-30,€100k,Dundalk FC
+1474511,Max Ferguson,Centre-Forward,2008-05-02,,,Dundalk FC
+1418987,Shaun Platt,Centre-Forward,2009-01-01,,,Dundalk FC
+537475,Hugo Cunha,Goalkeeper,2001-09-06,2026-11-30,€100k,Galway United FC
+1456365,MacDarragh Scanlon,Goalkeeper,2007-01-11,,,Galway United FC
+502169,Wasiri Williams,Centre-Back,2000-04-01,2026-11-30,€175k,Galway United FC
+438987,Killian Brouder,Centre-Back,1998-08-20,2026-11-30,€150k,Galway United FC
+718090,Gianfranco Facchineri,Centre-Back,2002-04-27,2026-11-30,€150k,Galway United FC
+1511469,James Morahan,Centre-Back,2026-02-05,,,Galway United FC
+574592,Al-Amin Kazeem,Left-Back,2002-04-06,2026-11-30,€100k,Galway United FC
+1404479,Junior Thiam,Defensive Midfield,2006-10-28,2026-11-30,,Galway United FC
+535632,David Hurley,Central Midfield,1998-10-21,2026-11-30,€150k,Galway United FC
+907219,Axel Piesold,Central Midfield,2005-03-31,2026-11-30,€125k,Galway United FC
+434216,Aaron Bolger,Central Midfield,2000-02-02,2026-11-30,€125k,Galway United FC
+562749,Matty Wolfe,Central Midfield,2000-06-12,2026-11-30,€125k,Galway United FC
+655998,Lee Devitt,Central Midfield,2000-06-03,2026-11-30,€125k,Galway United FC
+136179,Jimmy Keohane,Central Midfield,1991-01-22,2026-11-30,€75k,Galway United FC
+878277,Ed McCarthy,Right Midfield,2001-04-20,2026-11-30,€125k,Galway United FC
+798171,Francely Lomboto,Left Winger,2000-07-02,2026-11-30,€100k,Galway United FC
+293372,Kris Twardek,Right Winger,1997-03-08,2027-11-30,€200k,Galway United FC
+585818,Frantz Pierrot,Centre-Forward,1999-04-20,,€150k,Galway United FC
+750777,Dara McGuinness,Centre-Forward,2004-02-12,2026-11-30,€75k,Galway United FC
+154260,Stephen Walsh,Centre-Forward,1990-08-29,2026-11-30,€50k,Galway United FC
+1005763,Donnacha Sammon,Centre-Forward,2007-04-04,,,Galway United FC
+721097,Arlo Doherty,Goalkeeper,2003-09-08,2026-11-30,€100k,Waterford FC
+111114,Kevin Long,Centre-Back,1990-08-18,2026-11-30,€150k,Waterford FC
+491216,John Mahon,Centre-Back,1999-11-26,,€125k,Waterford FC
+821836,Hayden Cann,Centre-Back,2003-10-01,2026-11-30,€125k,Waterford FC
+1246786,Sean Keane,Centre-Back,2006-04-21,2026-11-30,,Waterford FC
+1305315,Goforth Amedu,Centre-Back,2006-09-14,2026-12-31,,Waterford FC
+1373784,Noah O'Brien,Centre-Back,2008-04-17,,,Waterford FC
+929727,Benny Couto,Left-Back,2003-09-27,,€100k,Waterford FC
+403571,Jordan Houston,Right-Back,2000-01-28,2026-11-30,€100k,Waterford FC
+568319,Luke Heeney,Central Midfield,1999-02-06,2026-11-30,€125k,Waterford FC
+811305,Evan McLaughlin,Central Midfield,2002-03-30,,€100k,Waterford FC
+825071,Sam Glenfield,Central Midfield,2005-05-10,2026-11-30,€100k,Waterford FC
+996006,Filip Wasilewski,Right Midfield,2007-09-19,,,Waterford FC
+577800,Jordan Faria,Left Midfield,2000-06-13,2026-11-30,€100k,Waterford FC
+745726,Conan Noonan,Attacking Midfield,2003-01-17,2028-11-30,€200k,Waterford FC
+745727,Dean McMenamy,Attacking Midfield,2002-04-04,2026-11-30,€100k,Waterford FC
+433254,Trae Coyle,Left Winger,2001-01-11,2026-11-30,€100k,Waterford FC
+563813,Jørgen Voilås,Right Winger,1998-07-22,2026-11-30,€100k,Waterford FC
+700155,Tommy Lonergan,Centre-Forward,2004-01-02,2027-11-30,€225k,Waterford FC
+68333,Padraig Amond,Centre-Forward,1988-04-15,2028-11-30,€50k,Waterford FC
+1425612,Orion Cala,Centre-Forward,2009-12-28,,,Waterford FC
+1377798,Bobby Keohan,Centre-Forward,2009-08-01,,,Waterford FC
+1317122,Corey Sheridan,Goalkeeper,2008-06-06,2026-11-30,,Finn Harps
+731045,Lorenzo Piaia,Goalkeeper,2000-04-20,2026-11-30,,Finn Harps
+1455250,Ryan McConnell,Goalkeeper,2008-09-06,,,Finn Harps
+693730,Conor Tourish,Centre-Back,1995-03-02,2026-11-30,,Finn Harps
+738024,Oran Brogan,Centre-Back,2002-07-23,,,Finn Harps
+683058,Joel Bradley-Walsh,Centre-Back,2001-01-26,2026-11-30,,Finn Harps
+1374612,Josh Cullen,Centre-Back,2008-03-30,2027-11-30,,Finn Harps
+1550806,Troy Preston,Left-Back,2007-05-04,,,Finn Harps
+1530788,Gavin Friel,Defensive Midfield,2008-03-21,,,Finn Harps
+1399132,James McAteer,Midfielder,2025-04-18,,,Finn Harps
+1550807,Tiarnan Callaghan-McElwaine,Defensive Midfield,2007-03-26,,,Finn Harps
+905393,Max Hutchison,Central Midfield,2001-01-16,2026-11-30,,Finn Harps
+1408956,Conor McGranaghan,Central Midfield,2007-10-31,,,Finn Harps
+1374611,Adam McDaid,Central Midfield,2006-10-18,2027-11-30,,Finn Harps
+1417027,Seaghan McCormick,Right Midfield,2007-06-25,,,Finn Harps
+1530789,Conor Gibson,Right Midfield,2007-09-05,,,Finn Harps
+1194556,Darragh Coyle,Right Midfield,2006-10-26,2027-11-30,,Finn Harps
+206722,Tony McNamee,Left Midfield,1993-08-16,2026-11-30,,Finn Harps
+1261927,Gavin McAteer,Attacking Midfield,2008-07-02,2027-11-30,,Finn Harps
+1142012,Aaron McLaughlin,Attacking Midfield,2006-05-12,2026-11-30,,Finn Harps
+533120,Bernardo Monteiro,Left Winger,2000-01-19,2026-11-30,,Finn Harps
+497692,Timothy Martin,Goalkeeper,2001-03-27,2027-11-30,,Cobh Ramblers FC
+1169143,Rory Moloney,Goalkeeper,2006-03-18,,,Cobh Ramblers FC
+1418992,Daniels Lakis,Goalkeeper,2025-06-20,,,Cobh Ramblers FC
+1472547,Luke Morrissey,Goalkeeper,2025-10-17,,,Cobh Ramblers FC
+1514793,Chris Amandala,Defender,2026-02-10,,,Cobh Ramblers FC
+392592,Cian Coleman,Centre-Back,1997-01-01,2026-11-30,,Cobh Ramblers FC
+264258,Brendeán Frahill,Centre-Back,1994-05-04,2026-11-30,,Cobh Ramblers FC
+1509331,Scott Hyde,Centre-Back,2008-02-20,,,Cobh Ramblers FC
+1514792,Berkley Arrey,Centre-Back,2026-02-10,,,Cobh Ramblers FC
+1503484,Brian Linehan,Left-Back,2026-02-10,,,Cobh Ramblers FC
+1322198,Lucas Curtin,Left-Back,2006-12-03,,,Cobh Ramblers FC
+1022986,Luka Le Bervet,Left-Back,2004-06-02,2027-11-30,,Cobh Ramblers FC
+1121567,Mikey Carroll,Defensive Midfield,2006-06-27,,,Cobh Ramblers FC
+1514795,Evan O'Connor,Midfielder,2026-02-10,,,Cobh Ramblers FC
+1514799,James O'Halloran,Defensive Midfield,2007-07-19,,,Cobh Ramblers FC
+509666,Shane Griffin,Central Midfield,1999-12-31,2026-11-30,,Cobh Ramblers FC
+546270,Rhys Gourdie,Central Midfield,2002-06-02,2026-11-30,,Cobh Ramblers FC
+724539,Oran Crowe,Central Midfield,2003-07-14,2026-11-30,,Cobh Ramblers FC
+1418994,Ciaran Galvin,Central Midfield,2007-02-06,,,Cobh Ramblers FC
+1514798,Alex O'Mahony,Central Midfield,2007-11-28,,,Cobh Ramblers FC
+1514791,Jakub Janik,Left Midfield,2026-02-10,,,Cobh Ramblers FC
+1514796,Tim Hegarty,Left Midfield,2008-04-18,,,Cobh Ramblers FC
+228775,Dylan McGlade,Left Winger,1995-04-22,2026-11-30,,Cobh Ramblers FC
+1503485,Kai O'Neill,Left Winger,2007-12-14,,,Cobh Ramblers FC
+1132189,Anthony Adenopo,Right Winger,2004-12-03,2026-11-30,,Cobh Ramblers FC
+1231113,Rhys Kelly-Noonan,Centre-Forward,2006-03-30,,,Cobh Ramblers FC
+1527907,Ethan O'Donovan,Centre-Forward,2010-11-10,,,Cobh Ramblers FC
+1514794,Jamie Nduwuba,Centre-Forward,2026-02-10,,,Cobh Ramblers FC
+1514797,Ross O'Herlihy,Centre-Forward,2026-02-10,,,Cobh Ramblers FC
+369286,Jack Brady,Goalkeeper,1996-12-17,2026-11-30,,Treaty United
+1503202,Dylan Ashman,Goalkeeper,2008-12-22,,,Treaty United
+1409193,Kevin Fitzpatrick,Goalkeeper,2003-07-01,2026-11-30,,Treaty United
+985497,Eric Yoro,Centre-Back,2004-02-19,2026-11-30,,Treaty United
+1241425,Richkov Boevi,Centre-Back,2004-07-06,2026-11-30,,Treaty United
+1011599,Darren Nwankwo,Centre-Back,2005-03-09,2026-11-30,,Treaty United
+189239,Mark Walsh,Centre-Back,1993-04-25,2026-11-30,,Treaty United
+1132191,Robbie Lynch,Centre-Back,2006-04-24,2026-11-30,,Treaty United
+826038,Ben Lynch,Left-Back,2001-11-09,2026-11-30,,Treaty United
+1366945,Kyle Foley,Left-Back,2006-05-24,,,Treaty United
+724533,Colin Conroy,Central Midfield,2003-03-11,2026-11-30,,Treaty United
+1072743,Steven Healy,Central Midfield,2004-07-03,2026-11-30,,Treaty United
+1503200,Matt Jones,Central Midfield,2007-03-20,,,Treaty United
+1132190,Mark Murphy,Central Midfield,2004-03-16,2026-11-30,,Treaty United
+495818,Ronan Manning,Attacking Midfield,2000-05-15,2026-11-30,,Treaty United
+1319786,Roy Lawlor,Left Winger,2006-10-06,2026-11-30,,Treaty United
+746342,Mark Byrne,Right Winger,2000-08-12,2026-11-30,,Treaty United
+1113632,Jason Oyenuga,Right Winger,2005-11-20,2026-11-30,,Treaty United
+1061566,Cian Curtis,Centre-Forward,2004-06-15,2026-11-30,,Treaty United
+905476,Ben Feeney,Centre-Forward,2003-03-18,2026-11-30,,Treaty United
+1151795,Brian Cunningham,Centre-Forward,2006-09-03,2026-11-30,,Treaty United
+1334018,Cillian Mulvihill,Centre-Forward,2006-05-25,,,Treaty United
+1322147,Scott Murphy,Centre-Forward,2007-08-31,,,Treaty United
+1530341,Tadhg McElligott,Centre-Forward,2026-03-27,,,Treaty United
+579999,Jimmy Corcoran,Goalkeeper,2002-02-01,2026-11-30,,Bray Wanderers
+264750,Stephen McGuinness,Goalkeeper,1995-03-10,2026-11-30,,Bray Wanderers
+960539,Rian Hogan,Goalkeeper,2006-09-17,,,Bray Wanderers
+1269422,Alex Forde,Goalkeeper,2008-01-07,,,Bray Wanderers
+1269417,Luke Smith,Centre-Back,2007-06-01,,,Bray Wanderers
+1231217,Benjamin Fagbemi,Centre-Back,2005-01-05,2027-11-30,,Bray Wanderers
+1539215,Bailey Shelley,Centre-Back,2008-06-09,2028-11-30,,Bray Wanderers
+721735,Dean O'Shea,Left-Back,2002-09-20,2027-11-30,,Bray Wanderers
+1009088,Jamie Duggan,Right-Back,2004-09-20,2026-11-30,,Bray Wanderers
+1194531,Alain Kizenga,Right-Back,2007-04-11,2027-11-30,,Bray Wanderers
+1334019,Jack Lawless,Right-Back,2009-01-22,,,Bray Wanderers
+1385060,John Bilili Sesay,Defensive Midfield,2007-08-01,2027-11-30,€75k,Bray Wanderers
+1388698,Ethan Cheese,Midfielder,2026-02-10,,,Bray Wanderers
+724534,Ben McCormack,Central Midfield,2003-04-04,2026-11-30,,Bray Wanderers
+1153270,Kyle Tucker,Central Midfield,1999-07-23,2026-11-30,,Bray Wanderers
+1319773,Jamie Ryan,Central Midfield,2006-10-20,2026-11-30,,Bray Wanderers
+1190001,Philip Cooney,Central Midfield,2007-09-01,2026-11-30,,Bray Wanderers
+884662,Conor Knight,Right Midfield,2002-06-03,2026-11-30,,Bray Wanderers
+1310429,Ryan Kelly,Left Midfield,2006-04-01,2026-11-30,,Bray Wanderers
+1465784,Flynn Ryan,Attacking Midfield,2008-09-19,2026-12-31,,Bray Wanderers
+1120125,Richard Ferizaj,Attacking Midfield,2009-02-13,2027-11-30,,Bray Wanderers
+735809,Ifunanyachi Achara,Right Winger,1997-09-28,2027-11-30,,Bray Wanderers
+1300242,Aime Azende,Right Winger,2005-01-25,2027-11-30,,Bray Wanderers
+1427980,Cristiano Bramley,Centre-Forward,2008-01-09,2026-11-30,,Bray Wanderers
+1576715,Promise Akinyemi,Centre-Forward,2009-04-16,,,Bray Wanderers
+1012142,Conor Brann,Goalkeeper,2003-06-27,2026-11-30,,Cork City FC
+745952,David Odumosu,Goalkeeper,2001-03-23,2026-11-30,,Cork City FC
+280978,Fiacre Kelleher,Centre-Back,1996-03-10,2027-11-30,,Cork City FC
+485873,Charlie Lyons,Centre-Back,2000-05-26,2026-11-30,,Cork City FC
+1260404,Ikechimka Manjor,Centre-Back,2009-02-13,,,Cork City FC
+1223532,Luke Downey,Centre-Back,2007-11-12,,,Cork City FC
+1223530,Matthew Kiernan,Left-Back,2006-07-18,2026-11-30,,Cork City FC
+961065,Harry Nevin,Right-Back,2004-04-15,2026-11-30,,Cork City FC
+677799,Darragh Crowley,Right-Back,2000-02-20,,,Cork City FC
+344108,Rory Feely,Right-Back,1997-01-03,,,Cork City FC
+1223534,Finn Dalton,Right-Back,2007-12-07,,,Cork City FC
+706079,Niall O'Keeffe,Central Midfield,2001-04-30,2026-11-30,,Cork City FC
+1325173,Tom McGrath,Central Midfield,2009-03-07,,,Cork City FC
+1509066,Cian Daly,Left Midfield,2008-08-06,,,Cork City FC
+1337112,Cillian Murphy,Attacking Midfield,2009-07-22,2027-11-30,,Cork City FC
+1109573,Matthew Murray,Left Winger,2007-10-01,2027-11-30,€50k,Cork City FC
+1134230,Brody Lee,Left Winger,2008-07-31,,€25k,Cork City FC
+746028,Conor Drinan,Left Winger,2000-12-23,2027-11-30,,Cork City FC
+1113635,Josh Fitzpatrick,Right Winger,2005-10-04,2027-11-30,,Cork City FC
+1547087,Karim Fonseca,Right Winger,2007-09-26,,,Cork City FC
+299189,Ruairi Keating,Centre-Forward,1995-07-16,2027-11-30,,Cork City FC
+1016376,Hans Mpongo,Centre-Forward,2003-03-26,2027-11-30,,Cork City FC
+191320,Sean Maguire,Centre-Forward,1994-05-01,2028-11-30,,Cork City FC
+1433543,Charlie Hanover,Centre-Forward,2008-01-15,,,Cork City FC
+1370782,Denzell Obenge,Centre-Forward,2007-03-17,,,Cork City FC
+314206,Matthew Connor,Goalkeeper,1997-04-08,2026-11-30,,Kerry FC
+1533156,Harvey Mangan,Goalkeeper,2026-04-03,,,Kerry FC
+586626,Harry Halwax,Goalkeeper,2002-03-20,2026-11-30,,Kerry FC
+1535827,Ewan McCrohan,Goalkeeper,2008-09-24,,,Kerry FC
+1375326,Shayne Stack,Defender,2007-11-02,,,Kerry FC
+631784,Jonas Häkkinen,Centre-Back,1999-03-21,2026-11-30,,Kerry FC
+1101079,Samuel Aladesanusi,Centre-Back,2004-03-26,2026-11-30,,Kerry FC
+1330783,Oran Horgan,Centre-Back,2007-11-07,,,Kerry FC
+1127929,Ewan Lee,Centre-Back,2002-10-18,2026-11-30,,Kerry FC
+1100590,Sean O'Connell,Left-Back,2004-11-11,2026-11-30,,Kerry FC
+1240404,Finn Barrett,Right-Back,2006-08-01,2026-11-30,,Kerry FC
+528905,Niall Brookwell,Defensive Midfield,2002-03-22,2027-11-30,,Kerry FC
+887905,Vincent Borden,Central Midfield,1999-02-21,2026-11-30,,Kerry FC
+1113636,Arran Healy,Central Midfield,2005-04-21,,,Kerry FC
+1433551,Ryan Perez,Right Midfield,2005-07-08,,,Kerry FC
+586761,Sean McGrath,Attacking Midfield,2002-10-15,2026-11-30,,Kerry FC
+1377797,Robert Keane,Attacking Midfield,2008-10-20,,,Kerry FC
+1098235,Cian Brosnan,Left Winger,2003-12-23,2026-11-30,,Kerry FC
+677812,Cian Bargary,Right Winger,2000-11-22,2026-11-30,,Kerry FC
+1054923,Daniel Okwute,Right Winger,2003-09-25,2026-11-30,,Kerry FC
+434208,Cian Murphy,Centre-Forward,2000-06-08,2027-11-30,,Kerry FC
+1099411,Ryan Kelliher,Centre-Forward,2001-02-09,2027-11-30,,Kerry FC
+1359964,Luke Palmer,Centre-Forward,2007-12-21,2026-11-30,,Kerry FC
+1432099,Luke Doolan,Centre-Forward,2007-09-17,,,Kerry FC
+1548499,Colin Healy,Centre-Forward,2008-09-25,,,Kerry FC
+29874,Brendan Clarke,Goalkeeper,1985-09-17,2026-11-30,,Athlone Town AFC
+1151585,Andrew Stuart Trainor,Goalkeeper,2005-10-12,2026-11-30,,Athlone Town AFC
+1533154,Gabriel Frunza,Goalkeeper,2009-11-17,,,Athlone Town AFC
+1259891,Ciaran Nolan,Defender,2006-02-28,,,Athlone Town AFC
+1007774,Rokas Katkauskas,Defender,2007-04-24,,,Athlone Town AFC
+603096,Evan O'Connor,Centre-Back,2000-09-20,2026-11-30,,Athlone Town AFC
+724541,Oisin Hand,Centre-Back,2003-01-12,2026-11-30,,Athlone Town AFC
+982253,Tatá,Centre-Back,2000-08-13,2026-11-30,,Athlone Town AFC
+1428993,Conor Quinn,Centre-Back,2025-09-05,,,Athlone Town AFC
+1226927,Jonathan Kehir,Centre-Back,2006-02-07,2026-11-30,,Athlone Town AFC
+745724,Kyle O'Connor,Left-Back,2003-03-14,2026-11-30,,Athlone Town AFC
+1102843,James Crawford,Left-Back,2005-03-08,2026-11-30,,Athlone Town AFC
+941466,Reece Webb,Right-Back,2003-05-01,2026-11-30,,Athlone Town AFC
+1428992,Bobby Brett,Right-Back,2025-09-05,,,Athlone Town AFC
+586605,Thomas Considine,Right-Back,2002-03-28,2026-11-30,,Athlone Town AFC
+1413008,Martin Scally,Defensive Midfield,2005-05-21,,,Athlone Town AFC
+634365,Brian McManus,Central Midfield,2001-11-29,2026-11-30,,Athlone Town AFC
+720741,Aaron Connolly,Central Midfield,2002-04-26,2026-11-30,,Athlone Town AFC
+1305204,Robbie Lyons,Central Midfield,2001-07-02,,,Athlone Town AFC
+1421130,Will Smith,Central Midfield,2007-04-24,,,Athlone Town AFC
+1506233,Callum Cleary,Central Midfield,2003-03-27,2026-11-30,,Athlone Town AFC
+1375711,Gradi Lomboto,Left Winger,2004-06-23,2026-11-30,,Athlone Town AFC
+721103,Patrick Ferry,Centre-Forward,2002-12-13,2026-11-30,,Athlone Town AFC
+1428995,Zach Lawless,Centre-Forward,2008-11-21,,,Athlone Town AFC
+1151586,Peter Grogan,Centre-Forward,2005-01-25,2026-11-30,,Athlone Town AFC
+1401596,Alex Sheerin,Centre-Forward,2006-10-02,,,Athlone Town AFC
+745717,Kian Moore,Goalkeeper,2003-03-31,2026-11-30,,Longford Town FC
+1536219,CJ Odum,Goalkeeper,2008-06-29,,,Longford Town FC
+746577,Jamie Egan,Centre-Back,2003-07-01,2026-11-30,,Longford Town FC
+745719,Cole Omorehiomwan,Centre-Back,2002-08-02,2026-11-30,,Longford Town FC
+1369266,Conor Errity,Centre-Back,2007-06-05,2026-11-30,,Longford Town FC
+1550809,Alex Cioch,Centre-Back,2007-10-26,,,Longford Town FC
+741266,Luke O'Brien,Left-Back,2005-01-13,2026-11-30,,Longford Town FC
+1122654,Jake Hough,Left-Back,2026-01-17,2026-11-30,,Longford Town FC
+1010638,Osaze Irhue,Right-Back,2004-04-24,2026-11-30,,Longford Town FC
+1550808,John Donohue,Right-Back,2008-05-01,,,Longford Town FC
+357670,Daniel McKenna,Defensive Midfield,1999-12-12,2026-11-30,,Longford Town FC
+1028908,Alex O'Brien,Defensive Midfield,2004-12-14,2026-11-30,,Longford Town FC
+1005942,Sultan Adenekan,Defensive Midfield,2004-01-24,2026-11-30,,Longford Town FC
+1005764,Sean Moore,Defensive Midfield,2007-03-08,2026-11-30,,Longford Town FC
+1365580,Andy Paraschiv,Central Midfield,2007-02-17,2026-11-30,,Longford Town FC
+912307,Aaron Doran,Attacking Midfield,2003-05-23,2026-11-30,,Longford Town FC
+983804,Pharrell Manuel,Attacking Midfield,2005-03-12,2026-11-30,,Longford Town FC
+1505020,Mark Canavan,Attacking Midfield,2004-08-24,2026-11-30,,Longford Town FC
+620402,Dean Williams,Centre-Forward,2000-02-09,2026-11-30,,Longford Town FC
+467510,Dean George,Centre-Forward,1998-05-29,2026-11-30,,Longford Town FC
+1269419,Stefan Ugbesia,Centre-Forward,2004-10-28,2026-11-30,,Longford Town FC
+1229343,Daragh Murtagh,Centre-Forward,2005-02-12,2026-11-30,,Longford Town FC
+1086858,Francis Campbell,Centre-Forward,2003-03-14,,,Longford Town FC
+1373331,Finn O'Leary,Goalkeeper,2009-02-19,,,University College Dublin
+1039423,Dara Kavanagh,Goalkeeper,2005-04-06,,,University College Dublin
+1138968,Noah Douglas,Goalkeeper,2007-11-29,,,University College Dublin
+1319784,Karl Andrade,Goalkeeper,2008-06-06,,,University College Dublin
+1109571,Luca Cailloce,Centre-Back,2007-11-01,,,University College Dublin
+953140,Carl Lennox,Centre-Back,2004-10-24,,,University College Dublin
+1103232,Harry Curtis,Centre-Back,2004-04-08,,,University College Dublin
+1224280,Niall Holohan,Centre-Back,2005-03-08,,,University College Dublin
+957331,Eoin Sheeran,Centre-Back,2005-05-28,,,University College Dublin
+1319775,Harry Whelan,Centre-Back,2005-03-05,,,University College Dublin
+1128821,Kyle Donoghue,Left-Back,2006-03-30,,,University College Dublin
+957312,Sean Mackey,Left-Back,2006-05-22,,,University College Dublin
+745720,Adam Wells,Defensive Midfield,2003-03-26,,,University College Dublin
+1331148,Thomas Morley,Defensive Midfield,2006-08-16,,,University College Dublin
+1423272,Louis Dignam,Central Midfield,2004-02-01,,,University College Dublin
+1509573,Jayden Goad,Central Midfield,2009-05-18,,,University College Dublin
+1128819,Colin Bolton,Central Midfield,2005-02-27,,,University College Dublin
+1110022,Ryan McBrearty,Central Midfield,2005-08-30,,,University College Dublin
+1053264,Stephen Mohan,Central Midfield,2006-01-01,,,University College Dublin
+1370921,Callum Wynne,Central Midfield,2005-11-04,,,University College Dublin
+1367135,Tariq Almasry,Left Midfield,2007-10-28,,,University College Dublin
+718843,Ciaran Behan,Attacking Midfield,2001-04-28,,,University College Dublin
+1140230,Matthew Alonge,Attacking Midfield,2006-03-11,,,University College Dublin
+1134240,Goodness Ogbonna,Attacking Midfield,2008-01-02,,,University College Dublin
+1319787,Odhran MacLaughlin,Right Winger,2006-01-29,,,University College Dublin
+1072741,Mikey McCullagh,Right Winger,2004-11-07,,,University College Dublin
+1061565,Mikey Raggett,Centre-Forward,2004-04-12,,,University College Dublin
+993083,Killian Cailloce,Centre-Forward,2005-12-09,,,University College Dublin
+1366895,Muhammad Haris,Centre-Forward,2007-01-11,,,University College Dublin
+1226923,Hugh Smith,Centre-Forward,2006-11-11,,,University College Dublin
+1165132,Charles Akinrintayo,Centre-Forward,2008-06-06,,,University College Dublin
+1031756,Sam Norval,Centre-Forward,2004-12-15,,,University College Dublin
+357669,Paul Martin,Goalkeeper,1999-01-05,2026-11-30,,Wexford FC
+745694,Alex Moody,Goalkeeper,2002-08-15,2026-11-30,,Wexford FC
+186100,Pa Doyle,Goalkeeper,1989-06-07,2026-11-30,,Wexford FC
+293786,Robbie McCourt,Centre-Back,1998-04-06,2026-11-30,,Wexford FC
+1367138,Oscar Ramsey,Centre-Back,2007-08-06,2026-11-30,,Wexford FC
+1226928,Kian Dignam,Centre-Back,2007-05-09,2028-11-30,,Wexford FC
+1500937,Adam Dobbyn,Centre-Back,2008-01-11,,,Wexford FC
+308605,Evan Osam,Left-Back,1997-08-17,2026-11-30,,Wexford FC
+530900,Max Murphy,Right-Back,2001-06-02,2026-11-30,,Wexford FC
+1367137,Ryan Butler,Right-Back,2008-01-15,2026-11-30,,Wexford FC
+811420,Adam Verdon,Central Midfield,2002-01-25,2026-11-30,,Wexford FC
+953138,Zayd Abada,Central Midfield,2004-01-27,2026-11-30,,Wexford FC
+963653,Kaylem Harnett,Central Midfield,2007-05-22,2026-11-30,,Wexford FC
+835230,Liam Doyle,Central Midfield,2003-10-26,2026-11-30,,Wexford FC
+1543117,Charlie Mullan,Central Midfield,2009-04-21,,,Wexford FC
+745971,Jamie Wynne,Attacking Midfield,2001-07-30,2026-11-30,,Wexford FC
+583260,Jack Larkin,Attacking Midfield,2000-07-29,2026-11-30,,Wexford FC
+1031757,Billy Vance,Left Winger,2003-04-30,2026-11-30,,Wexford FC
+333369,Mikie Rowe,Centre-Forward,1996-07-03,2027-11-30,,Wexford FC
+944139,Gavin Hodgins,Centre-Forward,2005-06-06,2026-11-30,,Wexford FC
+1110021,Jake Doyle,Centre-Forward,2005-04-28,2028-11-30,,Wexford FC
+1417026,Darragh Kinch,Centre-Forward,2008-04-17,2026-11-30,,Wexford FC
+1369636,Kyal Byrne,Centre-Forward,2008-06-26,2027-11-30,,Wexford FC
+342531,Rohan Ferguson,Goalkeeper,1997-12-06,2030-05-31,€300k,Larne FC
+990524,Matt Ridley,Centre-Back,2000-05-07,2028-05-31,€300k,Larne FC
+372755,Aaron Donnelly,Centre-Back,2000-03-22,2028-05-31,€225k,Larne FC
+697002,Dan Bent,Centre-Back,1996-01-10,2028-05-31,€150k,Larne FC
+1242913,Logan Wallace,Centre-Back,2005-11-10,2028-05-31,€25k,Larne FC
+372769,Sean Graham,Left-Back,2000-11-20,2028-05-31,€275k,Larne FC
+1181313,James Simpson,Left-Back,2007-04-05,2028-05-31,€175k,Larne FC
+232531,Tomas Cosgrove,Right-Back,1992-12-11,2028-05-31,€125k,Larne FC
+324482,Chris Gallagher,Defensive Midfield,1999-03-30,2029-05-31,€275k,Larne FC
+549569,Jordan McEneff,Central Midfield,2001-01-08,2028-05-31,€175k,Larne FC
+342184,Ronan Doherty,Central Midfield,1996-01-10,,€75k,Larne FC
+320462,Leroy Millar,Central Midfield,1995-09-01,2029-05-31,€75k,Larne FC
+44799,Mark Randall,Central Midfield,1989-09-28,2027-05-31,€50k,Larne FC
+897031,Dylan Sloan,Central Midfield,2004-04-15,2028-05-31,€50k,Larne FC
+322787,Conor McKendry,Right Winger,1998-10-21,2027-05-31,€200k,Larne FC
+1157216,Tiarnan O'Connor,Centre-Forward,2002-09-30,2027-05-31,€250k,Larne FC
+524722,Paul O'Neill,Centre-Forward,2000-01-07,2028-05-31,€200k,Larne FC
+920459,Benji Magee,Centre-Forward,2002-05-16,2027-05-31,€175k,Larne FC
+694894,Matthew Lusty,Centre-Forward,2003-07-14,2027-05-31,€175k,Larne FC
+495441,Ryan Schofield,Goalkeeper,1999-12-11,2029-05-31,€100k,Coleraine FC
+696749,Lewis Webb,Goalkeeper,2001-09-12,2029-05-31,€10k,Coleraine FC
+624260,Cameron Stewart,Centre-Back,2003-02-20,2029-05-31,€150k,Coleraine FC
+321143,Levi Ives,Left-Back,1997-07-28,2028-05-31,€225k,Coleraine FC
+99479,Dean Jarvis,Left-Back,1992-06-01,2027-05-31,€75k,Coleraine FC
+341679,Lyndon Kane,Right-Back,1997-02-15,2028-05-31,€125k,Coleraine FC
+515543,Dylan Boyle,Defensive Midfield,2002-01-15,2029-05-31,€225k,Coleraine FC
+531543,Rowan McDonald,Defensive Midfield,2001-10-20,2028-05-31,€100k,Coleraine FC
+314297,Will Patching,Central Midfield,1998-10-18,2028-05-31,€300k,Coleraine FC
+343599,Mark Coyle,Central Midfield,1997-02-13,2028-05-31,€75k,Coleraine FC
+1068855,Senan Devine,Left Midfield,2007-01-12,2029-05-31,€50k,Coleraine FC
+515547,Ben Wylie,Attacking Midfield,2002-06-29,2028-05-31,€100k,Coleraine FC
+1165226,Oli Devlin,Attacking Midfield,2008-06-18,2027-05-31,,Coleraine FC
+386936,Joel Cooper,Left Winger,1996-02-29,2030-05-31,€275k,Coleraine FC
+331092,Connor Murray,Left Winger,1997-04-24,2028-05-31,€10k,Coleraine FC
+908229,Lewis McGregor,Right Winger,2004-04-12,2028-05-31,€100k,Coleraine FC
+347621,Matthew Shevlin,Centre-Forward,1998-12-07,2027-05-31,€300k,Coleraine FC
+333155,James Akintunde,Centre-Forward,1996-03-29,2027-05-31,€50k,Coleraine FC
+198123,Andrew Mills,Goalkeeper,1993-12-12,2027-05-31,€150k,Glentoran FC
+536794,Billy Crellin,Goalkeeper,2000-06-30,2029-05-31,€50k,Glentoran FC
+1475351,Jack Watt,Goalkeeper,2008-03-02,2027-05-31,,Glentoran FC
+500173,Daniel Larmour,Centre-Back,1998-09-03,2027-05-31,€125k,Glentoran FC
+237301,James Singleton,Left-Back,1995-08-22,2027-05-31,€200k,Glentoran FC
+266786,Jarlath O'Rourke,Left-Back,1995-02-13,2027-05-31,€175k,Glentoran FC
+148552,Marcus Kane,Left-Back,1991-12-08,2027-05-31,€50k,Glentoran FC
+1245838,Ciaran Rogers-Duffy,Left-Back,2007-01-24,2027-05-31,,Glentoran FC
+478014,Ryan Cooney,Right-Back,2000-02-26,2027-05-31,€275k,Glentoran FC
+1057814,James Douglas,Defensive Midfield,2006-01-20,2027-05-31,€50k,Glentoran FC
+167264,Aaron McEneff,Central Midfield,1995-07-09,2027-05-31,€300k,Glentoran FC
+500162,Josh Kelly,Central Midfield,1999-03-08,2027-05-31,€75k,Glentoran FC
+297241,Liam Burt,Right Midfield,1999-02-01,2027-05-31,€200k,Glentoran FC
+285544,Jordan Stewart,Attacking Midfield,1995-03-31,2027-05-31,€100k,Glentoran FC
+683468,Jack Malone,Attacking Midfield,2000-04-05,2027-05-31,€50k,Glentoran FC
+564670,Charlie Lindsay,Attacking Midfield,2004-03-17,2027-05-31,€25k,Glentoran FC
+263806,Joshua Daniels,Right Winger,1996-02-22,2027-05-31,€125k,Glentoran FC
+223641,Ross Clarke,Right Winger,1993-05-17,2027-05-31,€75k,Glentoran FC
+1115306,Casey Smyth,Right Winger,2006-01-12,,€10k,Glentoran FC
+483666,Jordan Jenkins,Centre-Forward,2000-02-28,2027-05-31,€225k,Glentoran FC
+158951,Pat Hoban,Centre-Forward,1991-07-28,2027-05-31,€100k,Glentoran FC
+630807,Ben Gallagher,Centre-Forward,2002-03-30,2027-05-31,€100k,Glentoran FC
+1260082,Cal Weatherup,Centre-Forward,2008-05-09,2028-05-31,€25k,Glentoran FC
+167263,Chris Johns,Goalkeeper,1995-05-13,2028-05-31,€225k,Linfield FC
+287964,Ben Hall,Centre-Back,1997-01-16,2028-05-31,€225k,Linfield FC
+325206,Darragh Leahy,Left-Back,1998-04-15,2027-05-31,€150k,Linfield FC
+677898,Dane McCullough,Left-Back,2003-12-20,2028-05-31,€100k,Linfield FC
+693443,Ethan McGee,Right-Back,2002-08-23,2028-05-31,€275k,Linfield FC
+946790,Sean Brown,Right-Back,2005-04-01,2027-05-31,€175k,Linfield FC
+96297,Chris Shields,Defensive Midfield,1990-12-27,2027-05-31,€50k,Linfield FC
+322784,Kyle McClean,Central Midfield,1998-10-03,2028-05-31,€200k,Linfield FC
+888690,Isaac Baird,Central Midfield,2004-03-16,2027-05-31,€125k,Linfield FC
+81065,Jamie Mulgrew,Central Midfield,1986-06-05,2027-05-31,€50k,Linfield FC
+135135,Kirk Millar,Right Midfield,1992-08-07,2028-05-31,€150k,Linfield FC
+356621,Adam Frizzell,Right Midfield,1998-02-21,2027-05-31,€125k,Linfield FC
+743078,Matthew Fitzpatrick,Centre-Forward,1994-09-02,2027-05-31,€225k,Linfield FC
+719682,Kieran Offord,Centre-Forward,2004-03-28,2027-05-31,€125k,Linfield FC
+949126,Rhys Annett,Centre-Forward,2004-11-06,2027-05-31,€50k,Linfield FC
+1093323,Charlie Chapman,Centre-Forward,2006-03-03,2027-05-31,,Linfield FC
+502197,Declan Dunne,Goalkeeper,2000-03-31,2027-05-31,€275k,Dungannon Swifts FC
+701016,Alex Henderson,Goalkeeper,2004-08-21,2027-05-31,€50k,Dungannon Swifts FC
+1384451,Dylan Glass,Goalkeeper,2008-03-20,2027-05-31,,Dungannon Swifts FC
+605162,Cahal McGinty,Centre-Back,2000-09-29,2027-05-31,€175k,Dungannon Swifts FC
+462134,Danny Wallace,Centre-Back,1994-10-21,2027-05-31,€175k,Dungannon Swifts FC
+670071,John Scott,Centre-Back,2001-06-05,2027-05-31,,Dungannon Swifts FC
+825064,Adam Glenny,Left-Back,2002-05-30,2028-05-31,€275k,Dungannon Swifts FC
+1012993,Steven Scott,Right-Back,2004-10-05,2027-05-31,€175k,Dungannon Swifts FC
+939489,Tiernan Kelly,Defensive Midfield,2001-11-16,2027-05-31,€175k,Dungannon Swifts FC
+158697,Gaël Bigirimana,Defensive Midfield,1993-10-22,2027-05-31,€150k,Dungannon Swifts FC
+183170,Kealan Dillon,Central Midfield,1994-02-21,2027-05-31,€175k,Dungannon Swifts FC
+322766,Shea Gordon,Central Midfield,1998-05-16,2027-05-31,€50k,Dungannon Swifts FC
+438985,Paul Doyle,Central Midfield,1998-04-10,2028-05-31,€50k,Dungannon Swifts FC
+1057388,Corey Smith,Left Winger,2005-01-24,2027-05-31,€50k,Dungannon Swifts FC
+627777,Darragh McBrien,Left Winger,2001-12-29,2027-05-31,€10k,Dungannon Swifts FC
+288696,Leo Alves,Right Winger,1988-05-09,2027-05-31,€50k,Dungannon Swifts FC
+1449956,Rocco Devlin,Right Winger,2010-04-08,2028-05-31,,Dungannon Swifts FC
+720720,Sean McAllister,Centre-Forward,2002-09-15,2027-05-31,€225k,Dungannon Swifts FC
+213955,Andy Mitchell,Centre-Forward,1994-01-25,2027-05-31,€125k,Dungannon Swifts FC
+738125,Declan Breen,Goalkeeper,2002-09-24,2030-05-31,€50k,Ballymena United FC
+1479225,Kyle Chivers,Goalkeeper,2009-12-01,2027-06-30,,Ballymena United FC
+953036,Daithí McCallion,Centre-Back,2005-04-08,2029-05-31,€125k,Ballymena United FC
+118071,Shane McEleney,Centre-Back,1991-01-31,2027-05-31,€10k,Ballymena United FC
+1454792,Conor Burns,Centre-Back,2009-07-23,2028-08-31,,Ballymena United FC
+186481,Matthew Clarke,Left-Back,1994-03-03,2027-05-31,€150k,Ballymena United FC
+877215,David Toure,Right-Back,2004-10-01,2027-05-31,€200k,Ballymena United FC
+470882,Fuad Sule,Defensive Midfield,1997-01-20,2027-05-31,€150k,Ballymena United FC
+1237769,James Hood,Defensive Midfield,2007-06-27,2027-05-31,€150k,Ballymena United FC
+148907,Sean Murray,Central Midfield,1993-10-11,2027-05-31,€50k,Ballymena United FC
+433993,Andy Scott,Left Midfield,2000-06-19,2027-05-31,€10k,Ballymena United FC
+1454801,Alex Houston,Right Winger,2009-03-17,2028-05-31,,Ballymena United FC
+877211,Success Edogun,Centre-Forward,2001-04-28,2027-05-31,€200k,Ballymena United FC
+897217,Igor Rutkowski,Centre-Forward,2004-05-05,2028-05-31,€150k,Ballymena United FC
+443542,PJ Morrison,Goalkeeper,1998-02-27,2028-05-31,€150k,Cliftonville FC
+871339,Lewis Ridd,Goalkeeper,2004-08-09,2027-05-31,€75k,Cliftonville FC
+1449937,Matthew Belshaw,Goalkeeper,2010-07-05,2027-05-31,,Cliftonville FC
+659190,Shaun Leppard,Centre-Back,2000-07-19,2027-05-31,€125k,Cliftonville FC
+248730,Luke Conlan,Left-Back,1994-10-31,2027-05-31,€50k,Cliftonville FC
+564682,Harry Wilson,Defensive Midfield,2004-02-16,2027-05-31,€200k,Cliftonville FC
+1260334,Joe Sheridan,Central Midfield,2007-10-29,2028-05-31,€175k,Cliftonville FC
+875492,Adebayo Fapetu,Central Midfield,2005-01-18,2027-05-31,€50k,Cliftonville FC
+291115,Rory Hale,Attacking Midfield,1996-11-27,2027-05-31,€250k,Cliftonville FC
+1197402,Keevan Hawthorne,Left Winger,2007-03-31,2028-05-31,€100k,Cliftonville FC
+1078533,Liam McStravick,Right Winger,2004-11-27,,€100k,Cliftonville FC
+465968,Rhyss Campbell,Right Winger,1998-11-30,,€50k,Cliftonville FC
+1449951,Cillian Murray,Right Winger,2010-08-20,2027-05-31,,Cliftonville FC
+924866,Brian Healy,Centre-Forward,2004-08-24,2027-05-31,€150k,Cliftonville FC
+191258,Joe Gormley,Centre-Forward,1989-11-26,2027-05-31,€125k,Cliftonville FC
+217736,Ryan Curran,Centre-Forward,1993-10-13,2027-05-31,€100k,Cliftonville FC
+643707,Eric McWoods,Centre-Forward,1995-10-21,2027-05-31,€75k,Cliftonville FC
+1189012,Ryan Corrigan,Centre-Forward,2007-04-20,2028-05-31,€25k,Cliftonville FC
+169933,Gareth Deane,Goalkeeper,1994-06-14,2027-06-30,€100k,Bangor FC
+1219535,Patrick Solis Grogan,Goalkeeper,2004-02-10,2027-06-30,€75k,Bangor FC
+1439445,Lawton McMahon,Goalkeeper,2008-10-15,2027-06-30,€10k,Bangor FC
+967266,Harry Lynch,Centre-Back,2006-05-16,2027-06-30,€225k,Bangor FC
+694897,Stephen McGuinness,Centre-Back,2003-07-17,2027-06-30,€150k,Bangor FC
+970376,Lewis Francis,Centre-Back,2004-04-15,2027-06-30,€100k,Bangor FC
+1319158,Alfie Mitchell,Centre-Back,2008-05-03,2029-06-30,€50k,Bangor FC
+438116,Reece Neale,Left-Back,1998-05-14,2027-06-30,€150k,Bangor FC
+550994,Iestyn Hughes,Right-Back,2002-10-31,2028-06-30,€150k,Bangor FC
+584048,Caomhan McGuinness,Right-Back,2000-01-14,2027-06-30,€10k,Bangor FC
+1150072,Tiernan Mulvenna,Defensive Midfield,1997-12-05,2027-06-30,€150k,Bangor FC
+970744,Oisin Devlin,Defensive Midfield,2006-10-09,2028-05-31,€50k,Bangor FC
+549666,Liam Hassin,Central Midfield,2001-03-15,2027-06-30,€175k,Bangor FC
+443925,Jack O'Mahony,Central Midfield,2000-01-26,2027-06-30,€100k,Bangor FC
+628401,Lewis Harrison,Central Midfield,1999-05-13,2028-06-30,€75k,Bangor FC
+547165,Ben Arthurs,Centre-Forward,1998-05-05,2028-06-30,€175k,Bangor FC
+564665,Ben Cushnie,Centre-Forward,2001-08-07,2027-06-30,€100k,Bangor FC
+897024,Jay Boyd,Centre-Forward,2003-01-09,2027-06-30,€50k,Bangor FC
+322765,Nathan Gartside,Goalkeeper,1998-03-08,2027-05-31,€150k,Carrick Rangers FC
+549561,Scott Pengelly,Goalkeeper,2001-10-31,2027-05-31,€75k,Carrick Rangers FC
+174247,Luke McCullough,Centre-Back,1994-02-15,2027-05-31,€125k,Carrick Rangers FC
+113069,Jimmy Callacher,Centre-Back,1991-06-11,2027-05-31,€25k,Carrick Rangers FC
+937348,Ben Buchanan-Rolleston,Left-Back,2002-02-03,2028-05-31,€125k,Carrick Rangers FC
+426355,Mikey Place,Right-Back,1998-04-09,2029-05-31,€150k,Carrick Rangers FC
+81007,Billy Joe Burns,Right-Back,1989-04-28,2027-05-31,€10k,Carrick Rangers FC
+1496592,Caleb Hawthorne,Right-Back,2008-05-31,2027-06-30,,Carrick Rangers FC
+515581,Aidan Steele,Defensive Midfield,2002-10-20,2027-05-31,€200k,Carrick Rangers FC
+322754,Joe Crowe,Defensive Midfield,1998-04-20,2027-05-31,€125k,Carrick Rangers FC
+195918,Matthew Snoddy,Central Midfield,1993-06-02,2027-05-31,€125k,Carrick Rangers FC
+186232,Kyle Cherry,Central Midfield,1993-05-13,2027-05-31,€75k,Carrick Rangers FC
+166315,Seanan Clucas,Central Midfield,1992-11-08,2027-05-31,€10k,Carrick Rangers FC
+195869,Paul Heatley,Left Winger,1987-06-30,2027-05-31,€25k,Carrick Rangers FC
+692831,Joe Moore,Right Winger,2001-06-17,2027-05-31,€50k,Carrick Rangers FC
+738572,Danny Gibson,Centre-Forward,1995-06-10,2028-05-31,€200k,Carrick Rangers FC
+500174,Nedas Maciulaitis,Centre-Forward,1999-08-06,2027-05-31,€25k,Carrick Rangers FC
+388322,Adam Lecky,Centre-Forward,1991-05-03,2027-05-31,€10k,Carrick Rangers FC
+138473,Aaron McCarey,Goalkeeper,1992-01-14,2027-06-30,€100k,Portadown FC
+694893,Lewis MacKinnon,Centre-Back,2003-03-03,2030-06-30,€200k,Portadown FC
+957060,Baris Altintop,Centre-Back,2000-09-29,2027-06-30,€150k,Portadown FC
+160693,Aaron Traynor,Left-Back,1990-07-24,2027-06-30,€10k,Portadown FC
+464621,Lee Chapman,Right-Back,1994-11-09,2027-06-30,€125k,Portadown FC
+1237271,Divin Isamala,Right-Back,2003-05-25,2027-06-30,€100k,Portadown FC
+562573,Jack Scott,Right-Back,2002-09-22,2027-06-30,€25k,Portadown FC
+1112747,Rabby Tabu Minzamba,Defensive Midfield,2002-02-09,2029-06-30,€50k,Portadown FC
+81133,Gary Thompson,Defensive Midfield,1990-05-26,2027-06-30,€25k,Portadown FC
+1136369,Adhamh Towe,Central Midfield,2005-03-08,2027-06-30,€150k,Portadown FC
+825068,James Teelan,Left Winger,2002-10-17,2027-06-30,€150k,Portadown FC
+572015,Eamon Fyfe,Centre-Forward,1998-04-01,2027-06-30,€200k,Portadown FC
+738025,Ahu Obhakhan,Centre-Forward,1997-08-02,2027-06-30,€50k,Portadown FC
+832273,Rian Brown,Goalkeeper,2005-06-06,2027-06-30,,Crusaders FC
+897021,Lewis Barr,Centre-Back,2003-04-20,2028-05-31,€125k,Crusaders FC
+743557,Jacob Blaney,Centre-Back,2004-09-08,2027-05-31,€50k,Crusaders FC
+1198608,Scot Rough,Centre-Back,2001-11-01,2028-05-31,€25k,Crusaders FC
+984530,Cammy Bruce,Left-Back,2005-12-15,2028-05-31,€50k,Crusaders FC
+821390,Kurtis Forsythe,Right-Back,2002-09-28,2028-05-31,€125k,Crusaders FC
+1324475,Josh Williamson,Defensive Midfield,2007-12-19,2028-05-31,€150k,Crusaders FC
+21804,Robbie Weir,Defensive Midfield,1988-12-09,2027-05-31,€25k,Crusaders FC
+1160456,Oilibhéar McCart,Central Midfield,2007-09-26,2028-05-31,€50k,Crusaders FC
+837269,Harry Jewitt-White,Central Midfield,2004-03-26,2028-05-31,€25k,Crusaders FC
+1072802,Jack Doherty,Central Midfield,2007-01-02,2028-05-31,,Crusaders FC
+599593,Kieran McKechnie,Right Midfield,2001-04-04,2027-05-31,€25k,Crusaders FC
+471343,Lloyd Anderson,Attacking Midfield,1998-03-09,2029-05-31,€150k,Crusaders FC
+1147623,Elliot Dunlop,Left Winger,2005-11-02,2027-05-31,€100k,Crusaders FC
+1216618,Karter Bond,Centre-Forward,2006-11-07,2027-05-31,,Crusaders FC
+1449957,Michael Mulholland,Centre-Forward,2011-01-17,2027-05-31,,Crusaders FC
+339377,Marty Gallagher,Goalkeeper,1990-10-26,2027-06-30,,Limavady United FC
+944156,Fintan Doherty,Goalkeeper,2005-01-03,2027-06-30,,Limavady United FC
+719252,Kieran Farren,Centre-Back,2000-11-21,2027-06-30,,Limavady United FC
+288358,Rodney Brown,Centre-Back,1995-08-13,2027-06-30,,Limavady United FC
+312147,Adam Mullan,Centre-Back,1995-10-24,2027-06-30,,Limavady United FC
+938693,Tiarnan Boorman,Centre-Back,2001-04-20,2029-06-30,,Limavady United FC
+694895,Matty Walker,Left-Back,2003-02-19,2028-06-30,,Limavady United FC
+729171,Jay Riley,Right-Back,2004-12-22,2027-06-30,,Limavady United FC
+140888,Stephen Lowry,Defensive Midfield,1986-10-14,2027-06-30,,Limavady United FC
+85930,Philip Lowry,Central Midfield,1989-07-15,2027-06-30,,Limavady United FC
+671267,Ruairi Boorman,Central Midfield,2001-04-20,2029-06-30,,Limavady United FC
+701010,Lewis Tosh,Right Midfield,2004-05-13,2028-06-30,,Limavady United FC
+1150400,John Butcher,Centre-Forward,2002-07-01,2029-06-30,,Limavady United FC
