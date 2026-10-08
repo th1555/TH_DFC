@@ -321,7 +321,7 @@ footer{padding:24px 0 40px;color:var(--muted);font-size:14px}
         <select id="fContract">
           <option value="">Any</option>
           <option value="season">Ends this season, or out of contract</option>
-          <option value="out">Out of contract now</option>
+          <option value="out">Out of contract, not playing</option>
           <option value="listed">Any listed date</option>
         </select>
         <p class="hint">Dates from Transfermarkt, listed for some players only. Always confirm with the club before approaching.</p>
@@ -464,8 +464,10 @@ const SEASON_END = `${NOW_YR + 1}-06-30`;           // contracts ending by this 
 function posGroup(pos){ pos = String(pos||"").toLowerCase();
   return pos.includes("wing") ? "Winger" : (pos.includes("attack") && pos.includes("mid")) ? "Attacking midfielder" : "Striker"; }
 
-function contractOf(p){
+function contractOf(p, playingNow){
   const d = p.contract_expiry, a = p.availability;
+  // a listed end date that has passed while he is still playing means the listing is out of date
+  if (a === "lapsed" && playingNow) return {k:"stale", sort:8e9, txt:`${monYr(d)} (out of date)`, cls:"dim", date:d};
   if (a === "lapsed") return {k:"out", sort:0, txt:"Out of contract", cls:"out"};
   if (!d) return {k:"none", sort:9e9, txt:"Not listed", cls:"dim"};
   const t = Date.parse(d);
@@ -488,7 +490,7 @@ const players = DATA.players.map(p => {
     adjG, adjA, adj: rg ? adjG + adjA : null,
     partial: rg > 0 && rg < games, rough: rated.some(h => (LCONF[h.league] ?? 1) < 1),
     nowGames: sum(now,"apps"), nowGA: sum(now,"goals") + sum(now,"assists"),
-    con: contractOf(p),
+    con: contractOf(p, sum(now,"apps") > 0),
     surname: bits.length > 1 ? bits.slice(1).join(" ") : bits[0], first: bits.length > 1 ? bits[0] : ""};
 });
 
@@ -630,7 +632,7 @@ $("download").onclick = () => {
     "L2 equivalent goals per game","L2 equivalent assists per game","L2 equivalent G+A per game","Percentile vs League Two forwards",
     "This season: games","This season: goals + assists"];
   const rows = LIST.map((p,i) => [i+1, p.name, p.club, lg(p.league), p.position, p.age ?? "", natWord(p),
-    p.con.k === "none" ? "" : p.con.k === "out" ? "Out of contract" : String(p.con.date).slice(0,10),
+    p.con.k === "none" ? "" : p.con.k === "out" ? "Out of contract" : p.con.k === "stale" ? `${String(p.con.date).slice(0,10)} (out of date)` : String(p.con.date).slice(0,10),
     p.games, p.goals, p.assists, f2(p.raw), f2(p.adjG), f2(p.adjA), f2(p.adj), p.pAdj ?? "", p.nowGames, p.nowGA]);
   const csv = [cols, ...rows].map(r => r.map(v => `"${String(v ?? "").replace(/"/g,'""')}"`).join(",")).join("\r\n");
   const a = document.createElement("a");
@@ -721,7 +723,7 @@ function pbar(label, sub, v, k, fmt){
 function openPlayer(id, from){
   const p = players.find(x => x.player_id === id); if (!p) return;
   lastFocus = from || document.activeElement;
-  const con = p.con.k === "none" ? "Not listed" : p.con.k === "out" ? "Out of contract" : `Ends ${niceDate(p.con.date)}`;
+  const con = p.con.k === "none" ? "Not listed" : p.con.k === "out" ? "Out of contract" : p.con.k === "stale" ? `Listed as ${niceDate(p.con.date)}, but still playing: check` : `Ends ${niceDate(p.con.date)}`;
   $("drawer").innerHTML = `
     <div class="d-top">
       <button class="x" type="button" id="dClose">Close</button>
